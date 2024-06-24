@@ -35,11 +35,11 @@ export default function CustomDisclosure() {
             {/*Mobile only*/}
             <div className="lg:hidden">
                 {DisclosurePanelsInfo.map((section, i) => (
-                    <HeadlessDisclosure as="div" key={i} className="pt-6" defaultOpen={i === 0}>
+                        <HeadlessDisclosure as="div" key={i} className="pt-6" defaultOpen={i === 0}>
                         <div key={i} className="">
                             <DisclosureButton className="flex w-full pl-3 pr-2 items-center justify-between">
                                 <span>{section.name}</span>
-                                <ChevronDownIcon className="size-5 fill-black/60 group-data-[hover]:fill-black/50 group-data-[open]:rotate-180" />
+                                <ChevronDownIcon  className="group-data-[close]:rotate-0 group-data-[open]:rotate-90 size-5 fill-black/60 group-data-[hover]:fill-black/50" />
                             </DisclosureButton>
                             <DisclosurePanel transition className="">
                                 <ImageGrid type={'recommended'} />
