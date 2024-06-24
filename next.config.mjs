@@ -5,8 +5,7 @@ const nextConfig = {
             protocol: 'https',
             hostname: 'wallpaper.dog'
         }]
-    },
-    distDir : 'dist'
+    }
 };
 
 export default nextConfig;
