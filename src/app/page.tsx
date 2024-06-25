@@ -1,5 +1,6 @@
 import HeroSearch from "@/app/components/HeroSearch";
 import ImageGridDisclosure from "@/app/components/ImageGridDisclosure";
+import TripsWithPriceSlider from "@/app/components/TripsWithPriceSlider";
 import React from "react";
 
 
@@ -16,6 +17,7 @@ export default function HomePage() {
         <div id={'homepage-container'}>
             <HeroSearch />
             <ImageGridDisclosure />
+            <TripsWithPriceSlider/>
         </div>
     )
 
