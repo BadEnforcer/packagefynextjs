@@ -27,6 +27,17 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
         rtl: rtl || false,
         // useCSS: true,
         responsive: [
+            //all
+            {
+                breakpoint: 0,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    infinite: true,
+                    dots: false
+                }
+            },
+
             // sm
             {
                 breakpoint: 636,
@@ -66,6 +77,16 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
                     infinite: true,
                     dots: true
                 }
+            },
+            {
+                breakpoint: 2400,
+                settings: {
+                    slidesToShow: 6,
+                    slidesToScroll: 4,
+                    infinite: true,
+                    dots: true
+                }
+
             }
 
         ]
@@ -110,26 +131,29 @@ const Showcase: React.FC<ShowcaseProps> = ({entry}) => {
     return (
         <div>
         <div
-                className="ml-2 mr-2 group block rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+                className="relative ml-2 mr-2 aspect-1 group block rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
                 <Image src={entry.imageSrc} alt={entry.title}
-                       width={300}
-                       height={300}
+                    fill={true}
+
+                    // width={300}
+                       // height={300}
+
                        className="pointer-events-none group-hover:opacity-75 "/>
                 <button type="button" className="absolute inset-0 focus:outline-none">
                     <span className="sr-only  translate-x-5">View details for {entry.title}</span>
                 </button>
             </div>
-            <div className={'pl-1 rounded-md flex items-center mt-3 mb-2 bg-[#FFCBCB] text-black w-40'}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                     strokeWidth={1.5} stroke="currentColor" className="size-5 mr-2">
-                    <path strokeLinecap="round" strokeLinejoin="round"
-                          d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                </svg>
-                <p className="flex items-center font-medium text-md truncate pointer-events-none">
-                    {entry.duration}
-                </p>
-            </div>
-            <p className="mt-1 block text-sm font-medium text-gray-900 truncate pointer-events-none">{entry.title}</p>
+            {/*<div className={'pl-1 rounded-md flex items-center mt-3 mb-2 bg-[#FFCBCB] text-black w-40'}>*/}
+            {/*    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"*/}
+            {/*         strokeWidth={1.5} stroke="currentColor" className="size-5 mr-2">*/}
+            {/*        <path strokeLinecap="round" strokeLinejoin="round"*/}
+            {/*              d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>*/}
+            {/*    </svg>*/}
+            {/*    <p className="flex items-center font-medium text-md truncate pointer-events-none">*/}
+            {/*        {entry.duration}*/}
+            {/*    </p>*/}
+            {/*</div>*/}
+            <p className="pl-4 mt-1 block text-sm font-medium text-gray-900 truncate pointer-events-none">{entry.title}</p>
         </div>
 
     )
