@@ -22,18 +22,14 @@ export default function CustomDisclosure() {
     return (
         <div>
             {/*Large display only*/}
-            <div className="hidden lg:block">
-                {DisclosurePanelsInfo.map((_, i) => {
-                    return (
-                        <div key={i} className={'pt-10'}>
-                            <ImageGrid type={'recommended'} />
-                        </div>
-                    )
-                })}
+            <div className="">
+                <div className={'pt-10'}>
+                    <ImageGrid type={'recommended'}/>
+                </div>
             </div>
 
             {/*Mobile only*/}
-            <div className="lg:hidden">
+            <div className="hidden">
                 {DisclosurePanelsInfo.map((section, i) => (
                         <HeadlessDisclosure as="div" key={i} className="pt-6" defaultOpen={i === 0}>
                         <div key={i} className="">
