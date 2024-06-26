@@ -4,7 +4,12 @@ const nextConfig = {
         remotePatterns : [{
             protocol: 'https',
             hostname: 'wallpaper.dog'
-        }]
+        },
+            {
+                protocol: "https",
+                hostname: 'images.unsplash.com'
+            }
+        ]
     }
 };
 
