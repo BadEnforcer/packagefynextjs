@@ -24,7 +24,7 @@ interface SimpleSliderProps {
 const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
     const settings = {
         className: "center",
-        centerMode: true,
+        centerMode: false,
         infinite: true,
         centerPadding: "60px",
         speed: 500,
@@ -39,7 +39,7 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
             {
                 breakpoint: 0,
                 settings: {
-                    slidesToShow: 2,
+                    slidesToShow: 1,
                     slidesToScroll: 1,
                     infinite: true,
                     dots: false
@@ -50,7 +50,7 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
             {
                 breakpoint: 636,
                 settings: {
-                    slidesToShow: 2,
+                    slidesToShow: 1,
                     slidesToScroll: 1,
                     infinite: true,
                     dots: false
@@ -70,7 +70,7 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
             {
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 4,
+                    slidesToShow: 3,
                     slidesToScroll: 1,
                     infinite: true,
                     dots: true
@@ -80,7 +80,7 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
             {
                 breakpoint: 1280,
                 settings: {
-                    slidesToShow: 6,
+                    slidesToShow: 4,
                     slidesToScroll: 1,
                     infinite: true,
                     dots: true
@@ -89,7 +89,7 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
             {
                 breakpoint: 2400,
                 settings: {
-                    slidesToShow: 6,
+                    slidesToShow: 4,
                     slidesToScroll: 1,
                     infinite: true,
                     dots: true
@@ -102,43 +102,47 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
 
 
     return (
-        <div className={'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'}>
-            <div className="max-w-7xl mx-auto">
-                <h2 className={'w-full flex items-center justify-center text-black font-medium text-3xl mt-20 mb-10'}>
-                    {heading}
-                </h2>
-                <Slider {...settings}>
-                    {entries.map((entry, i) => {
-                        return (
-                            <div key={i}>
-                                <div>
-                                    <div
-                                        className="relative ml-2 mr-2 aspect-1 group block rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                                        <Image src={entry.imageSrc} alt={entry.title}
-                                               fill={true}
+        <section>
+            <div className={'flex w-full items-center justify-center mt-8 lg:mt-20 lg:mb-10'}>
+                <h1 className={'font-bold text-2xl lg:text-4xl '}>Top <span
+                    className={'text-blue-700'}>{heading}</span></h1>
+            </div>
+            <div className={'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'}>
+                <div className="max-w-7xl mx-auto">
+                    <Slider {...settings}>
+                        {entries.map((entry, i) => {
+                            return (
+                                <div className={'mt-1'} key={i}>
+                                        <div
+                                            className="relative ml-2 mr-2 aspect-1 group block rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+                                            <Image src={entry.imageSrc} alt={entry.title}
+                                                   fill={true}
+                                                   content={'contain'}
 
-                                            // width={300}
-                                            // height={300}
+                                                // width={300}
+                                                // height={300}
 
-                                               className="pointer-events-none group-hover:opacity-75 "/>
-                                        <button type="button" className="absolute inset-0 focus:outline-none">
+                                                   className="pointer-events-none group-hover:opacity-75 "/>
+                                            <button type="button" className="absolute inset-0 focus:outline-none">
                                             <span
                                                 className="sr-only  translate-x-5">View details for {entry.title}</span>
-                                        </button>
-                                    </div>
-                                    <p className="pl-4 mt-1 block text-sm font-medium text-gray-900 truncate pointer-events-none">{entry.title}</p>
+                                            </button>
+                                        </div>
+                                        <p className="pl-4 mt-1 block text-sm font-medium text-gray-900 truncate pointer-events-none">{entry.title}</p>
+
                                 </div>
-                            </div>
-                        );
-                    })}
-                </Slider>
+                            );
+                        })}
+                    </Slider>
+                </div>
             </div>
-        </div>
+
+        </section>
+
 
     );
 
 }
-
 
 
 export default SimpleSlider;
