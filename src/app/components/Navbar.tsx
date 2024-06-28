@@ -2,6 +2,8 @@
 
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import logo from '../packagefy.svg'
+import Image from "next/image";
 
 const activeCss:string = 'py-3 ps-px sm:px-3 font-medium text-blue-600'
 const inactiveCss:string = 'py-3 ps-px sm:px-3 font-medium text-gray-500 hover:text-gray-400'
@@ -26,7 +28,9 @@ export default function Navbar () {
                 className="relative max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8"
                 aria-label="Global">
                 <div className="flex items-center justify-between">
-                    <a className="flex-none text-xl font-semibold" href="/" aria-label="Brand">Packagefy.com</a>
+                    <a className="flex-none text-xl font-semibold" href="/" aria-label="Brand">
+                        <Image src={logo} alt={'logo'} height={40} width={120} />
+                    </a>
                     <div className="sm:hidden">
                         <button type="button"
                                 className="hs-collapse-toggle size-9 flex justify-center items-center text-sm font-semibold rounded-lg border border-gray-200 text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"

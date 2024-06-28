@@ -130,7 +130,7 @@ const content = [
     },
 
     {
-        imageSrc: 'https://images.pexels.com/photos/3163057/pexels-photo-3163057.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        imageSrc: 'https://images.pexels.com/photos/9438970/pexels-photo-9438970.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
         duration: '5 Days 4 Nights',
         title: 'Romania',
         href: '#'
