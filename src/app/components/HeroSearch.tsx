@@ -36,33 +36,33 @@ const locations:visitingLocations[] = [
     { id: 1, name: 'New York, USA', url: '/new-york' },
     { id: 2, name: 'Los Angeles, USA', url: '/los-angeles' },
     { id: 3, name: 'London, UK', url: '/london' },
-    { id: 4, name: 'Paris, France', url: '/france/paris' },
-    { id: 5, name: 'Tokyo, Japan', url: '/japan/tokyo' },
-    { id: 6, name: 'Sydney, Australia', url: '/australia/sydney' },
-    { id: 7, name: 'Rio de Janeiro, Brazil', url: '/brazil/rio-de-janeiro' },
-    { id: 8, name: 'Cape Town, South Africa', url: '/south-africa/cape-town' },
-    { id: 9, name: 'Dubai, UAE', url: '/uae/dubai' },
-    { id: 10, name: 'New Delhi, India', url: '/india/new-delhi' },
-    { id: 11, name: 'Rome, Italy', url: '/italy/rome' },
-    { id: 12, name: 'Bangkok, Thailand', url: '/thailand/bangkok' },
-    { id: 13, name: 'Moscow, Russia', url: '/russia/moscow' },
-    { id: 14, name: 'Berlin, Germany', url: '/germany/berlin' },
-    { id: 15, name: 'Cairo, Egypt', url: '/egypt/cairo' },
-    { id: 16, name: 'Mexico City, Mexico', url: '/mexico/mexico-city' },
-    { id: 17, name: 'Toronto, Canada', url: '/canada/toronto' },
+    { id: 4, name: 'Paris, France', url: '/paris' },
+    { id: 5, name: 'Tokyo, Japan', url: '/tokyo' },
+    { id: 6, name: 'Sydney, Australia', url: '/sydney' },
+    { id: 7, name: 'Rio de Janeiro, Brazil', url: '/rio-de-janeiro' },
+    { id: 8, name: 'Cape Town, South Africa', url: '/cape-town' },
+    { id: 9, name: 'Dubai, UAE', url: '/dubai' },
+    { id: 10, name: 'New Delhi, India', url: '/new-delhi' },
+    { id: 11, name: 'Rome, Italy', url: '/rome' },
+    { id: 12, name: 'Bangkok, Thailand', url: '/bangkok' },
+    { id: 13, name: 'Moscow, Russia', url: '/moscow' },
+    { id: 14, name: 'Berlin, Germany', url: '/berlin' },
+    { id: 15, name: 'Cairo, Egypt', url: '/cairo' },
+    { id: 16, name: 'Mexico City, Mexico', url: '/mexico-city' },
+    { id: 17, name: 'Toronto, Canada', url: '/toronto' },
     { id: 18, name: 'Singapore', url: '/singapore' },
-    { id: 19, name: 'Seoul, South Korea', url: '/south-korea/seoul' },
-    { id: 20, name: 'Barcelona, Spain', url: '/spain/barcelona' },
-    { id: 21, name: 'Amsterdam, Netherlands', url: '/netherlands/amsterdam' },
-    { id: 22, name: 'Istanbul, Turkey', url: '/turkey/istanbul' },
-    { id: 23, name: 'Buenos Aires, Argentina', url: '/argentina/buenos-aires' },
-    { id: 24, name: 'Mumbai, India', url: '/india/mumbai' },
+    { id: 19, name: 'Seoul, South Korea', url: '/seoul' },
+    { id: 20, name: 'Barcelona, Spain', url: '/barcelona' },
+    { id: 21, name: 'Amsterdam, Netherlands', url: '/amsterdam' },
+    { id: 22, name: 'Istanbul, Turkey', url: '/istanbul' },
+    { id: 23, name: 'Buenos Aires, Argentina', url: '/buenos-aires' },
+    { id: 24, name: 'Mumbai, India', url: '/mumbai' },
     { id: 25, name: 'Hong Kong', url: '/hong-kong' },
-    { id: 26, name: 'Venice, Italy', url: '/italy/venice' },
-    { id: 27, name: 'San Francisco, USA', url: '/usa/san-francisco' },
-    { id: 28, name: 'Athens, Greece', url: '/greece/athens' },
-    { id: 29, name: 'Kyoto, Japan', url: '/japan/kyoto' },
-    { id: 30, name: 'Cusco, Peru', url: '/peru/cusco' }
+    { id: 26, name: 'Venice, Italy', url: '/venice' },
+    { id: 27, name: 'San Francisco, USA', url: '/san-francisco' },
+    { id: 28, name: 'Athens, Greece', url: '/athens' },
+    { id: 29, name: 'Kyoto, Japan', url: '/kyoto' },
+    { id: 30, name: 'Cusco, Peru', url: '/cusco' }
     // Add more locations as needed
 ];
 
@@ -86,18 +86,6 @@ export default function HeroSearch() {
     return (
 
         <section className="relative overflow-hidden">
-            <div
-                className={'absolute inset-0'}
-                style={{
-                    backgroundImage: `url(https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg?cs=srgb&dl=pexels-apasaric-325185.jpg&fm=jpg&w=5472&h=3648&_gl=1*10mnfjj*_ga*MTQ2OTk0NjY5OS4xNzE4ODgxNjk4*_ga_8JE65Q40S6*MTcxODg4NDE5Ny4yLjEuMTcxODg4NDI3MC4wLjAuMA..)`,
-                    backgroundRepeat: 'no-repeat',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center center',
-                    zIndex: -1,
-                }
-                } >
-                <div className="absolute inset-0 bg-black opacity-30"></div>
-            </div>
             <div className="relative z-10 max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-24 md:mb-[150px]">
                 <div className="text-center">
                     <h1 className="text-4xl sm:text-6xl font-bold text-white pb-12 lg:pb-10">
@@ -112,7 +100,7 @@ export default function HeroSearch() {
                         <Combobox
                             as="div"
                             className={"z-10 bg-white rounded-2xl mx-auto max-w-xl relative"} // Added relative positioning to parent div
-                            onChange={(location:visitingLocations) => router.push('/destination'+ location.url)}
+                            onChange={(location:visitingLocations) => location?.url ? router.push('/destination'+ location.url) : null}
                         >
                             <div className="relative">
                                 <CiSearch

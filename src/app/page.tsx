@@ -2,6 +2,7 @@ import HeroSearch from "@/app/components/HeroSearch";
 import ImageGrid from "@/app/components/ImageGrid";
 import TripsWithPriceSlider from "@/app/components/TripsWithPriceSlider";
 import React from "react";
+import Navbar from "@/app/components/Navbar";
 
 
 const files = [
@@ -135,14 +136,24 @@ const content = [
         title: 'Romania',
         href: '#'
     },
-    {imageSrc: 'https://images.pexels.com/photos/11807186/pexels-photo-11807186.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', duration: '5 Days 4 Nights', title: 'Maldives', href: '#'},
+    {
+        imageSrc: 'https://images.pexels.com/photos/11807186/pexels-photo-11807186.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        duration: '5 Days 4 Nights',
+        title: 'Maldives',
+        href: '#'
+    },
     {
         imageSrc: 'https://images.pexels.com/photos/15194352/pexels-photo-15194352/free-photo-of-people-inside-the-hagia-sophia-grand-mosque.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
         duration: '5 Days 4 Nights',
         title: 'Turkey',
         href: '#'
     },
-    {imageSrc: 'https://images.pexels.com/photos/13017777/pexels-photo-13017777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', duration: '5 Days 4 Nights', title: 'Georgia', href: '#'},
+    {
+        imageSrc: 'https://images.pexels.com/photos/13017777/pexels-photo-13017777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        duration: '5 Days 4 Nights',
+        title: 'Georgia',
+        href: '#'
+    },
     {
         imageSrc: 'https://images.pexels.com/photos/17906102/pexels-photo-17906102/free-photo-of-cable-car-in-the-bavarian-alps.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
         duration: '5 Days 4 Nights',
@@ -161,12 +172,28 @@ const content = [
 export default function HomePage() {
 
     return (
-        <div id={'homepage-container'}>
-            <HeroSearch/>
-            <ImageGrid/>
-            <TripsWithPriceSlider heading={'Season Spots'} entries={content}/>
-            <TripsWithPriceSlider heading={'International Destinations'} entries={content} rtl={false}/>
-        </div>
+        <>
+            <section className={'relative overflow-hidden'}>
+                <div
+                    className={'absolute inset-0'}
+                    style={{
+                        backgroundImage: `url(https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg?cs=srgb&dl=pexels-apasaric-325185.jpg&fm=jpg&w=5472&h=3648&_gl=1*10mnfjj*_ga*MTQ2OTk0NjY5OS4xNzE4ODgxNjk4*_ga_8JE65Q40S6*MTcxODg4NDE5Ny4yLjEuMTcxODg4NDI3MC4wLjAuMA..)`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center center',
+                        zIndex: -1,
+                    }
+                    }>
+                    <div className="absolute inset-0 bg-black opacity-30"></div>
+                </div>
+                <Navbar/>
+                <HeroSearch/>
+            </section>
+            <section>
+                <ImageGrid/>
+                <TripsWithPriceSlider heading={'Season Spots'} entries={content}/>
+                <TripsWithPriceSlider heading={'International Destinations'} entries={files} rtl={false}/>
+            </section>
+        </>
     )
-
 }

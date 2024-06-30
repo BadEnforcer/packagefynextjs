@@ -8,8 +8,6 @@ import "slick-carousel/slick/slick-theme.css";
 
 import PrelineScript from "./components/PrelineScript";
 
-import Navbar from "./components/Navbar";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -26,7 +24,6 @@ export default function RootLayout({
     <html lang="en">
     <SpeedInsights />
     <body className={inter.className}>
-    <Navbar/>
     {children}
     <PrelineScript />
     </body>

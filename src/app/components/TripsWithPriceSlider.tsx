@@ -4,7 +4,6 @@ import Slider from "react-slick";
 import Image from "next/image";
 
 
-
 type ShowcaseEntries = {
     title: string
     imageSrc: string
@@ -13,18 +12,47 @@ type ShowcaseEntries = {
 }
 
 
-
 interface SimpleSliderProps {
     heading: string
     entries: ShowcaseEntries[];
-    rtl?:boolean
+    rtl?: boolean
 
 }
+
+function LeftArrow(props: { className?: any; style?: any; onClick?: any; }) {
+    const {className, style, onClick} = props;
+
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+             stroke="currentColor" className={`size-6 ${className}`}
+             style={{...style, display: "block", color: 'black'}}
+             onClick={onClick}
+        >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"/>
+        </svg>
+    )
+}
+
+function RightArrow(props: { className?: any; style?: any; onClick?: any; }) {
+    const {className, style, onClick} = props;
+
+    return (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                 stroke="currentColor" className={`size-6 ${className}`}
+                 style={{...style, display: "block", color: 'black'}}
+                 onClick={onClick}
+    >
+        <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/>
+    </svg>)
+
+
+}
+
+
 
 const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
     const settings = {
         className: "center",
-        centerMode: false,
+        centerMode: true,
         infinite: true,
         centerPadding: "60px",
         speed: 500,
@@ -33,6 +61,11 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
         swipeToSlide: true,
         focusOnSelect: true,
         rtl: rtl || false,
+        arrows: true,
+        dots: false,
+        nextArrow: <RightArrow/>,
+        prevArrow: <LeftArrow/>,
+        // lazyLoad: true,
         // useCSS: true,
         responsive: [
             //all
@@ -42,7 +75,6 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
                     slidesToShow: 1,
                     slidesToScroll: 1,
                     infinite: true,
-                    dots: false
                 }
             },
 
@@ -53,7 +85,6 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
                     slidesToShow: 1,
                     slidesToScroll: 1,
                     infinite: true,
-                    dots: false
                 }
             },
             // md
@@ -63,7 +94,6 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
                     slidesToShow: 3,
                     slidesToScroll: 1,
                     infinite: true,
-                    dots: true
                 }
             },
             // lg
@@ -73,7 +103,6 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
                     slidesToShow: 3,
                     slidesToScroll: 1,
                     infinite: true,
-                    dots: true
                 }
             },
             // xl
@@ -83,7 +112,6 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
                     slidesToShow: 4,
                     slidesToScroll: 1,
                     infinite: true,
-                    dots: true
                 }
             },
             {
@@ -92,7 +120,6 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
                     slidesToShow: 4,
                     slidesToScroll: 1,
                     infinite: true,
-                    dots: true
                 }
 
             }
@@ -113,22 +140,22 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
                         {entries.map((entry, i) => {
                             return (
                                 <div className={'mt-1'} key={i}>
-                                        <div
-                                            className="relative ml-2 mr-2 aspect-1 group block rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                                            <Image src={entry.imageSrc} alt={entry.title}
-                                                   fill={true}
-                                                   content={'contain'}
+                                    <div
+                                        className="relative ml-2 mr-2 aspect-1 group block rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+                                        <Image src={entry.imageSrc} alt={entry.title}
+                                               fill={true}
+                                               content={'contain'}
 
-                                                // width={300}
-                                                // height={300}
+                                            // width={300}
+                                            // height={300}
 
-                                                   className="pointer-events-none group-hover:opacity-75 "/>
-                                            <button type="button" className="absolute inset-0 focus:outline-none">
+                                               className="pointer-events-none group-hover:opacity-75 "/>
+                                        <button type="button" className="absolute inset-0 focus:outline-none">
                                             <span
                                                 className="sr-only  translate-x-5">View details for {entry.title}</span>
-                                            </button>
-                                        </div>
-                                        <p className="pl-4 mt-1 block text-sm font-medium text-gray-900 truncate pointer-events-none">{entry.title}</p>
+                                        </button>
+                                    </div>
+                                    <p className="pl-4 mt-1 block text-sm font-medium text-gray-900 truncate pointer-events-none">{entry.title}</p>
 
                                 </div>
                             );

@@ -6,7 +6,7 @@ import logo from '../packagefy.svg'
 import Image from "next/image";
 
 const activeCss:string = 'py-3 ps-px sm:px-3 font-medium text-blue-600'
-const inactiveCss:string = 'py-3 ps-px sm:px-3 font-medium text-gray-500 hover:text-gray-400'
+const inactiveCss:string = 'py-3 ps-px sm:px-3 font-medium text-white hover:text-gray-400'
 
 type navLinks = {
     name: string,
@@ -23,7 +23,7 @@ export default function Navbar () {
 
     return (
         <header
-            className="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-white border-b border-gray-200 text-sm py-3 sm:py-0">
+            className="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-transparent text-sm py-3 sm:py-0">
             <nav
                 className="relative max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8"
                 aria-label="Global">
@@ -33,7 +33,7 @@ export default function Navbar () {
                     </a>
                     <div className="sm:hidden">
                         <button type="button"
-                                className="hs-collapse-toggle size-9 flex justify-center items-center text-sm font-semibold rounded-lg border border-gray-200 text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
+                                className="hs-collapse-toggle size-9 flex justify-center items-center text-sm font-semibold rounded-lg border border-gray-200 text-white hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
                                 data-hs-collapse="#navbar-collapse-with-animation"
                                 aria-controls="navbar-collapse-with-animation" aria-label="Toggle navigation">
                             <svg className="hs-collapse-open:hidden size-4" width="16" height="16" fill="currentColor"
@@ -63,7 +63,7 @@ export default function Navbar () {
                         })}
 
 
-                        <a className="flex items-center gap-x-2 font-medium text-gray-500 hover:text-blue-600 sm:border-s sm:border-gray-300 py-2 sm:py-0 sm:ms-4 sm:my-6 sm:ps-6"
+                        <a className="flex items-center gap-x-2 font-medium text-white hover:text-blue-600 sm:border-s sm:border-gray-300 py-2 sm:py-0 sm:ms-4 sm:my-6 sm:ps-6"
                            href="/request-callback">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                                  stroke="currentColor" className="size-6">
