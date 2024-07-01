@@ -173,22 +173,14 @@ function HeroSection ({params, scrollToSection} : SectionProps) {
                                 </div>
                             </div>
 
-                            {/*<div*/}
-                            {/*    className="absolute align-middle top-[40%] lg:top-[18%] flex w-full items-center justify-center z-30">*/}
-                            {/*    <div>*/}
-                            {/*        <h1 className="text-[3vw] lg:text-[2vw] font-zasque text-white ">*/}
-                            {/*            The City of Love*/}
-                            {/*        </h1>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
                         </TransitionChild>
 
                         <TransitionChild as={Fragment} enter={'transition-all duration-500'} enterFrom={'opacity-75 scale-150'} enterTo={'opacity-100 scale-100'}>
                         <div className="container-content absolute align-middle bottom-[10%] lg:bottom-[12%] mx-auto px-4 sm:px-6 lg:px-8 flex w-full items-center justify-center z-30" >
-                            <div className={'grid grid-cols-3 gap-x-8'}>
+                            <div className={'grid grid-cols-3 gap-x-8 bg-[rgba(255, 255, 255, 0.18)] rounded-2xl shadow-2xl backdrop-blur p-2 lg:p-8'}>
                                 {IconData.map((Item, i) => {
                                     return (
-                                        <div key={i} className={'col-span-1'}>
+                                        <div key={i} className={'col-span-1 '}>
                                             <div className={'grid w-full items-center justify-center grid-rows-2'}>
                                                 <div className={'row-span-1 w-full flex items-center justify-center text-white'}>
                                                     <Item.icon className={'w-6 h-6 lg:w-9 lg:h-9'} />
