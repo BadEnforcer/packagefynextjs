@@ -12,7 +12,6 @@ const sectionIds: string[] = ['hero', 'description', 'trips'];
 // Add more section IDs as per your layout
 
 export default function Page({ params }: { params: { destinationName: string } }) {
-    const ref1 = useRef<HTMLDivElement>(null);
     const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
 
     useEffect(() => {
@@ -52,8 +51,8 @@ export default function Page({ params }: { params: { destinationName: string } }
 
     return (
         <div id={'displayContainer'} className={'w-full h-full'}>
-            <section id={'hero'} ref={ref1} className={'overflow-hidden'}>
-                <Transition as={Fragment} show={true} appear>
+            <section id={'hero'} className={'overflow-hidden'}>
+                <Transition as={Fragment} show appear>
                     <TransitionChild
                         as={Fragment}
                         enter={'transition-all duration-500'}
@@ -83,8 +82,8 @@ export default function Page({ params }: { params: { destinationName: string } }
                                 leaveTo={'opacity-100 scale-75'}
                             >
                                 <div
-                                    className="container-content mx-auto px-4 sm:px-6 lg:px-8 flex w-full items-center justify-center z-30">
-                                    <h1 className="text-[12vw] font-bold text-white ">
+                                    className=" absolute top-36 lg:static  container-content mx-auto px-4 sm:px-6 lg:px-8 flex w-full items-center justify-center z-30">
+                                    <h1 className="text-[12vw] font-extrabold text-white ">
                                         {params.destinationName.toUpperCase()}
                                     </h1>
                                 </div>
@@ -101,7 +100,7 @@ export default function Page({ params }: { params: { destinationName: string } }
                                 leaveTo={'opacity-100 scale-75'}
                             >
                                 <div
-                                    className="container-content absolute bottom-28 text-white mx-auto px-4 sm:px-6 lg:px-8 flex w-full items-center justify-center z-30 ">
+                                    className="hidden lg:block container-content absolute bottom-28 text-white mx-auto px-4 sm:px-6 lg:px-8 lg:flex w-full items-center justify-center z-30 ">
                                     <p className={'content-evenly justify-evenly place-content-evenly'}>
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vel bibendum
                                         risus,
