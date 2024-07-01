@@ -147,9 +147,9 @@ function HeroSection ({params, scrollToSection} : SectionProps) {
                                          leave={'transition-all duration-300'} leaveFrom={'opacity-100 scale-100'}
                                          leaveTo={'opacity-100 scale-75'}>
 
-                            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
+                            <div className="flex items-center justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
                                 <div className="absolute top-[30%] lg:top-[14%] w-full flex items-center justify-center z-30 max-w-7xl mx-auto">
-                                    <h1 className="text-[14vw] lg:text-[9vw] font-zasque text-white ">
+                                    <h1 className="text-[11vw] lg:text-[9vw] font-zasque text-white ">
                                         {params.destinationName.toUpperCase()}
                                     </h1>
                                 </div>
@@ -164,9 +164,9 @@ function HeroSection ({params, scrollToSection} : SectionProps) {
                                          leaveTo={'opacity-100 scale-75'}>
 
 
-                            <div className={'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'}>
+                            <div className={'max-w-7xl flex items-center justify-center mx-auto px-4 sm:px-6  lg:px-8'}>
                                 <div
-                                    className="absolute top-[40%] lg:top-[34%] pr-4 w-full flex items-center justify-center z-30 max-w-7xl mx-auto">
+                                    className="absolute top-[40%] lg:top-[34%] w-full flex items-center justify-center z-30 max-w-7xl mx-auto">
                                     <h1 className="text-[4vw] lg:text-[2vw] font-zasque text-white ">
                                         The City of Love
                                     </h1>
