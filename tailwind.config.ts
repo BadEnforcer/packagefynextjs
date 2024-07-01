@@ -21,6 +21,9 @@ const config: Config = {
       animation: {
         bounce: 'bounce 1s infinite',
       },
+      fontFamily: {
+        zasque: ['Zasque', 'sans-serif'],
+      },
 
 
       backgroundImage: {
