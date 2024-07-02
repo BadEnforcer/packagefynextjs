@@ -2,12 +2,12 @@
 
 import Navbar from "@/app/components/Navbar";
 import React, {Fragment, useCallback, useEffect, useState} from "react";
-import { Transition, TransitionChild } from "@headlessui/react";
+import {Transition, TransitionChild} from "@headlessui/react";
 
-import { PiShootingStar } from "react-icons/pi";
-import { IoMdHeart } from "react-icons/io";
-import { IoTicketSharp } from "react-icons/io5";
-import { LiaHotelSolid } from "react-icons/lia";
+import {PiShootingStar} from "react-icons/pi";
+import {IoMdHeart} from "react-icons/io";
+import {IoTicketSharp} from "react-icons/io5";
+import {LiaHotelSolid} from "react-icons/lia";
 import {IconType} from "react-icons";
 import Image from "next/image";
 import {GiCheckMark, GiDrop, GiMailbox} from "react-icons/gi";
@@ -30,14 +30,21 @@ const data: LocationData[] = [
         name: "paris",
         bgImage: "https://images.pexels.com/photos/2695680/pexels-photo-2695680.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         history: [
-            {heading: "built in 1959", imageSrc: 'https://images.pexels.com/photos/21529786/pexels-photo-21529786/free-photo-of-louvre-museum-in-paris.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}
+            {
+                heading: "built in 1959",
+                imageSrc: 'https://images.pexels.com/photos/21529786/pexels-photo-21529786/free-photo-of-louvre-museum-in-paris.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+            }
         ]
     },
-    { name: "new-york", bgImage: "https://images.pexels.com/photos/40142/new-york-skyline-manhattan-hudson-40142.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" },
-    { name: "sydney", bgImage: "https://images.pexels.com/photos/785129/pexels-photo-785129.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" },
+    {
+        name: "new-york",
+        bgImage: "https://images.pexels.com/photos/40142/new-york-skyline-manhattan-hudson-40142.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    {
+        name: "sydney",
+        bgImage: "https://images.pexels.com/photos/785129/pexels-photo-785129.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
 ];
-
-
 
 
 const fetchLocationDataByName = (name: string): LocationData => {
@@ -45,29 +52,29 @@ const fetchLocationDataByName = (name: string): LocationData => {
     if (queryRes) {
         return queryRes
     } else {
-        return {   name: 'paris',
+        return {
+            name: 'paris',
             bgImage: "https://images.pexels.com/photos/7478450/pexels-photo-7478450.jpeg?cs=srgb&dl=pexels-marcos14-7478450.jpg&fm=jpg&w=5807&h=3871&_gl=1*v3c41f*_ga*MjY2NjIwNzMwLjE3MTgxODMzNTg.*_ga_8JE65Q40S6*MTcxOTg0NzIyMy4xMC4xLjE3MTk4NDcyMzIuMC4wLjA.",
         } as LocationData
     }
 };
 
 
+const sectionIds: string[] = ['hero', 'description', 'trips'];
 
-const sectionIds: string[] = ['hero', 'description', 'trips', 'trips1', 'trips2'];
 
-
-export default function Page({ params }: { params: { destinationName: string } }) {
+export default function Page({params}: { params: { destinationName: string } }) {
     const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
-    
+
     const scrollToSection = useCallback((index: number) => {
         const sectionId = sectionIds[index];
         const section = document.getElementById(sectionId);
         if (section) {
-            section.scrollIntoView({ behavior: 'smooth' });
+            section.scrollIntoView({behavior: 'smooth'});
             setCurrentSectionIndex(index); // Update current section index
         }
     }, []);
-    
+
     useEffect(() => {
         const handleScroll = (event: WheelEvent) => {
             event.preventDefault(); // Prevent default scroll behavior
@@ -87,14 +94,13 @@ export default function Page({ params }: { params: { destinationName: string } }
             }
         };
 
-        window.addEventListener('wheel', handleScroll, { passive: false });
+        window.addEventListener('wheel', handleScroll, {passive: false});
 
         return () => {
             window.removeEventListener('wheel', handleScroll);
         };
     }, [currentSectionIndex, scrollToSection]);
 
-    
 
     return (
         <div id={'displayContainer'} className={'w-full h-full'}>
@@ -144,12 +150,6 @@ export default function Page({ params }: { params: { destinationName: string } }
                                 <div className="pb-5 border-b border-gray-200">
                                     <h3 className="text-lg leading-6 font-medium text-gray-900">Trips</h3>
                                 </div>
-                            </section>
-                            <section id={'trips1'} className={'max-h-screen h-screen'}>
-                                <div className={'flex items-center justify-center'}>Trips1</div>
-                            </section>
-                            <section id={'trips2'} className={'max-h-screen h-screen'}>
-                                <div className={'flex items-center justify-center'}>Trips2</div>
                             </section>
                         </div>
 
@@ -203,11 +203,12 @@ const IconData: IconShowcase[] = [
     {icon: LiaHotelSolid, text: "5 Star Hotels"},
 ]
 
-function HeroSection ({params, scrollToSection} : SectionProps) {
+function HeroSection({params, scrollToSection}: SectionProps) {
     return (
         <section id={'hero'} className={'overflow-hidden'}>
             <Transition as={Fragment} show appear>
-                <TransitionChild as={Fragment} enter={'transition-all duration-500'} enterFrom={'opacity-75 scale-150'} enterTo={'opacity-100 scale-100'}>
+                <TransitionChild as={Fragment} enter={'transition-all duration-500'} enterFrom={'opacity-75 scale-150'}
+                                 enterTo={'opacity-100 scale-100'}>
                     <div className={'relative h-[50vh] lg:h-[80vh]  w-screen'}>
                         <Image
                             src={fetchLocationDataByName(params.destinationName).bgImage}
@@ -228,33 +229,43 @@ function HeroSection ({params, scrollToSection} : SectionProps) {
                                          leave={'transition-all duration-300'} leaveFrom={'opacity-100 scale-100'}
                                          leaveTo={'opacity-100 scale-75'}>
 
-                            <div className="flex items-center justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
-                                <div className="absolute top-[30%] lg:top-[14%] w-full flex items-center justify-center z-30 max-w-7xl mx-auto">
-                                    <h1 className="text-[11vw] lg:text-[9vw] font-zasque text-white ">
+                            <div className="flex items-center  justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
+
+                                <div className={'grid grid-rows-2 z-30   absolute top-[30%] lg:top-[14%]'}>
+
+
+                                    <h1 className="flex w-full items-center justify-center text-[11vw] lg:text-[9vw] font-zasque text-white ">
                                         {params.destinationName.toUpperCase()}
                                     </h1>
-                                </div>
-                            </div>
-
-                        </TransitionChild>
-
-
-                        <TransitionChild as={Fragment} enter={'transition-all duration-300'}
-                                         enterFrom={'opacity-0 scale-50 text-white'} enterTo={'opacity-100 scale-100'}
-                                         leave={'transition-all duration-300'} leaveFrom={'opacity-100 scale-100'}
-                                         leaveTo={'opacity-100 scale-75'}>
-
-
-                            <div className={'max-w-7xl flex items-center justify-center mx-auto px-4 sm:px-6  lg:px-8'}>
-                                <div
-                                    className="absolute top-[55%] md:top-[60%] lg:top-[40%] w-full flex items-center justify-center z-30 max-w-7xl mx-auto">
-                                    <h1 className="text-[4vw] lg:text-[2vw] font-zasque text-white ">
+                                    <h1 className="flex w-full items-center justify-center relative bottom-[63%]  text-[2vw] font-zasque text-white ">
                                         The City of Love
                                     </h1>
+
+
                                 </div>
+
+
                             </div>
 
                         </TransitionChild>
+
+
+                        {/*<TransitionChild as={Fragment} enter={'transition-all duration-300'}*/}
+                        {/*                 enterFrom={'opacity-0 scale-50 text-white'} enterTo={'opacity-100 scale-100'}*/}
+                        {/*                 leave={'transition-all duration-300'} leaveFrom={'opacity-100 scale-100'}*/}
+                        {/*                 leaveTo={'opacity-100 scale-75'}>*/}
+
+
+                        {/*    <div className={'max-w-7xl flex items-center justify-center mx-auto px-4 sm:px-6  lg:px-8'}>*/}
+                        {/*    <div*/}
+                        {/*            className="absolute top-[44%] sm:top-[25%] md:top-[60%] lg:top-[40%] w-full flex items-center justify-center z-30 max-w-7xl mx-auto">*/}
+                        {/*            <h1 className="text-[4vw] lg:text-[2vw] font-zasque text-white ">*/}
+                        {/*                The City of Love*/}
+                        {/*            </h1>*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+
+                        {/*</TransitionChild>*/}
 
                         {/*<TransitionChild as={Fragment} enter={'transition-all duration-500'} enterFrom={'opacity-75 scale-150'} enterTo={'opacity-100 scale-100'}>*/}
                         {/*<div className="container-content absolute align-middle bottom-[10%] lg:bottom-[12%] mx-auto px-4 sm:px-6 lg:px-8 flex w-full items-center justify-center z-30" >*/}
@@ -288,87 +299,46 @@ function HeroSection ({params, scrollToSection} : SectionProps) {
 
 // bg-[rgba(255, 255, 255, 0.18)] rounded-2xl shadow-2xl backdrop-blur
 
-
-const applications = [
-    {
-        applicant: {
-            name: 'Ricardo Cooper',
-            email: 'ricardo.cooper@example.com',
-            imageUrl:
-                'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        },
-        date: '2020-01-07',
-        dateFull: 'January 7, 2020',
-        stage: 'Completed phone screening',
-        href: '#',
-    },
-    {
-        applicant: {
-            name: 'Kristen Ramos',
-            email: 'kristen.ramos@example.com',
-            imageUrl:
-                'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        },
-        date: '2020-01-07',
-        dateFull: 'January 7, 2020',
-        stage: 'Completed phone screening',
-        href: '#',
-    },
-    {
-        applicant: {
-            name: 'Ted Fox',
-            email: 'ted.fox@example.com',
-            imageUrl:
-                'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        },
-        date: '2020-01-07',
-        dateFull: 'January 7, 2020',
-        stage: 'Completed phone screening',
-        href: '#',
-    },
+/* This example requires Tailwind CSS v2.0+ */
+const items = [
+    {id: 1},
+    // More items...
 ]
 
-function PackageDisplay() {
+type tripDetails = {
+    displayName: string,
+    id: string,
+    description: string,
+    totalDistance: number,
+    coverPhoto: string,
+}
+
+const trips: tripDetails[] = [
+    {
+        displayName: "Paris basic trip",
+        id: '1234',
+        description: "Lorem ipsum",
+        totalDistance: 100,
+        coverPhoto: 'https://images.pexels.com/photos/1391291/pexels-photo-1391291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+    }
+]
+
+
+function TripsShowcase() {
     return (
-        <div className="bg-white shadow overflow-hidden sm:rounded-md">
-            <ul role="list" className="divide-y divide-gray-200">
-                {applications.map((application) => (
-                    <li key={application.applicant.email}>
-                        <a href={application.href} className="block hover:bg-gray-50">
-                            <div className="flex items-center px-4 py-4 sm:px-6">
-                                <div className="min-w-0 flex-1 flex items-center">
-                                    <div className="flex-shrink-0">
-                                        <img className="h-12 w-12 rounded-full" src={application.applicant.imageUrl} alt="" />
-                                    </div>
-                                    <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
-                                        <div>
-                                            <p className="text-sm font-medium text-indigo-600 truncate">{application.applicant.name}</p>
-                                            <p className="mt-2 flex items-center text-sm text-gray-500">
-                                                <GiMailbox className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                                <span className="truncate">{application.applicant.email}</span>
-                                            </p>
-                                        </div>
-                                        <div className="hidden md:block">
-                                            <div>
-                                                <p className="text-sm text-gray-900">
-                                                    Applied on <time dateTime={application.date}>{application.dateFull}</time>
-                                                </p>
-                                                <p className="mt-2 flex items-center text-sm text-gray-500">
-                                                    <GiCheckMark className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400" aria-hidden="true" />
-                                                    {application.stage}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <GiDrop className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                                </div>
-                            </div>
-                        </a>
+        <section className={'pt-6'}>
+            <div className="pb-5 border-b border-gray-200">
+                <h3 className="text-lg leading-6 font-medium text-gray-900">Trips</h3>
+            </div>
+            <ul role="list" className="space-y-3">
+                {trips.map((trip, index) => (
+                    <li key={index} className="bg-white shadow overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
+                        {trip.displayName}
                     </li>
                 ))}
             </ul>
-        </div>
+        </section>
+
     )
 }
+
