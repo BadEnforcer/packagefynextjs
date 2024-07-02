@@ -1,7 +1,7 @@
 "use client"
 
 import Navbar from "@/app/components/Navbar";
-import React, { Fragment, useEffect, useState } from "react";
+import React, {Fragment, useCallback, useEffect, useState} from "react";
 import { Transition, TransitionChild } from "@headlessui/react";
 
 import { PiShootingStar } from "react-icons/pi";
@@ -10,28 +10,34 @@ import { IoTicketSharp } from "react-icons/io5";
 import { LiaHotelSolid } from "react-icons/lia";
 import {IconType} from "react-icons";
 import Image from "next/image";
+import {GiCheckMark, GiDrop, GiMailbox} from "react-icons/gi";
 
 
-type LocationData = {
-    name: string,
-    bgImage: string,
+type LocationHistory = {
+    heading: string,
+    imageSrc: string,
 }
 
+type LocationData = {
+    name: string;
+    bgImage: string;
+    history?: LocationHistory[];
+
+};
+
 const data: LocationData[] = [
-    {   name: 'paris',
+    {
+        name: "paris",
         bgImage: "https://images.pexels.com/photos/2695680/pexels-photo-2695680.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        history: [
+            {heading: "built in 1959", imageSrc: 'https://images.pexels.com/photos/21529786/pexels-photo-21529786/free-photo-of-louvre-museum-in-paris.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}
+        ]
     },
+    { name: "new-york", bgImage: "https://images.pexels.com/photos/40142/new-york-skyline-manhattan-hudson-40142.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" },
+    { name: "sydney", bgImage: "https://images.pexels.com/photos/785129/pexels-photo-785129.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" },
+];
 
-    {   name: 'new-york',
-        bgImage: "https://images.pexels.com/photos/40142/new-york-skyline-manhattan-hudson-40142.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    },
 
-
-    {   name: 'sydney',
-        bgImage: "https://images.pexels.com/photos/785129/pexels-photo-785129.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    },
-
-]
 
 
 const fetchLocationDataByName = (name: string): LocationData => {
@@ -47,12 +53,21 @@ const fetchLocationDataByName = (name: string): LocationData => {
 
 
 
-const sectionIds: string[] = ['hero', 'description', 'trips'];
+const sectionIds: string[] = ['hero', 'description', 'trips', 'trips1', 'trips2'];
 
 
 export default function Page({ params }: { params: { destinationName: string } }) {
     const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
-
+    
+    const scrollToSection = useCallback((index: number) => {
+        const sectionId = sectionIds[index];
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+            setCurrentSectionIndex(index); // Update current section index
+        }
+    }, []);
+    
     useEffect(() => {
         const handleScroll = (event: WheelEvent) => {
             event.preventDefault(); // Prevent default scroll behavior
@@ -77,28 +92,94 @@ export default function Page({ params }: { params: { destinationName: string } }
         return () => {
             window.removeEventListener('wheel', handleScroll);
         };
-    }, [currentSectionIndex]);
+    }, [currentSectionIndex, scrollToSection]);
 
-    const scrollToSection = (index: number) => {
-        const sectionId = sectionIds[index];
-        const section = document.getElementById(sectionId);
-        if (section) {
-            section.scrollIntoView({ behavior: 'smooth' });
-            setCurrentSectionIndex(index); // Update current section index
-        }
-    };
+    
 
     return (
         <div id={'displayContainer'} className={'w-full h-full'}>
-            <HeroSection params={params} scrollToSection={scrollToSection}  />
+            <HeroSection params={params} scrollToSection={scrollToSection}/>
 
-            <section id={'description'} className={'max-h-screen h-screen'}>
-                <div className={'flex items-center justify-center'}>Description</div>
-            </section>
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                {/*Description*/}
+                <section id={'description'} className={'min-h-screen h-auto pt-12'}>
+                    <div className="pb-5 border-b border-gray-200">
+                        <h3 className="text-lg leading-6 font-medium text-gray-900">Description</h3>
+                    </div>
+                    <div className={'flex items-center justify-center pt-4'}>
+                        <div className={'grid gap-y-6 w-full text-xl'}>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae
+                                vestibulum vestibulum. Cras venenatis euismod malesuada. Nullam ac odio nec dolor
+                                commodo suscipit. Maecenas ultricies, risus in facilisis dignissim, felis eros fermentum
+                                est, at sollicitudin massa metus a enim.</p>
+                            <p>Sed ultrices, lorem nec gravida tincidunt, dui risus tempor velit, nec varius magna magna
+                                ac orci. Fusce ut justo sed nisl varius fermentum. Aliquam erat volutpat. Morbi
+                                bibendum, odio non ullamcorper ultrices, arcu eros lacinia augue, ac laoreet eros lorem
+                                in felis.</p>
+                            <p>Praesent non bibendum metus. Nam vestibulum, eros non dignissim aliquet, nunc felis
+                                elementum justo, nec facilisis felis tortor eget lacus. Ut sit amet massa ac metus
+                                vulputate elementum. Ut venenatis, nunc ac hendrerit malesuada, orci ligula facilisis
+                                nunc, vel aliquam libero sapien nec odio.</p>
+                            <p>Morbi condimentum, mauris non interdum molestie, purus leo viverra arcu, sit amet
+                                venenatis est libero id erat. Proin non dui nec lorem dictum placerat. Nulla facilisi.
+                                Sed congue, orci nec varius tristique, quam purus efficitur nulla, nec pellentesque
+                                justo turpis in enim.</p>
 
-            <section id={'trips'} className={'max-h-screen h-screen'}>
-                <div className={'flex items-center justify-center'}>Trips</div>
-            </section>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+
+            {/*Description is visible in full width and some padding*/}
+
+
+            {/*packages showcase, two columns with form on right side*/}
+            <div className="py-6">
+                <div className="max-w-4xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8">
+
+                    <main className="lg:col-span-10">
+                        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                            <section id={'trips'} className={'max-h-screen h-screen pt-6'}>
+                                <div className="pb-5 border-b border-gray-200">
+                                    <h3 className="text-lg leading-6 font-medium text-gray-900">Trips</h3>
+                                </div>
+                            </section>
+                            <section id={'trips1'} className={'max-h-screen h-screen'}>
+                                <div className={'flex items-center justify-center'}>Trips1</div>
+                            </section>
+                            <section id={'trips2'} className={'max-h-screen h-screen'}>
+                                <div className={'flex items-center justify-center'}>Trips2</div>
+                            </section>
+                        </div>
+
+                    </main>
+
+
+                    <div className="hidden lg:block lg:col-span-3 xl:col-span-2">
+                        <nav aria-label="Sidebar" className="sticky top-6 divide-y divide-gray-300">
+                            {/* Your content */}
+                            hidden?
+                        </nav>
+                    </div>
+
+                    {/*<aside className="hidden xl:block xl:col-span-4">*/}
+                    {/*    <div className="sticky top-6 space-y-4">/!* Your content *!/ UWU</div>*/}
+                    {/*</aside>*/}
+                </div>
+            </div>
+
+
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <section id={'description'} className={'max-h-screen h-screen'}>
+                    <div className={'flex items-center justify-center'}>Description</div>
+                </section>
+
+                <section id={'trips'} className={'max-h-screen h-screen'}>
+                    <div className={'flex items-center justify-center'}>Trips</div>
+                </section>
+            </div>
+
 
         </div>
     )
@@ -106,7 +187,7 @@ export default function Page({ params }: { params: { destinationName: string } }
 
 type SectionProps = {
     params: { destinationName: string }
-    scrollToSection : (sectionId: number) => void;
+    scrollToSection: (sectionId: number) => void;
 }
 
 
@@ -127,7 +208,7 @@ function HeroSection ({params, scrollToSection} : SectionProps) {
         <section id={'hero'} className={'overflow-hidden'}>
             <Transition as={Fragment} show appear>
                 <TransitionChild as={Fragment} enter={'transition-all duration-500'} enterFrom={'opacity-75 scale-150'} enterTo={'opacity-100 scale-100'}>
-                    <div className={'relative h-screen w-screen'}>
+                    <div className={'relative h-[50vh] lg:h-[80vh]  w-screen'}>
                         <Image
                             src={fetchLocationDataByName(params.destinationName).bgImage}
                             alt="Background"
@@ -166,7 +247,7 @@ function HeroSection ({params, scrollToSection} : SectionProps) {
 
                             <div className={'max-w-7xl flex items-center justify-center mx-auto px-4 sm:px-6  lg:px-8'}>
                                 <div
-                                    className="absolute top-[40%] lg:top-[34%] w-full flex items-center justify-center z-30 max-w-7xl mx-auto">
+                                    className="absolute top-[55%] md:top-[60%] lg:top-[40%] w-full flex items-center justify-center z-30 max-w-7xl mx-auto">
                                     <h1 className="text-[4vw] lg:text-[2vw] font-zasque text-white ">
                                         The City of Love
                                     </h1>
@@ -175,24 +256,24 @@ function HeroSection ({params, scrollToSection} : SectionProps) {
 
                         </TransitionChild>
 
-                        <TransitionChild as={Fragment} enter={'transition-all duration-500'} enterFrom={'opacity-75 scale-150'} enterTo={'opacity-100 scale-100'}>
-                        <div className="container-content absolute align-middle bottom-[10%] lg:bottom-[12%] mx-auto px-4 sm:px-6 lg:px-8 flex w-full items-center justify-center z-30" >
-                            <div className={'grid grid-cols-3 gap-x-8 bg-[rgba(255, 255, 255, 0.18)] rounded-2xl shadow-2xl backdrop-blur p-2 lg:p-8'}>
-                                {IconData.map((Item, i) => {
-                                    return (
-                                        <div key={i} className={'col-span-1 '}>
-                                            <div className={'grid w-full items-center justify-center grid-rows-2'}>
-                                                <div className={'row-span-1 w-full flex items-center justify-center text-white'}>
-                                                    <Item.icon className={'w-6 h-6 lg:w-9 lg:h-9'} />
-                                                </div>
-                                                <div className={'row-span-1 text-white text-xs lg:text-lg'}>{Item.text}</div>
-                                            </div>
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                        </div>
-                        </TransitionChild>
+                        {/*<TransitionChild as={Fragment} enter={'transition-all duration-500'} enterFrom={'opacity-75 scale-150'} enterTo={'opacity-100 scale-100'}>*/}
+                        {/*<div className="container-content absolute align-middle bottom-[10%] lg:bottom-[12%] mx-auto px-4 sm:px-6 lg:px-8 flex w-full items-center justify-center z-30" >*/}
+                        {/*    <div className={'grid grid-cols-3 gap-x-8 bg-[rgba(255, 255, 255, 0.18)] rounded-2xl shadow-2xl backdrop-blur p-2 lg:p-8'}>*/}
+                        {/*        {IconData.map((Item, i) => {*/}
+                        {/*            return (*/}
+                        {/*                <div key={i} className={'col-span-1 '}>*/}
+                        {/*                    <div className={'grid w-full items-center justify-center grid-rows-2'}>*/}
+                        {/*                        <div className={'row-span-1 w-full flex items-center justify-center text-white'}>*/}
+                        {/*                            <Item.icon className={'w-6 h-6 lg:w-9 lg:h-9'} />*/}
+                        {/*                        </div>*/}
+                        {/*                        <div className={'row-span-1 text-white text-xs lg:text-lg'}>{Item.text}</div>*/}
+                        {/*                    </div>*/}
+                        {/*                </div>*/}
+                        {/*            )*/}
+                        {/*        })}*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
+                        {/*</TransitionChild>*/}
 
 
                     </div>
@@ -205,12 +286,89 @@ function HeroSection ({params, scrollToSection} : SectionProps) {
 }
 
 
-// /* From https://css.glass */
-// background: rgba(255, 255, 255, 0.18);
-// border-radius: 16px;
-// box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-// backdrop-filter: blur(3.4px);
-// -webkit-backdrop-filter: blur(3.4px);
-
-
 // bg-[rgba(255, 255, 255, 0.18)] rounded-2xl shadow-2xl backdrop-blur
+
+
+const applications = [
+    {
+        applicant: {
+            name: 'Ricardo Cooper',
+            email: 'ricardo.cooper@example.com',
+            imageUrl:
+                'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+        },
+        date: '2020-01-07',
+        dateFull: 'January 7, 2020',
+        stage: 'Completed phone screening',
+        href: '#',
+    },
+    {
+        applicant: {
+            name: 'Kristen Ramos',
+            email: 'kristen.ramos@example.com',
+            imageUrl:
+                'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+        },
+        date: '2020-01-07',
+        dateFull: 'January 7, 2020',
+        stage: 'Completed phone screening',
+        href: '#',
+    },
+    {
+        applicant: {
+            name: 'Ted Fox',
+            email: 'ted.fox@example.com',
+            imageUrl:
+                'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+        },
+        date: '2020-01-07',
+        dateFull: 'January 7, 2020',
+        stage: 'Completed phone screening',
+        href: '#',
+    },
+]
+
+function PackageDisplay() {
+    return (
+        <div className="bg-white shadow overflow-hidden sm:rounded-md">
+            <ul role="list" className="divide-y divide-gray-200">
+                {applications.map((application) => (
+                    <li key={application.applicant.email}>
+                        <a href={application.href} className="block hover:bg-gray-50">
+                            <div className="flex items-center px-4 py-4 sm:px-6">
+                                <div className="min-w-0 flex-1 flex items-center">
+                                    <div className="flex-shrink-0">
+                                        <img className="h-12 w-12 rounded-full" src={application.applicant.imageUrl} alt="" />
+                                    </div>
+                                    <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+                                        <div>
+                                            <p className="text-sm font-medium text-indigo-600 truncate">{application.applicant.name}</p>
+                                            <p className="mt-2 flex items-center text-sm text-gray-500">
+                                                <GiMailbox className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                <span className="truncate">{application.applicant.email}</span>
+                                            </p>
+                                        </div>
+                                        <div className="hidden md:block">
+                                            <div>
+                                                <p className="text-sm text-gray-900">
+                                                    Applied on <time dateTime={application.date}>{application.dateFull}</time>
+                                                </p>
+                                                <p className="mt-2 flex items-center text-sm text-gray-500">
+                                                    <GiCheckMark className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400" aria-hidden="true" />
+                                                    {application.stage}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <GiDrop className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    )
+}
