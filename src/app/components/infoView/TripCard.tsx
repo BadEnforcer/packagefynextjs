@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 type tripDetails = {
     displayName: string,
@@ -22,12 +23,28 @@ export default function TripCard({key, tripInfo}: tripsShowcaseProps) {
             className="bg-white outline outline-[1px] outline-black/10 hover:ring-1 hover:ring-purple-500 hover:scale-[101%] overflow-hidden rounded-2xl px-2 py-2 sm:px-6 sm:rounded-md">
             <div className="md:hidden bg-white p-4 rounded-lg shadow-lg">
                 {/* Image Row */}
-                <div className="md:hidden">
-                    <img
-                        src={tripInfo.coverPhoto}
-                        alt={tripInfo.description}
-                        className="w-full h-48 object-cover rounded-t-lg"
-                    />
+                {/*<div className="md:hidden">*/}
+                {/*    <img*/}
+                {/*        src={tripInfo.coverPhoto}*/}
+                {/*        alt={tripInfo.description}*/}
+                {/*        className="w-full h-48 object-cover rounded-t-lg"*/}
+                {/*    />*/}
+                {/*</div>*/}
+
+
+                <div className="relative md:hidden">
+                    <div className={'h-48'}>
+                        <Image
+                            src={tripInfo.coverPhoto}
+                            alt={tripInfo.description}
+                            className="w-full h-48 object-cover rounded-t-lg"
+                            // height={200}
+                            // width={200}
+
+                            fill={true}
+                        />
+                    </div>
+
                 </div>
 
                 {/* Content Row */}
