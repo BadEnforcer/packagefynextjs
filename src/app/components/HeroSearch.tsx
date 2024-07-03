@@ -163,21 +163,21 @@ export default function HeroSearch() {
                         </div>
                     </div>
 
-                    <div className="mt-10 sm:mt-20 ">
-                        <div className={'hidden lg:block'}>
-                            {categories.map((categories, i) => {
-                                return (
-                                    <a
-                                        key={i}
-                                        className={'m-1 py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none'}
-                                        href={categories.href}
-                                    >
-                                        <categories.icon/>{categories.name}</a>
-                                )
-                            })}
-                        </div>
+                    {/*<div className="mt-10 sm:mt-20 ">*/}
+                    {/*    <div className={'hidden lg:block'}>*/}
+                    {/*        {categories.map((categories, i) => {*/}
+                    {/*            return (*/}
+                    {/*                <a*/}
+                    {/*                    key={i}*/}
+                    {/*                    className={'m-1 py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none'}*/}
+                    {/*                    href={categories.href}*/}
+                    {/*                >*/}
+                    {/*                    <categories.icon/>{categories.name}</a>*/}
+                    {/*            )*/}
+                    {/*        })}*/}
+                    {/*    </div>*/}
 
-                    </div>
+                    {/*</div>*/}
                 </div>
             </div>
         </section>

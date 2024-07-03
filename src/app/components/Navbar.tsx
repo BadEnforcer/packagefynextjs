@@ -52,18 +52,18 @@ export default function Navbar () {
                 <div id="navbar-collapse-with-animation"
                      className="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-end sm:ps-7">
-                        {navLinks.map((link, i) => {
-                            return (
-                                <Link
-                                    key={i}
-                                    href={link.href}
-                                    className={`link ${pathname === link.href ?  activeCss : inactiveCss}`}>
-                                    {link.name}</Link>
-                            )
-                        })}
+                        {/*{navLinks.map((link, i) => {*/}
+                        {/*    return (*/}
+                        {/*        <Link*/}
+                        {/*            key={i}*/}
+                        {/*            href={link.href}*/}
+                        {/*            className={`link ${pathname === link.href ?  activeCss : inactiveCss}`}>*/}
+                        {/*            {link.name}</Link>*/}
+                        {/*    )*/}
+                        {/*})}*/}
 
 
-                        <a className="flex items-center gap-x-2 font-medium text-white hover:text-blue-600 sm:border-s sm:border-gray-300 py-2 sm:py-0 sm:ms-4 sm:my-6 sm:ps-6"
+                        <a className="flex items-center gap-x-2 font-medium text-white hover:text-blue-600  py-2 sm:py-0 sm:ms-4 sm:my-6 sm:ps-6 bg-[rgba(255, 255, 255, 0.18)] backdrop-blur-sm lg:rounded-none lg:shadow-none lg:backdrop-blur-none"
                            href="/request-callback">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                                  stroke="currentColor" className="size-6">

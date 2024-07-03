@@ -25,12 +25,19 @@ export default function PackageCard({key, packageInfo}: tripsShowcaseProps) {
             {/*mobile*/}
             <div className="md:hidden bg-white p-4 rounded-lg shadow-lg">
                 {/* Image Row */}
-                <div className="md:hidden">
-                    <img
-                        src={packageInfo.coverPhoto}
-                        alt={packageInfo.description}
-                        className="w-full h-48 object-cover rounded-t-lg"
-                    />
+                <div className="relative md:hidden">
+                    <div className={'h-48'} >
+                        <Image
+                            src={packageInfo.coverPhoto}
+                            alt={packageInfo.description}
+                            className="w-full h-48 object-cover rounded-t-lg"
+                            // height={200}
+                            // width={200}
+
+                            fill={true}
+                        />
+                    </div>
+
                 </div>
 
                 {/* Content Row */}
