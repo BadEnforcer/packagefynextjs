@@ -1,5 +1,7 @@
 import type { Config } from "tailwindcss";
 
+import colors from 'tailwindcss/colors';
+
 const config: Config = {
 
   content: [
@@ -11,6 +13,11 @@ const config: Config = {
   theme: {
     darkMode: false,
     extend: {
+      colors: {
+        'warm-gray': colors.stone,
+        sky: colors.sky,
+        cyan: colors.cyan,
+      },
 
       keyframes: {
         bounce: {

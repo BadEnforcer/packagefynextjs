@@ -59,7 +59,7 @@ export default function HeroSection({params, locationsData}: SectionProps) {
                                         {params.destinationName.toUpperCase()}
                                     </h1>
                                     <h1 className="flex w-full items-center justify-center relative bottom-[63%]  text-[2vw] font-zasque text-white ">
-                                        The City of Love
+                                        The City of Light
                                     </h1>
                                 </div>
                             </div>

@@ -1,8 +1,11 @@
+"use client"
 import HeroSearch from "@/app/components/HeroSearch";
 import ImageGrid from "@/app/components/ImageGrid";
 import TripsWithPriceSlider from "@/app/components/TripsWithPriceSlider";
 import React from "react";
 import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
+import NewsLetter from "@/app/components/NewsLetter";
 
 
 const files = [
@@ -168,6 +171,8 @@ const content = [
     },
 ]
 
+const backgroundImage: string = 'https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg';
+
 
 export default function HomePage() {
 
@@ -177,7 +182,7 @@ export default function HomePage() {
                 <div
                     className={'absolute inset-0'}
                     style={{
-                        backgroundImage: `url(https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg?cs=srgb&dl=pexels-apasaric-325185.jpg&fm=jpg&w=5472&h=3648&_gl=1*10mnfjj*_ga*MTQ2OTk0NjY5OS4xNzE4ODgxNjk4*_ga_8JE65Q40S6*MTcxODg4NDE5Ny4yLjEuMTcxODg4NDI3MC4wLjAuMA..)`,
+                        backgroundImage: `url(${backgroundImage})`,
                         backgroundRepeat: 'no-repeat',
                         backgroundSize: 'cover',
                         backgroundPosition: 'center center',
@@ -194,6 +199,9 @@ export default function HomePage() {
                 <TripsWithPriceSlider heading={'Season Spots'} entries={content}/>
                 <TripsWithPriceSlider heading={'International Destinations'} entries={files} rtl={false}/>
             </section>
+
+            <NewsLetter />
+            <Footer />
         </>
     )
 }

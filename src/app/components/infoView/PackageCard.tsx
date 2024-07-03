@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 type tripDetails = {
@@ -10,10 +11,10 @@ type tripDetails = {
 
 type tripsShowcaseProps = {
     key: number
-    tripInfo: tripDetails
+    packageInfo: tripDetails
 }
 
-export default function TripCard({key, tripInfo}: tripsShowcaseProps) {
+export default function PackageCard({key, packageInfo}: tripsShowcaseProps) {
     const originalPrice = 10000
     const discountedPrice = 8700
 
@@ -23,17 +24,17 @@ export default function TripCard({key, tripInfo}: tripsShowcaseProps) {
             <div className="hidden md:grid grid-cols-5 gap-4 bg-white p-4 rounded-lg shadow-lg w-full">
                 <div className="col-span-2 flex-shrink-0 w-full h-0 pb-[60%] relative">
                     <img
-                        src={tripInfo.coverPhoto}
-                        alt={tripInfo.description}
+                        src={packageInfo.coverPhoto}
+                        alt={packageInfo.description}
                         className="absolute top-0 left-0 w-full h-full object-cover rounded-lg"
                     />
                 </div>
                 <div className="col-span-3 flex flex-col justify-between">
                     <div>
-                        <h2 className="text-xl font-bold text-gray-800">{tripInfo.displayName}</h2>
+                        <h2 className="text-xl font-bold text-gray-800">{packageInfo.displayName}</h2>
                     </div>
                     <div className="row-span-2 mt-2">
-                        <p className="text-gray-600">{tripInfo.description}</p>
+                        <p className="text-gray-600">{packageInfo.description}</p>
                     </div>
                     <div className="mt-4 grid grid-cols-2 items-center">
                         <div>
