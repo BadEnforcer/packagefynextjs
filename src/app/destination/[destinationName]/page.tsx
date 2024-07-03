@@ -1,14 +1,33 @@
 "use client"
-
-import HeroImage from '@/app/components/infoView/HeroImage'
-import Description from "@/app/components/infoView/Description";
-import PackageCard from '@/app/components/infoView/PackageCard';
-import ContactFormSidebar from "@/app/components/infoView/ContactFormSidebar";
-import Contact from "@/app/components/infoView/Contact";
 import React from "react";
-import Footer from "@/app/components/Footer";
-import NewsLetter from "@/app/components/NewsLetter";
-import TripCard from "@/app/components/infoView/TripCard";
+
+import dynamic from "next/dynamic";
+import SpinnerFullScreen from "@/app/components/FullScreenSpinner";
+import ParagraphSkeleton from "@/app/components/ParagraphSkeleton";
+
+
+const HeroImage = dynamic(() => import('@/app/components/infoView/HeroImage'),
+    {
+        loading: () => <SpinnerFullScreen />,
+    }
+    )
+const Description = dynamic(() => import('@/app/components/infoView/Description'),
+    {loading: () => {return <ParagraphSkeleton />}})
+const PackageCard = dynamic(() => import('@/app/components/infoView/PackageCard'),
+    {
+        loading: () => (<ParagraphSkeleton />)
+
+    }
+    )
+const ContactFormSidebar = dynamic(() => import('@/app/components/infoView/ContactFormSidebar'))
+const Contact = dynamic(() => import('@/app/components/infoView/Contact'))
+const Footer = dynamic(() => import('@/app/components/Footer'))
+const NewsLetter = dynamic(() => import('@/app/components/NewsLetter'), {loading: () => {return <ParagraphSkeleton />}})
+const TripCard = dynamic(() => import('@/app/components/infoView/TripCard'),
+    {
+    loading: () => (<ParagraphSkeleton />)
+    }
+)
 
 
 type LocationData = {
@@ -33,17 +52,14 @@ const data: LocationData[] = [
 
 const descriptionParagraphs = [
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Blandit massa enim nec dui. Arcu cursus euismod quis viverra. Euismod nisi porta lorem mollis aliquam ut porttitor leo. Quis vel eros donec ac odio tempor orci dapibus. Ultrices gravida dictum fusce ut. Felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices. At ultrices mi tempus imperdiet nulla malesuada pellentesque elit. Quisque egestas diam in arcu cursus euismod quis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc.",
-    "Nunc mattis enim ut tellus. Pellentesque eu tincidunt tortor aliquam nulla facilisi. Ornare lectus sit amet est. Et molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit. Aliquam malesuada bibendum arcu vitae elementum curabitur vitae nunc. Etiam sit amet nisl purus in mollis nunc sed. Tristique senectus et netus et malesuada. Suspendisse ultrices gravida dictum fusce ut. Sed elementum tempus egestas sed. Scelerisque purus semper eget duis at. Bibendum enim facilisis gravida neque convallis. Ornare arcu dui vivamus arcu felis. Eget felis eget nunc lobortis. Nec sagittis aliquam malesuada bibendum arcu vitae elementum. Tincidunt id aliquet risus feugiat in ante. Praesent semper feugiat nibh sed pulvinar proin. Turpis tincidunt id aliquet risus feugiat.",
-    "Arcu cursus euismod quis viverra nibh cras pulvinar mattis nunc. Sed pulvinar proin gravida hendrerit lectus. Mauris ultrices eros in cursus turpis massa tincidunt dui ut. Scelerisque eu ultrices vitae auctor eu augue ut lectus arcu. Libero enim sed faucibus turpis in eu mi bibendum. Cras ornare arcu dui vivamus arcu felis. A arcu cursus vitae congue mauris rhoncus. Eget duis at tellus at urna condimentum. Eros in cursus turpis massa tincidunt. Mattis nunc sed blandit libero volutpat sed cras ornare. Risus at ultrices mi tempus imperdiet nulla malesuada. Urna nec tincidunt praesent semper feugiat nibh sed. Integer quis auctor elit sed vulputate. Rhoncus est pellentesque elit ullamcorper dignissim cras. Justo eget magna fermentum iaculis. Integer quis auctor elit sed vulputate. Commodo odio aenean sed adipiscing. Cursus sit amet dictum sit. Bibendum at varius vel pharetra vel turpis nunc eget.",
-    "Massa tincidunt dui ut ornare lectus sit amet est placerat. Mollis nunc sed id semper. Urna nec tincidunt praesent semper feugiat nibh sed. Nisi lacus sed viverra tellus in hac habitasse platea dictumst. Porta lorem mollis aliquam ut porttitor leo a diam. Facilisis gravida neque convallis a cras semper auctor neque vitae. Nulla facilisi nullam vehicula ipsum. Purus sit amet luctus venenatis lectus magna. Interdum velit euismod in pellentesque. Nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet. Auctor urna nunc id cursus metus aliquam eleifend mi. Fermentum posuere urna nec tincidunt praesent semper feugiat. Ac tortor dignissim convallis aenean. Lacinia at quis risus sed vulputate odio ut enim blandit. Lorem sed risus ultricies tristique nulla. At volutpat diam ut venenatis tellus. Sed id semper risus in hendrerit gravida rutrum quisque non. Consequat mauris nunc congue nisi vitae suscipit tellus mauris a.",
-    "Sollicitudin tempor id eu nisl nunc mi ipsum faucibus vitae. Cursus metus aliquam eleifend mi in. Sed viverra ipsum nunc aliquet bibendum enim facilisis gravida. Tortor posuere ac ut consequat. Purus non enim praesent elementum facilisis. Porttitor leo a diam sollicitudin tempor id eu nisl. Sed sed risus pretium quam vulputate dignissim suspendisse in. Facilisis sed odio morbi quis commodo odio aenean sed. Id venenatis a condimentum vitae sapien pellentesque. At elementum eu facilisis sed odio morbi. Ac placerat vestibulum lectus mauris ultrices eros. Pellentesque habitant morbi tristique senectus. Volutpat odio facilisis mauris sit amet massa. Sagittis id consectetur purus ut. Odio ut sem nulla pharetra. Nisi vitae suscipit tellus mauris a diam maecenas. Massa tempor nec feugiat nisl pretium fusce id velit ut. Felis imperdiet proin fermentum leo vel. Nibh sit amet commodo nulla facilisi. Sit amet mattis vulputate enim."
+"Sollicitudin tempor id eu nisl nunc mi ipsum faucibus vitae. Cursus metus aliquam eleifend mi in. Sed viverra ipsum nunc aliquet bibendum enim facilisis gravida. Tortor posuere ac ut consequat. Purus non enim praesent elementum facilisis. Porttitor leo a diam sollicitudin tempor id eu nisl. Sed sed risus pretium quam vulputate dignissim suspendisse in. Facilisis sed odio morbi quis commodo odio aenean sed. Id venenatis a condimentum vitae sapien pellentesque. At elementum eu facilisis sed odio morbi. Ac placerat vestibulum lectus mauris ultrices eros. Pellentesque habitant morbi tristique senectus. Volutpat odio facilisis mauris sit amet massa. Sagittis id consectetur purus ut. Odio ut sem nulla pharetra. Nisi vitae suscipit tellus mauris a diam maecenas. Massa tempor nec feugiat nisl pretium fusce id velit ut. Felis imperdiet proin fermentum leo vel. Nibh sit amet commodo nulla facilisi. Sit amet mattis vulputate enim."
 ]
 
 
 
-type SectionProps = {
-    params: { destinationName: string }
-}
+// type SectionProps = {
+//     params: { destinationName: string }
+// }
 
 
 

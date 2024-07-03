@@ -1,25 +1,25 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
-import Link from 'next/link'
+// import { usePathname } from 'next/navigation'
+
 import logo from '../packagefy.svg'
 import Image from "next/image";
 
-const activeCss:string = 'py-3 ps-px sm:px-3 font-medium text-blue-600'
-const inactiveCss:string = 'py-3 ps-px sm:px-3 font-medium text-white hover:text-gray-400'
+// const activeCss:string = 'py-3 ps-px sm:px-3 font-medium text-blue-600'
+// const inactiveCss:string = 'py-3 ps-px sm:px-3 font-medium text-white hover:text-gray-400'
 
-type navLinks = {
-    name: string,
-    href: string
-}
+// type navLinks = {
+//     name: string,
+//     href: string
+// }
 
-const navLinks: navLinks[] = [
-    {name: "Locations", href: "/locations" },
-    {name: "Trips", href: "/trips" },
-]
+// const navLinks: navLinks[] = [
+//     {name: "Locations", href: "/locations" },
+//     {name: "Trips", href: "/trips" },
+// ]
 
 export default function Navbar () {
-    const pathname = usePathname()
+    // const pathname = usePathname()
 
     return (
         <header

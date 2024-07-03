@@ -5,9 +5,12 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
-
+.firebaserc
 # testing
 /coverage
+.idea
+/.idea
+./idea
 
 # next.js
 /.next/

@@ -1,10 +1,5 @@
 import Image from "next/image";
-const navigation = [
-    { name: 'Changelog', href: '#' },
-    { name: 'About', href: '#' },
-    { name: 'Partners', href: '#' },
-    { name: 'News', href: '#' },
-]
+
 const contactDetails = [
     { name: 'Collaborate', email: 'support@example.com', telephone: '+1 (555) 123-4567' },
     { name: 'Press', email: 'support@example.com', telephone: '+1 (555) 123-4567' },

@@ -12,10 +12,10 @@ export default function Description ({params, paragraphs}: DescriptionProps) {
                 <h3 className="text-3xl leading-6 font-bold text-gray-900">Explore { params.destinationName.slice(0)[0].toUpperCase() + params.destinationName.slice(1)} with Packagefy</h3>
             </div>
             <div className={'flex items-center justify-center pt-4'}>
-                <div className={'grid gap-y-6 w-full text-xl'}>
+                <div className={'grid gap-y-6 w-full text-xl '}>
                     {paragraphs.map((paragraph, i) => {
                         return (
-                            <p key={i}>{paragraph}</p>
+                            <p className={'line-clamp-5 lg:line-clamp-none'} key={i}>{paragraph}</p>
                         )
                     })}
                 </div>

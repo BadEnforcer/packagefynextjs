@@ -1,30 +1,45 @@
 "use client"
 import { useRouter } from 'next/navigation'
-import { GiCampingTent } from "react-icons/gi";
-import { PiHeart } from "react-icons/pi";
-import { GiBackpack } from "react-icons/gi";
-import { PiAirplaneTiltThin } from "react-icons/pi";
-import { PiHandshakeThin } from "react-icons/pi";
 import { CiSearch } from "react-icons/ci";
-import {IconType} from "react-icons";
+// import {IconBaseProps} from "react-icons";
 import React from "react";
 import {Combobox, ComboboxInput, ComboboxOption} from '@headlessui/react'
+// import dynamic from "next/dynamic";
 
-type CategoryElement = {
-    name: string,
-    icon: IconType,
-    href: string
-}
 
-const categories:CategoryElement[] = [
-    { name: "Camping", href: "/trips/camping", icon:GiCampingTent },
-    { name: "Honeymoon", href: "/trips/honeymoon", icon:PiHeart },
-    { name: "Backpacking", href: "/trips/backpacking", icon:GiBackpack },
-    { name: "International", href: "/trips/international", icon:PiAirplaneTiltThin },
-    { name: "Corporate", href: "/trips/corporate", icon:PiHandshakeThin },
-    // { name: "Camping", href: "/camping", icon:GiCampingTent },
-    // { name: "Camping", href: "/camping", icon:GiCampingTent },
-];
+// const GiCampingTent = dynamic(() =>
+//     import('react-icons/gi').then((mod) => mod.GiCampingTent))
+//
+//
+// const PiHeart = dynamic(() =>
+//     import('react-icons/pi').then((mod) => mod.PiHeart))
+//
+// const GiBackpack = dynamic(() =>
+//     import('react-icons/gi').then((mod) => mod.GiBackpack))
+//
+//
+// const PiAirplaneTiltThin = dynamic(() =>
+//     import('react-icons/pi').then((mod) => mod.PiAirplaneTiltThin))
+//
+// const PiHandshakeThin = dynamic(() =>
+//     import('react-icons/pi').then((mod) => mod.PiHandshakeThin))
+//
+
+// type CategoryElement = {
+//     name: string,
+//     icon: ComponentType<IconBaseProps>,
+//     href: string
+// }
+
+// const categories:CategoryElement[] = [
+//     { name: "Camping", href: "/trips/camping", icon:GiCampingTent },
+//     { name: "Honeymoon", href: "/trips/honeymoon", icon:PiHeart },
+//     { name: "Backpacking", href: "/trips/backpacking", icon:GiBackpack },
+//     { name: "International", href: "/trips/international", icon:PiAirplaneTiltThin },
+//     { name: "Corporate", href: "/trips/corporate", icon:PiHandshakeThin },
+//     // { name: "Camping", href: "/camping", icon:GiCampingTent },
+//     // { name: "Camping", href: "/camping", icon:GiCampingTent },
+// ];
 
 interface visitingLocations {
     id: number,
@@ -121,10 +136,10 @@ export default function HeroSearch() {
                                             <ComboboxOption
                                                 key={person.id}
                                                 value={person}
-                                                className={({ active }) =>
+                                                className={({ focus }) =>
                                                     classNames(
                                                         ' flex justify-start cursor-default select-none px-4 py-2',
-                                                        active && 'bg-indigo-600 text-white'
+                                                        focus && 'bg-indigo-600 text-white'
                                                     )
                                                 }
                                             >

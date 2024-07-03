@@ -1,7 +1,14 @@
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
+
+import React from "react";
+import dynamic from "next/dynamic";
+
+const ChevronDownIcon = dynamic(() =>
+    import('@heroicons/react/20/solid').then((mod) => mod.ChevronDownIcon))
+
 export default function ContactFormSidebar() {
+
     return (
-        <div className="isolate bg-white px-6  sm:py-32 lg:px-8">
+        <div className="isolate bg-white px-6  sm:py-32 lg:px-8" >
             <div
                 className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
                 aria-hidden="true"

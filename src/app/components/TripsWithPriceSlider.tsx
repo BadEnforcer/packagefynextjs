@@ -145,10 +145,10 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
                                         <Image src={entry.imageSrc} alt={entry.title}
                                                fill={true}
                                                content={'contain'}
-
+                                               placeholder={'blur'}
+                                               blurDataURL={'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII='}
                                             // width={300}
                                             // height={300}
-
                                                className="pointer-events-none group-hover:opacity-75 "/>
                                         <button type="button" className="absolute inset-0 focus:outline-none">
                                             <span
