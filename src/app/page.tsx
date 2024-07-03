@@ -200,7 +200,7 @@ export default function HomePage() {
                 <TripsWithPriceSlider heading={'International Destinations'} entries={files} rtl={false}/>
             </section>
 
-            <NewsLetter />
+            <NewsLetter marginT={20} />
             <Footer />
         </>
     )
