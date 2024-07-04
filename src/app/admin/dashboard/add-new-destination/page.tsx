@@ -1,18 +1,15 @@
 "use client"
-
 import React, {useEffect, useState} from "react";
-
-
-//
 import {toast} from "react-toastify";
 import {getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import {FirebaseError} from "@firebase/app";
-import {doc, getDoc, setDoc} from "firebase/firestore";
+import {doc, getDoc, runTransaction } from "firebase/firestore";
 import firebase from "../../../../../firebase";
 import {useRouter} from "next/navigation";
 
 
 import dynamic from 'next/dynamic';
+import {uuidv4} from "@firebase/util";
 
 const PhotoIcon = dynamic(() => import('@heroicons/react/24/solid').then(mod => mod.PhotoIcon));
 const Footer = dynamic(() => import('@/app/components/Footer'));
@@ -20,36 +17,34 @@ const Footer = dynamic(() => import('@/app/components/Footer'));
 const ToastContainer = dynamic(() => import("react-toastify").then(mod => mod.ToastContainer));
 
 
-
-
-
-
-
-// type DestinationData = {
-//     id: string,
-//     name: string,
-//     description: string,
-//     coverImageUrl: string,
-//     coverImageBase64: string,
-// }
+type searchListDocument ={
+    entries : {
+        id: string,
+        destinationName: string,
+        destinationId: string,
+    }[]
+}
 
 
 export default function AddNewDestinationPage() {
-    const [destinationId, setDestinationId] = useState<string>();
-    const [destinationName, setDestinationName] = useState<string>();
-    const [destinationDescription, setDestinationDescription] = useState<string>();
+    const [destinationId, setDestinationId] = useState<string>('');
+    const [destinationName, setDestinationName] = useState<string>('');
+    const [destinationDescription, setDestinationDescription] = useState<string>('');
     const [coverPhoto, setCoverPhoto] = useState<File>();
     const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
     const router = useRouter();
 
+
     useEffect(() => {
-        if (firebase.auth.currentUser) {
-            console.log('User is signed in', firebase.auth.currentUser.displayName);
-        } else {
-            router.push('/admin?message=Please Login&src=/admin/dashboard/add-new-destination');
-        }
-    })
+        const unsubscribe = firebase.auth.onAuthStateChanged(user => {
+            if (!user) {
+                router.push(`/admin?message=Please Login&src=/admin/dashboard/add-new-destination`);
+            }
+        });
+
+        return () => unsubscribe();
+    }, [router]);
 
 
     async function handleNewDestination(e: React.FormEvent<HTMLFormElement>) {
@@ -64,7 +59,7 @@ export default function AddNewDestinationPage() {
 
         setIsProcessing(true) // disable button
 
-        const docRef = doc(firebase.db, "destinations", destinationId);
+        const docRef = doc(firebase.db, "destinations", destinationId.toLowerCase());
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
             toast.error('A Destination with Same ID Exists.')
@@ -88,23 +83,84 @@ export default function AddNewDestinationPage() {
             toast.success('Image uploaded successfully.');
 
 
-            // uploaded information
-            await setDoc(doc(firebase.db, "destinations", destinationId), {
-                id: destinationId,
-                name: destinationName,
-                description: destinationDescription,
-                coverImageUrl: await getDownloadURL(newCoverImageRef),
-                packages: [],
-                trips: [],
-                created: new Date().toISOString(),
-                modified: new Date().toISOString(),
-                version: 0,
-                modificationInfo : {
-                    createdBy: firebase.auth.currentUser?.email,
-                    lastModifiedBy: firebase.auth.currentUser?.email,
+            // START A TRANSACTION
+            const searchListRef = doc(firebase.db, "search", "list");
+            await runTransaction(firebase.db, async (transaction) => {
+                const searchListDoc = await transaction.get(searchListRef);
+
+                // if search list does not exist.
+
+                if (!searchListDoc.exists()) {
+
+                    transaction.set(searchListRef, {
+                        entries : [{id: uuidv4(), name:destinationName, destinationId: destinationId}]
+                    });
+                    // uploaded information
+
+
+                    transaction.set(doc(firebase.db, "destination", destinationId), {
+                        id: destinationId.toLowerCase(),
+                        name: destinationName,
+                        description: destinationDescription,
+                        coverImageUrl: await getDownloadURL(newCoverImageRef),
+                        fileName: `${destinationId}.${fileExtension}`, // filename for delete operation
+                        packages: [],
+                        created: new Date(),
+                        modified: new Date(),
+                        version: 0,
+                        modificationInfo : {
+                            createdBy: firebase.auth.currentUser?.email,
+                            lastModifiedBy: firebase.auth.currentUser?.email,
+                        }
+
+                    });
+
+                } else {
+                    // if search list exists
+                    const searchListData = searchListDoc.data() as searchListDocument; //extract data
+
+                    // Convert array to set
+                    const entriesSet = new Set(searchListData.entries.map(entry => JSON.stringify(entry)));
+
+                    // New data to be added
+                    const newData = { id: uuidv4(), name: destinationName, destinationId: destinationId };
+
+                    // Replace existing entry or add it
+                    entriesSet.delete(JSON.stringify(newData)); // Remove if it exists
+                    entriesSet.add(JSON.stringify(newData)); // Add new data
+
+                    // Convert back to array
+                    const updatedEntries = Array.from(entriesSet).map(entry => JSON.parse(entry));
+
+                    // Updated searchListDocument
+                    const updatedSearchListData: searchListDocument = {
+                        entries: updatedEntries
+                    };
+
+
+                    transaction.set(doc(firebase.db, "destination", destinationId), {
+                        id: destinationId.toLowerCase(),
+                        name: destinationName,
+                        description: destinationDescription,
+                        coverImageUrl: await getDownloadURL(newCoverImageRef),
+                        fileName: `${destinationId}.${fileExtension}`, // filename for delete operation
+                        packages: [],
+                        created: new Date(),
+                        modified: new Date(),
+                        version: 0,
+                        modificationInfo : {
+                            createdBy: firebase.auth.currentUser?.email,
+                            lastModifiedBy: firebase.auth.currentUser?.email,
+                        }
+
+                    });
+                    transaction.set(searchListRef, updatedSearchListData); // update the search list
+
                 }
 
-            });
+            })
+
+
 
             toast.success('Successfully uploaded successfully.');
 
@@ -152,10 +208,10 @@ export default function AddNewDestinationPage() {
                                             id="destination-id"
                                             autoComplete="off"
                                             required
-                                            value={destinationId}
+                                            value={destinationId?.toLowerCase()}
                                             className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                             placeholder="destination-id"
-                                            onChange={(e) => setDestinationId(e.target.value ? e.target.value : undefined)}
+                                            onChange={(e) => setDestinationId(e.target.value.toLowerCase() ? e.target.value.toLowerCase() : '')}
                                         />
                                     </div>
                                 </div>
@@ -181,7 +237,7 @@ export default function AddNewDestinationPage() {
                                             autoComplete="off"
                                             className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                             placeholder="New York"
-                                            onChange={(e) => setDestinationName(e.target.value ? e.target.value : undefined)}
+                                            onChange={(e) => setDestinationName(e.target.value ? e.target.value : '')}
                                         />
                                     </div>
                                 </div>
@@ -201,7 +257,7 @@ export default function AddNewDestinationPage() {
                     name="destination-description"
                     rows={5}
                     value={destinationDescription}
-                    onChange={(e) => setDestinationDescription(e.target.value ? e.target.value : undefined)}
+                    onChange={(e) => setDestinationDescription(e.target.value ? e.target.value : '')}
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     placeholder={'A Brief Description'}

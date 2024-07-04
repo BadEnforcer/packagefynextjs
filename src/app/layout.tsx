@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import dynamic from "next/dynamic";
 import 'react-toastify/dist/ReactToastify.css';
+import {ToastContainer} from "react-toastify";
 
 const PrelineScript = dynamic(() => import('./components/PrelineScript'))
 
@@ -28,6 +29,7 @@ export default function RootLayout({
         <html lang="en">
         <SpeedInsights/>
         <body className={inter.className}>
+        <ToastContainer />
 
         {children}
         <PrelineScript/>

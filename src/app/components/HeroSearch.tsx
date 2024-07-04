@@ -1,85 +1,27 @@
 "use client"
 import { useRouter } from 'next/navigation'
 import { CiSearch } from "react-icons/ci";
-// import {IconBaseProps} from "react-icons";
-import React from "react";
+import React, {useEffect} from "react";
 import {Combobox, ComboboxInput, ComboboxOption} from '@headlessui/react'
-// import dynamic from "next/dynamic";
+import {doc, getDoc} from "firebase/firestore";
+import firebase from "../../../firebase";
+import {toast} from "react-toastify";
 
-
-// const GiCampingTent = dynamic(() =>
-//     import('react-icons/gi').then((mod) => mod.GiCampingTent))
-//
-//
-// const PiHeart = dynamic(() =>
-//     import('react-icons/pi').then((mod) => mod.PiHeart))
-//
-// const GiBackpack = dynamic(() =>
-//     import('react-icons/gi').then((mod) => mod.GiBackpack))
-//
-//
-// const PiAirplaneTiltThin = dynamic(() =>
-//     import('react-icons/pi').then((mod) => mod.PiAirplaneTiltThin))
-//
-// const PiHandshakeThin = dynamic(() =>
-//     import('react-icons/pi').then((mod) => mod.PiHandshakeThin))
-//
-
-// type CategoryElement = {
-//     name: string,
-//     icon: ComponentType<IconBaseProps>,
-//     href: string
-// }
-
-// const categories:CategoryElement[] = [
-//     { name: "Camping", href: "/trips/camping", icon:GiCampingTent },
-//     { name: "Honeymoon", href: "/trips/honeymoon", icon:PiHeart },
-//     { name: "Backpacking", href: "/trips/backpacking", icon:GiBackpack },
-//     { name: "International", href: "/trips/international", icon:PiAirplaneTiltThin },
-//     { name: "Corporate", href: "/trips/corporate", icon:PiHandshakeThin },
-//     // { name: "Camping", href: "/camping", icon:GiCampingTent },
-//     // { name: "Camping", href: "/camping", icon:GiCampingTent },
-// ];
 
 interface visitingLocations {
-    id: number,
+    id: string,
     name: string,
     url: string,
 }
 
-const locations:visitingLocations[] = [
-    { id: 1, name: 'New York, USA', url: '/new-york' },
-    { id: 2, name: 'Los Angeles, USA', url: '/los-angeles' },
-    { id: 3, name: 'London, UK', url: '/london' },
-    { id: 4, name: 'Paris, France', url: '/paris' },
-    { id: 5, name: 'Tokyo, Japan', url: '/tokyo' },
-    { id: 6, name: 'Sydney, Australia', url: '/sydney' },
-    { id: 7, name: 'Rio de Janeiro, Brazil', url: '/rio-de-janeiro' },
-    { id: 8, name: 'Cape Town, South Africa', url: '/cape-town' },
-    { id: 9, name: 'Dubai, UAE', url: '/dubai' },
-    { id: 10, name: 'New Delhi, India', url: '/new-delhi' },
-    { id: 11, name: 'Rome, Italy', url: '/rome' },
-    { id: 12, name: 'Bangkok, Thailand', url: '/bangkok' },
-    { id: 13, name: 'Moscow, Russia', url: '/moscow' },
-    { id: 14, name: 'Berlin, Germany', url: '/berlin' },
-    { id: 15, name: 'Cairo, Egypt', url: '/cairo' },
-    { id: 16, name: 'Mexico City, Mexico', url: '/mexico-city' },
-    { id: 17, name: 'Toronto, Canada', url: '/toronto' },
-    { id: 18, name: 'Singapore', url: '/singapore' },
-    { id: 19, name: 'Seoul, South Korea', url: '/seoul' },
-    { id: 20, name: 'Barcelona, Spain', url: '/barcelona' },
-    { id: 21, name: 'Amsterdam, Netherlands', url: '/amsterdam' },
-    { id: 22, name: 'Istanbul, Turkey', url: '/istanbul' },
-    { id: 23, name: 'Buenos Aires, Argentina', url: '/buenos-aires' },
-    { id: 24, name: 'Mumbai, India', url: '/mumbai' },
-    { id: 25, name: 'Hong Kong', url: '/hong-kong' },
-    { id: 26, name: 'Venice, Italy', url: '/venice' },
-    { id: 27, name: 'San Francisco, USA', url: '/san-francisco' },
-    { id: 28, name: 'Athens, Greece', url: '/athens' },
-    { id: 29, name: 'Kyoto, Japan', url: '/kyoto' },
-    { id: 30, name: 'Cusco, Peru', url: '/cusco' }
-    // Add more locations as needed
-];
+
+type searchListDocument ={
+    entries : {
+        id: string,
+        destinationName: string,
+        destinationId: string,
+    }[]
+}
 
 
 function classNames(...classes: (string | boolean)[]) {
@@ -87,15 +29,39 @@ function classNames(...classes: (string | boolean)[]) {
 }
 
 export default function HeroSearch() {
+    const [locations, setLocations] = React.useState<searchListDocument>({entries: [{id: '0', destinationName: 'Search is down right now', destinationId: '404Err'}]})
+    const [loading, setLoading] = React.useState<boolean>(true)
     const router = useRouter();
     const [query, setQuery] = React.useState('')
+
+    useEffect(() => {
+        const docRef = doc(firebase.db, "search", "list");
+
+        try {
+            getDoc(docRef).then((docSnapshot) => {
+                if (!docSnapshot.exists()) {
+                    toast.info("Search is down for maintenance.")
+                }
+
+                // if search list exists
+                setLocations(docSnapshot.data() as searchListDocument);
+                console.log(docSnapshot.data())
+                setLoading(false)
+
+            })
+
+        } catch (err) {
+            toast.error("Invalid ID or Entry does not exist in Database.")
+        }
+
+    }, []);
 
 
     const filteredLocations =
         query === ''
             ? []
-            : locations.filter((location) => {
-                return location.name.toLowerCase().includes(query.toLowerCase())
+            : locations.entries.filter((location) => {
+                return location.destinationId.includes(query.toLowerCase())
             }).slice(0, 4) // only gives top 4
 
     return (
@@ -115,7 +81,7 @@ export default function HeroSearch() {
                         <Combobox
                             as="div"
                             className={"z-10 bg-white rounded-2xl mx-auto max-w-xl relative"} // Added relative positioning to parent div
-                            onChange={(location:visitingLocations) => location?.url ? router.push('/destination'+ location.url) : null}
+                            onChange={(location:visitingLocations) => location !== null  ? router.push('/destination'+ location.url) : ''}
                         >
                             <div className="relative">
                                 <CiSearch
@@ -123,19 +89,20 @@ export default function HeroSearch() {
                                     aria-hidden="true"
                                 />
                                 <ComboboxInput
-                                    className="h-12 rounded-lg w-full focus-visible:outline-0 border-0 bg-transparent pl-11 pr-4 text-sm text-gray-800 placeholder-gray-400 focus:ring-0"
+                                    disabled={loading}
+                                    className="h-12 rounded-lg w-full disabled:bg-neutral-500 focus-visible:outline-0 border-0 bg-transparent pl-11 pr-4 text-sm text-gray-800 placeholder-gray-400 focus:ring-0"
                                     placeholder="Search..."
-                                    onChange={(event) => setQuery(event.target.value)}
+                                    onChange={(event) => setQuery(event.target.value ? event.target.value : '')}
                                 />
                             </div>
 
                             {filteredLocations.length > 0 && (
                                 <div className="rounded-lg absolute w-full max-h-72 overflow-y-auto bg-white rounded-b-xl shadow-lg border border-gray-200 mt-1">
                                     <div className="py-3 text-sm text-gray-800">
-                                        {filteredLocations.map((person) => (
+                                        {filteredLocations.map((location) => (
                                             <ComboboxOption
-                                                key={person.id}
-                                                value={person}
+                                                key={location.id}
+                                                value={location}
                                                 className={({ focus }) =>
                                                     classNames(
                                                         ' flex justify-start cursor-default select-none px-4 py-2',
@@ -143,7 +110,7 @@ export default function HeroSearch() {
                                                     )
                                                 }
                                             >
-                                                {person.name}
+                                                {location.destinationName}
                                             </ComboboxOption>
                                         ))}
                                     </div>
@@ -178,21 +145,6 @@ export default function HeroSearch() {
                         </div>
                     </div>
 
-                    {/*<div className="mt-10 sm:mt-20 ">*/}
-                    {/*    <div className={'hidden lg:block'}>*/}
-                    {/*        {categories.map((categories, i) => {*/}
-                    {/*            return (*/}
-                    {/*                <a*/}
-                    {/*                    key={i}*/}
-                    {/*                    className={'m-1 py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none'}*/}
-                    {/*                    href={categories.href}*/}
-                    {/*                >*/}
-                    {/*                    <categories.icon/>{categories.name}</a>*/}
-                    {/*            )*/}
-                    {/*        })}*/}
-                    {/*    </div>*/}
-
-                    {/*</div>*/}
                 </div>
             </div>
         </section>

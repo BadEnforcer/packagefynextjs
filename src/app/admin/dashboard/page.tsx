@@ -9,12 +9,14 @@ export default function AdminDashboard() {
 
 
     useEffect(() => {
-        if (firebase.auth.currentUser) {
-            console.log('User is signed in', firebase.auth.currentUser.displayName);
-        } else {
-            router.push('/admin?message=Please Login.')
-        }
-    })
+        const unsubscribe = firebase.auth.onAuthStateChanged(user => {
+            if (!user) {
+                router.push(`/admin?message=Please Login`);
+            }
+        });
+
+        return () => unsubscribe();
+    }, [router]);
 
     return (
         <>
