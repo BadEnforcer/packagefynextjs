@@ -1,20 +1,7 @@
-/* This example requires Tailwind CSS v2.0+ */
-
-import dynamic from "next/dynamic";
-
-const Footer = dynamic(() => import('@/app/components/Footer'))
-
 export default function Err404() {
     return (
         <>
-            {/*
-        This example requires updating your template:
 
-        ```
-        <html class="h-full">
-        <body class="h-full">
-        ```
-      */}
             <div className="grid w-screen h-screen items-center justify-center  bg-white">
                 <main className="flex-grow flex flex-col justify-center max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex-shrink-0 flex justify-center">
