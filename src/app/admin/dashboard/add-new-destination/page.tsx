@@ -94,6 +94,8 @@ export default function AddNewDestinationPage() {
                 name: destinationName,
                 description: destinationDescription,
                 coverImageUrl: await getDownloadURL(newCoverImageRef),
+                packages: [],
+                trips: [],
                 created: new Date().toISOString(),
                 modified: new Date().toISOString(),
                 version: 0,

@@ -1,22 +1,35 @@
 import Image from "next/image";
 import React from "react";
 
-type tripDetails = {
-    displayName: string,
-    id: string,
-    description: string,
-    totalDistance: number,
-    coverPhoto: string,
+
+type Package = {
+    id:string
+    name:string
+    coverImageUrl:string
+    originalPrice:string
+    discountedPrice:string
+    description:string
+    itinerary:
+        {
+            heading: string,
+            description: string,
+        }[]
+    inclusions: string[]
+    Exclusions: string[]
 }
 
 type tripsShowcaseProps = {
     key: number
-    packageInfo: tripDetails
+    packageInfo?: Package
 }
 
 export default function PackageCard({key, packageInfo}: tripsShowcaseProps) {
     const originalPrice = 10000
     const discountedPrice = 8700
+
+    if (!packageInfo) {
+        return (<></>)
+    }
 
     return (
         <li key={key}
@@ -28,7 +41,7 @@ export default function PackageCard({key, packageInfo}: tripsShowcaseProps) {
                 <div className="relative md:hidden">
                     <div className={'h-48'} >
                         <Image
-                            src={packageInfo.coverPhoto}
+                            src={packageInfo.coverImageUrl}
                             alt={packageInfo.description}
                             className="w-full h-48 object-cover rounded-t-lg"
                             // height={200}
@@ -45,7 +58,7 @@ export default function PackageCard({key, packageInfo}: tripsShowcaseProps) {
                     {/* Image for Medium and Larger Screens */}
                     <div className="hidden md:flex md:w-1/3">
                         <img
-                            src={packageInfo.coverPhoto}
+                            src={packageInfo.coverImageUrl}
                             alt={packageInfo.description}
                             className="w-full h-full object-cover rounded-lg"
                         />
@@ -54,7 +67,7 @@ export default function PackageCard({key, packageInfo}: tripsShowcaseProps) {
                     {/* Content */}
                     <div className="md:w-2/3 md:ml-4 flex flex-col justify-between">
                         <div>
-                            <h2 className="text-xl font-bold text-gray-800">{packageInfo.displayName}</h2>
+                            <h2 className="text-xl font-bold text-gray-800">{packageInfo.name}</h2>
                             <p className="text-gray-600">{packageInfo.description}</p>
                         </div>
                         <div className="mt-4">
@@ -72,14 +85,14 @@ export default function PackageCard({key, packageInfo}: tripsShowcaseProps) {
             <div className="hidden md:grid grid-cols-5 gap-4 bg-white p-4 rounded-lg shadow-lg w-full">
                 <div className="col-span-2 flex-shrink-0 w-full h-0 pb-[60%] relative">
                     <img
-                        src={packageInfo.coverPhoto}
+                        src={packageInfo.coverImageUrl}
                         alt={packageInfo.description}
                         className="absolute top-0 left-0 w-full h-full object-cover rounded-lg"
                     />
                 </div>
                 <div className="col-span-3 flex flex-col justify-between">
                     <div>
-                        <h2 className="text-xl font-bold text-gray-800">{packageInfo.displayName}</h2>
+                        <h2 className="text-xl font-bold text-gray-800">{packageInfo.coverImageUrl}</h2>
                     </div>
                     <div className="row-span-2 mt-2">
                         <p className="text-gray-600">{packageInfo.description}</p>
