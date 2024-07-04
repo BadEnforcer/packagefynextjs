@@ -2,7 +2,7 @@
 
 // import { usePathname } from 'next/navigation'
 
-import logo from '../packagefy.svg'
+import logo from '../newlogo.svg'
 import Image from "next/image";
 
 // const activeCss:string = 'py-3 ps-px sm:px-3 font-medium text-blue-600'
