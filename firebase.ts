@@ -1,9 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+// import { getAnalytics } from "firebase/analytics";
 import { getAuth, browserLocalPersistence } from "firebase/auth";
 import {
     initializeFirestore,
-    CACHE_SIZE_UNLIMITED,
     persistentMultipleTabManager,
     persistentLocalCache
 } from "firebase/firestore";
@@ -20,14 +19,14 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// const analytics = getAnalytics(app);
 const auth = getAuth();
 const db = initializeFirestore(app,  {localCache: persistentLocalCache({tabManager: persistentMultipleTabManager()})});
 
 auth.setPersistence(browserLocalPersistence);
 
 const firebaseServices = {
-    app, analytics, auth, db
+    app, auth, db
 }
 
 
