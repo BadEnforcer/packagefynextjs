@@ -6,7 +6,7 @@
 .pnp.js
 .yarn/install-state.gz
 .firebaserc
-# testing
+# _testing
 /coverage
 .idea
 /.idea
