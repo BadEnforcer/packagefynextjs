@@ -148,11 +148,12 @@ export default function Page({params}: { params: { destinationId: string } }) {
 
     useEffect(() => {
         const fetchDestinationData = async () => {
-            const docRef = doc(firebase.db, "destinations", params.destinationId);
+            const docRef = doc(firebase.db, "destination", params.destinationId);
             try {
                 const docSnap = await getDoc(docRef);
                 if (!docSnap.exists()) {
-                    router.push('/404');
+                    console.log('document does not exist')
+                    // router.push('/404');
                     return;
                 }
 
