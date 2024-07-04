@@ -1,13 +1,14 @@
 "use client"
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import firebase from "../../../firebase";
-import React, {useEffect} from "react";
+import React, {useEffect, Suspense} from "react";
 import {useRouter} from "next/navigation";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {FirebaseError} from "@firebase/app";
 import {useSearchParams } from 'next/navigation'
+import SpinnerFullScreen from "@/app/components/FullScreenSpinner";
 
 
 export default function AdminEntryPage() {
@@ -52,6 +53,7 @@ export default function AdminEntryPage() {
 
     return (
         <>
+            <Suspense fallback={<SpinnerFullScreen />} >
             <ToastContainer />
         <section id={'login-section '}>
             <div className={'absolute inset-0 bg-neutral-700 flex items-center justify-center w-screen h-screen '}>
@@ -63,6 +65,7 @@ export default function AdminEntryPage() {
                 </button>
             </div>
         </section>
+            </Suspense>
 
         </>
     )
