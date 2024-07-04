@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FirebaseError } from "@firebase/app";
 import { useSearchParams } from 'next/navigation';
+import SpinnerFullScreen from "@/app/components/FullScreenSpinner";
 
 function AdminEntryContent() {
     const router  = useRouter();
@@ -64,7 +65,7 @@ function AdminEntryContent() {
 
 export default function AdminEntryPage() {
     return (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<SpinnerFullScreen />}>
             <AdminEntryContent />
         </Suspense>
     );
