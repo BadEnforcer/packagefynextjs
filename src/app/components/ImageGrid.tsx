@@ -42,7 +42,7 @@ const ImageGrid: React.FC = () => {
     const router = useRouter();
 
     return (
-        <section>
+        <section id={'showcase-grid'}>
             <div className={'flex w-full items-center justify-center mt-8 lg:mt-10 lg:mb-10'}>
                 <h1 className={'font-bold text-2xl lg:text-4xl'}>Best Trips Across <span className={'text-blue-700'}>The Globe</span>
                 </h1>

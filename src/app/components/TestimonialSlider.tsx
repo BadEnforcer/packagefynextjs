@@ -97,7 +97,7 @@ const SimpleSlider: React.FC = () => {
 
 
     return (
-        <section className={'w-full '}>
+        <section id={'testimonials'} className={'w-full '}>
             <Slider {...settings}>
                 {testimonials.map((entry, i) => {
                     return (

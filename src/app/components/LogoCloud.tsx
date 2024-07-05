@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 export default function LogoCloud() {
     return (
-        <div className="bg-indigo-70 bg-white">
+        <section id={'recognition-and-collaboration'} className="bg-indigo-70 bg-white">
             <div className="max-w-7xl mx-auto py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
                 <h2 className="flex items-center justify-center text-3xl font-extrabold text-black">Recognitions
                     and <span className={'text-indigo-600'}>&nbsp;Collaborations</span></h2>
@@ -39,7 +39,7 @@ export default function LogoCloud() {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     )
 }
 

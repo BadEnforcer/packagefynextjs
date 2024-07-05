@@ -72,7 +72,7 @@ export default function HeroSearch() {
 
     return (
 
-        <section className="relative overflow-hidden">
+        <section id={'hero-search'} className="relative overflow-hidden">
             <div className="relative z-10 max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-24 md:mb-[150px]">
                 <div className="text-center">
                     <h1 className="text-4xl sm:text-6xl font-bold text-white pb-12 lg:pb-10">

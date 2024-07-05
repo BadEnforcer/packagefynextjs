@@ -2,10 +2,39 @@
 import {ToastContainer} from "react-toastify";
 import firebase from "../../../../firebase";
 import {useRouter} from "next/navigation";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
+import Link from "next/link";
+import SpinnerFullScreen from "@/app/components/FullScreenSpinner";
+const links = [
+    {
+        href: 'dashboard/add-new-destination',
+        title: 'Add Destination',
+    },
+    {
+        href: 'dashboard/edit-destination',
+        title: 'Edit Destination',
+    },
+    {
+        href: 'dashboard/delete-destination',
+        title: 'Remove Destination',
+    },
+    {
+        href: 'dashboard/add-new-package',
+        title: 'Add Package',
+    },
+    {
+        href: 'dashboard/edit-package',
+        title: 'Edit Package',
+    },
+    {
+        href: 'dashboard/delete-package',
+        title: 'Remove Package',
+    },
 
+]
 export default function AdminDashboard() {
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
 
 
     useEffect(() => {
@@ -18,70 +47,30 @@ export default function AdminDashboard() {
         return () => unsubscribe();
     }, [router]);
 
+    if (isLoading) return <SpinnerFullScreen />
+
     return (
         <>
             <ToastContainer/>
             <section id={'admin-dashboard'}>
                 <div
-                    className={'absolute inset-0 bg-neutral-700 flex items-center justify-center w-screen h-screen text-white'}>
-                    <div className={'grid grid-rows-1 lg:grid-rows-2 gap-x-[20vw] gap-y-[2vw]'}>
-                        {/*ROW 1*/}
-                        <div className={'row-start-1 row-span-1 grid grid-cols-3 gap-x-[1vw]'}>
-                            <div className={'flex items-center justify-center'}>
-                                <button className={'border border-white rounded-2xl h-14 w-52'}
-                                        onClick={() => {
-                                            router.push('dashboard/add-new-destination')
-                                        }}
-                                >Add new Destination
-                                </button>
-                            </div>
-                            <div className={'flex items-center justify-center'}>
-                                <button className={'border border-white rounded-2xl h-14 w-52'}
-                                        onClick={() => {
-                                            router.push('dashboard/edit-destination')
-                                        }}
-                                >Edit Destination
-                                </button>
-                            </div>
-                            <div className={'flex items-center justify-center'}>
-                                <button className={'border border-white rounded-2xl h-14 w-52'}
-                                        onClick={() => {
-                                            router.push('dashboard/delete-destination')
-                                        }}
-                                >Delete Destination
-                                </button>
-                            </div>
-                        </div>
-
-                        {/*  Row 2  */}
-                        <div className={'row-start-2 row-span-1 grid grid-cols-3 gap-x-[1vw]'}>
-                            <div className={'flex items-center justify-center'}>
-                                <button className={'border border-white rounded-2xl h-14 w-52'}
-                                        onClick={() => {
-                                            router.push('dashboard/add-new-package')
-                                        }}
-                                >Add new Package
-                                </button>
-                            </div>
-                            <div className={'flex items-center justify-center'}>
-                                <button className={'border border-white rounded-2xl h-14 w-52'}
-                                        onClick={() => {
-                                            router.push('dashboard/edit-package')
-                                        }}
-                                >Edit a Package
-                                </button>
-                            </div>
-                            <div className={'flex items-center justify-center'}>
-                                <button className={'border border-white rounded-2xl h-14 w-52'}
-                                        onClick={() => {
-                                            router.push('dashboard/delete-package')
-                                        }}
-                                >Delete a Package
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    className={' bg-neutral-200 flex items-center justify-center w-screen h-screen text-white'}>
+                    <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                        {links.map((link, index) => (
+                            <li key={index}
+                                className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
+                                <Link href={link.href}
+                                      onClick={() => setIsLoading(true)}
+                                      className="w-full flex items-center justify-center p-6 space-x-6 rounded-lg hover:ring hover:ring-indigo-700 focus:scale-110 ">
+                                    <p className="mt-1 text-gray-500 text-sm truncate">{link.title}</p>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
+            </section>
+            <section>
+
             </section>
         </>
     )

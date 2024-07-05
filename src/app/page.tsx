@@ -198,18 +198,6 @@ export default function HomePage() {
                            fetchPriority={'high'} blurDataURL={backgroundBlurImage} objectFit={'cover'}/>
                     <div className="absolute inset-0 bg-black opacity-30"></div>
 
-                    {/*<div*/}
-                    {/*    className={'absolute inset-0'}*/}
-                    {/*    style={{*/}
-                    {/*        backgroundImage: `url(${backgroundImage})`,*/}
-                    {/*        backgroundRepeat: 'no-repeat',*/}
-                    {/*        backgroundSize: 'cover',*/}
-                    {/*        backgroundPosition: 'center center',*/}
-                    {/*        zIndex: -1,*/}
-                    {/*    }*/}
-                    {/*    }>*/}
-                    {/*    <div className="absolute inset-0 bg-black opacity-30"></div>*/}
-                    {/*</div>*/}
                     <Navbar/>
                     <HeroSearch/>
                 </section>
