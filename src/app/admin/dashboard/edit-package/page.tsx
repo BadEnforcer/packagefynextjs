@@ -11,6 +11,8 @@ import firebase from "../../../../../firebase";
 import { useRouter } from "next/navigation";
 import dynamic from 'next/dynamic';
 import { uuidv4 } from "@firebase/util";
+import {Package, DestinationData} from "@/app/_utility/types";
+import axios from "axios";
 
 const PhotoIcon = dynamic(() => import('@heroicons/react/24/solid').then(mod => mod.PhotoIcon), { ssr: false });
 const Footer = dynamic(() => import('@/app/components/Footer'), { ssr: false });
@@ -23,40 +25,6 @@ type ItineraryData = {
     description: string,
 }
 
-type Package = {
-    id: string
-    name: string
-    coverImageUrl: string
-    coverImageFilename: string,
-    originalPrice: number
-    discountedPrice: number
-    description: string
-    duration: string,
-    pickupAndDropLocation: string,
-    itinerary: {
-        id: string,
-        heading: string,
-        description: string,
-    }[] | []
-    inclusions: string[] | []
-    exclusions: string[] | []
-}
-
-interface DestinationData {
-    id: string,
-    name: string,
-    description: string,
-    coverImageUrl: string,
-    packages: Package[] | [],
-    fileName: string,
-    created: Date,
-    modified: Date,
-    version: number,
-    modificationInfo: {
-        createdBy: string,
-        lastModifiedBy: string
-    }
-}
 
 export default function ModifyDestinationPage() {
     const [packageId, setPackageId] = useState<string>('')
@@ -168,30 +136,44 @@ export default function ModifyDestinationPage() {
             return
         }
 
+        if (!fetchedPackageData) {
+            toast.error("Update function executed before fetching details. aborting...");
+            return;
+        }
+
         setIsProcessing(true)
         try {
-            let newCoverImageUrl: string | undefined;
+            let newCoverImageUrl: string = fetchedPackageData.coverImageUrl;
+            let base64: string = fetchedPackageData.coverImageBase64;
+
+            let fileExtension: string | undefined;
+
+            if (coverPhoto) { // Extract file extension if file exists.
+                fileExtension = coverPhoto.name.split('.').at(-1)
+            }
+
+
+            // SANITY CHECKS
+            if (coverPhoto && !fileExtension) {
+                toast.error("Unable to read file extension.");
+                setIsProcessing(false)
+                return;
+            }
+
+            const validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
+            if (fileExtension && !validExtensions.includes(fileExtension)) {
+                toast.error(`File must have a valid extension: ${validExtensions.join(', ')}`);
+                setIsProcessing(false)
+                return;
+            }
+
 
             if (coverPhoto) {
                 //     upload cover image
                 const storage = getStorage();
                 const fileMetaData = {
                     contentType: coverPhoto.type
-                }
-
-                // Extract file extension
-                const fileExtension = coverPhoto.name.split('.').pop()?.toLowerCase();
-                if (coverPhoto && !fileExtension) {
-                    toast.error("Unable to read file extension.");
-                    setIsProcessing(false)
-                    return;
-                }
-
-                const validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-                if (fileExtension && !validExtensions.includes(fileExtension)) {
-                    toast.error(`File must have a valid extension: ${validExtensions.join(', ')}`);
-                    setIsProcessing(false)
-                    return;
                 }
 
                 const newCoverImageRef = ref(storage, `destinations/${destinationId}/package/${packageId}.${fileExtension}`);
@@ -203,6 +185,13 @@ export default function ModifyDestinationPage() {
                 })
 
                 newCoverImageUrl = await getDownloadURL(uploadResult.ref);
+
+                const res = await axios.post('/api/getBase64', JSON.stringify({ imageUrl: newCoverImageUrl  }), {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                base64 = res.data.base64
             }
 
             // update the package
@@ -223,6 +212,7 @@ export default function ModifyDestinationPage() {
                     pickupAndDropLocation: pickUpAndDropSpot,
                     coverImageUrl: newCoverImageUrl ? newCoverImageUrl : fetchedPackageData?.coverImageUrl,
                     coverImageFilename: newCoverImageUrl ? `${packageId}.${fileExtension}` : fetchedPackageData?.coverImageFilename,
+                    coverImageBase64: base64 ? base64 : fetchedPackageData.coverImageBase64,
                     originalPrice: originalPrice,
                     discountedPrice: discountedPrice,
                     itinerary: itineraryData,

@@ -1,7 +1,6 @@
 "use client"
-import React, {useEffect} from "react";
-
 import dynamic from "next/dynamic";
+import React, {useEffect} from "react";
 import SpinnerFullScreen from "@/app/components/FullScreenSpinner";
 import ParagraphSkeleton from "@/app/components/ParagraphSkeleton";
 import {doc, getDoc} from "firebase/firestore";
@@ -13,12 +12,9 @@ import Exclusions from "@/app/components/packageView/Exclusions";
 import Inclusions from "@/app/components/packageView/Inclusions";
 import Itinerary from "@/app/components/packageView/Itinerary";
 
+import {Package, DestinationData} from "@/app/_utility/types";
 
-const HeroImage = dynamic(() => import('@/app/components/infoView/HeroImage'),
-    {
-        loading: () => <SpinnerFullScreen/>,
-    }
-)
+const HeroImage = dynamic(() => import('@/app/components/infoView/HeroImage'))
 const Description = dynamic(() => import('@/app/components/infoView/Description'),
     {
         loading: () => {
@@ -29,52 +25,11 @@ const Description = dynamic(() => import('@/app/components/infoView/Description'
 const ContactFormSidebar = dynamic(() => import('@/app/components/infoView/ContactFormSidebar'))
 const Contact = dynamic(() => import('@/app/components/infoView/Contact'))
 const Footer = dynamic(() => import('@/app/components/Footer'))
-const NewsLetter = dynamic(() => import('@/app/components/NewsLetter'), {
-    loading: () => {
-        return <ParagraphSkeleton/>
-    }
-})
+const NewsLetter = dynamic(() => import('@/app/components/NewsLetter'))
 
-
-type Package = {
-    id: string
-    name: string
-    coverImageUrl: string
-    coverImageFilename: string,
-    originalPrice: number
-    discountedPrice: number
-    description: string
-    duration: string,
-    pickupAndDropLocation: string,
-    itinerary:
-        {
-            id: string,
-            heading: string,
-            description: string,
-        }[] | []
-    inclusions: string[] | []
-    exclusions: string[] | []
-}
-
-interface DestinationData {
-    id: string,
-    name: string,
-    description: string,
-    coverImageUrl: string,
-    fileName: string,
-    packages: Package[] | [],
-    created: Date,
-    modified: Date,
-    version: number,
-    modificationInfo: {
-        createdBy: string,
-        lastModifiedBy: string
-    }
-}
 
 
 export default function Page({params}: { params: { destinationId: string, packageId: string } }) {
-
     const [destinationData, setDestinationData] = React.useState<DestinationData>();
     const [packageData, setPackageData] = React.useState<Package>();
     const [error, setError] = React.useState<boolean>(false); // true on error 404
@@ -82,11 +37,15 @@ export default function Page({params}: { params: { destinationId: string, packag
     const router = useRouter();
 
     useEffect(() => {
+
         const fetchDestinationData = async () => {
-            const docRef = doc(firebase.db, "destinations", params.destinationId);
+
+            const docRef = doc(firebase.db, "destinations", params.destinationId); // firebase doc ref
+
             try {
                 const docSnap = await getDoc(docRef);
-                if (!docSnap.exists()) {
+
+                if (!docSnap.exists()) { // check existence
                     console.log('document does not exist')
                     setError(true);
                     return;
@@ -94,6 +53,7 @@ export default function Page({params}: { params: { destinationId: string, packag
 
                 setDestinationData(docSnap.data() as DestinationData);
 
+                // filter
                 const fetchedPackage = (docSnap.data() as DestinationData).packages.filter((pkg) => pkg.id === params.packageId)
                 if (fetchedPackage.length === 0) {
                     setLoading(false)
@@ -101,34 +61,34 @@ export default function Page({params}: { params: { destinationId: string, packag
                 }
 
                 setPackageData(fetchedPackage[0]);
-                setLoading(false);
+
+                setLoading(false); // remove loading screen
 
             } catch (err) {
-                toast.error('Server Error. CODE 500');
+                toast.error('Server Error. CODE 500'); // handle unexpected errors
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchDestinationData().then(_ => {
-        });
+        fetchDestinationData().then(_ => {}); // use async function in callback
     }, [params.destinationId, params.packageId, router]);
 
-    if (loading) {
-        return <SpinnerFullScreen/>;
-    }
 
-    if (error) {
-        return <Err404 />
-    }
+    // show loading screen
+    if (loading) return <SpinnerFullScreen/>;
+
+
+    if (error) return <Err404 />
+
 
     if (destinationData && packageData) {
         return (
             <div id={'displayContainer'} className={'w-full h-full'}>
-                <HeroImage name={packageData.name} coverImageUrl={packageData.coverImageUrl}/>
+                <HeroImage base64={packageData.coverImageBase64} name={packageData.name} coverImageUrl={packageData.coverImageUrl}/>
 
                 <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <Description isPackage={true} name={packageData.name} data={packageData?.description}/>
+                    <Description isPackage={true} name={packageData.name} data={packageData.description}/>
 
                     {destinationData?.packages?.length
                         ?
@@ -168,6 +128,7 @@ export default function Page({params}: { params: { destinationId: string, packag
         )
     }
 
+    // This line should not run in any case.
     return (
         <>Fatal Error. Please report to developer. Loading state was skipped when viewing package..</>
     )

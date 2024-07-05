@@ -8,12 +8,12 @@ import firebase from "../../../../../firebase";
 import {useRouter} from "next/navigation";
 import dynamic from 'next/dynamic';
 import {uuidv4} from "@firebase/util";
-
+import axios from "axios";
 const CkEditorInitialized = dynamic(() => import('@/app/components/CkEditorInitialized'));
 const PhotoIcon = dynamic(() => import('@heroicons/react/24/solid').then(mod => mod.PhotoIcon));
 const Footer = dynamic(() => import('@/app/components/Footer'));
 const ToastContainer = dynamic(() => import("react-toastify").then(mod => mod.ToastContainer));
-
+import {Package, DestinationData} from "@/app/_utility/types";
 
 type ItineraryData = {
     id: string;
@@ -22,41 +22,6 @@ type ItineraryData = {
 }
 
 
-type Package = {
-    id: string
-    name: string
-    coverImageUrl: string
-    coverImageFilename: string,
-    originalPrice: number
-    discountedPrice: number
-    description: string
-    duration: string,
-    pickupAndDropLocation: string,
-    itinerary:
-        {
-            id: string,
-            heading: string,
-            description: string,
-        }[] | []
-    inclusions: string[] | []
-    exclusions: string[] | []
-}
-
-interface DestinationData {
-    id: string,
-    name: string,
-    description: string,
-    coverImageUrl: string,
-    fileName: string,
-    packages: Package[] | [],
-    created: Date,
-    modified: Date,
-    version: number,
-    modificationInfo: {
-        createdBy: string,
-        lastModifiedBy: string
-    }
-}
 
 
 export default function AddNewDestinationPage() {
@@ -166,12 +131,20 @@ export default function AddNewDestinationPage() {
                     error: 'Failed to upload image to DB.'
                 })
 
+                const imageDownloadUrl = await getDownloadURL(newCoverImageRef)
+                const res = await axios.post('/api/getBase64', JSON.stringify({ imageUrl: imageDownloadUrl  }), {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                const base64 = res.data.base64
+
 
                 availablePackages.push(
                     {
                         id: packageId,
                         name: packageName,
-                        coverImageUrl: await getDownloadURL(newCoverImageRef), // get download URL for cover image
+                        coverImageUrl: imageDownloadUrl, // get download URL for cover image
                         coverImageFilename: `${packageId}.${fileExtension}`,
                         duration: packageDuration,
                         pickupAndDropLocation: pickUpAndDropSpot,
@@ -180,7 +153,8 @@ export default function AddNewDestinationPage() {
                         description: packageDescription,
                         itinerary: itineraryData,
                         inclusions: inclusions,
-                        exclusions: exclusions
+                        exclusions: exclusions,
+                        coverImageBase64: base64
                     } as Package
                 )
 

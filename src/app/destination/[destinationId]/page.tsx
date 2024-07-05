@@ -8,108 +8,30 @@ import {doc, getDoc} from "firebase/firestore";
 import firebase from "../../../../firebase";
 import {toast} from "react-toastify";
 import {useRouter} from "next/navigation";
+import {Package, DestinationData} from "@/app/_utility/types";
+import Err404 from "@/app/404/page";
 
-
-const HeroImage = dynamic(() => import('@/app/components/infoView/HeroImage'),
-    {
-        loading: () => <SpinnerFullScreen/>,
-    }
-)
-const Description = dynamic(() => import('@/app/components/infoView/Description'),
-    {
-        loading: () => {
-            return <ParagraphSkeleton/>
-        }
-    })
-const PackageCard = dynamic(() => import('@/app/components/infoView/PackageCard'),
-    {
-        loading: () => (<ParagraphSkeleton/>)
-
-    }
-)
-const ContactFormSidebar = dynamic(() => import('@/app/components/infoView/ContactFormSidebar'))
-const Contact = dynamic(() => import('@/app/components/infoView/Contact'))
-const Footer = dynamic(() => import('@/app/components/Footer'))
-const NewsLetter = dynamic(() => import('@/app/components/NewsLetter'), {
+const HeroImage = dynamic(() => import('@/app/components/infoView/HeroImage'))
+const Description = dynamic(() => import('@/app/components/infoView/Description'), {
     loading: () => {
         return <ParagraphSkeleton/>
     }
 })
+const PackageCard = dynamic(() => import('@/app/components/infoView/PackageCard'), {
+    loading: () => (<ParagraphSkeleton/>)
 
-
-
-// type SectionProps = {
-//     params: { destinationName: string }
-// }
-
-
-type packageShowcaseData = {
-    data?: Package[]
-    destinationId: string,
-}
-
-const PackageShowcase: React.FC<packageShowcaseData> = ({data, destinationId}) => {
-
-    if (!data) return (<></>)
-
-    return (
-        <section id={'packages'}>
-            {data.map((packageData, index) => {
-                return (
-                    <div key={index} className={'mt-12'}>
-                        <ul role="list" className="space-y-3 mt-10">
-                            <PackageCard key={index} destinationId={destinationId} packageInfo={packageData}/>
-                        </ul>
-                    </div>
-                )
-            })}
-        </section>
-    )
-}
-
-
-type Package = {
-    id: string
-    name: string
-    coverImageUrl: string
-    coverImageFilename: string,
-    originalPrice: number
-    discountedPrice: number
-    description: string
-    duration: string,
-    pickupAndDropLocation: string,
-    itinerary:
-        {
-            id: string,
-            heading: string,
-            description: string,
-        }[] | []
-    inclusions: string[] | []
-    exclusions: string[] | []
-}
-
-interface DestinationData {
-    id: string,
-    name: string,
-    description: string,
-    coverImageUrl: string,
-    fileName: string,
-    packages: Package[] | [],
-    created: Date,
-    modified: Date,
-    version: number,
-    modificationInfo: {
-        createdBy: string,
-        lastModifiedBy: string
-    }
-}
-
+})
+const ContactFormSidebar = dynamic(() => import('@/app/components/infoView/ContactFormSidebar'))
+const Contact = dynamic(() => import('@/app/components/infoView/Contact'))
+const Footer = dynamic(() => import('@/app/components/Footer'))
+const NewsLetter = dynamic(() => import('@/app/components/NewsLetter'))
 
 
 export default function Page({params}: { params: { destinationId: string } }) {
 
     const [destinationData, setDestinationData] = React.useState<DestinationData>()
     const [loading, setLoading] = React.useState(true);
+    const [error, setError] = React.useState(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -119,11 +41,12 @@ export default function Page({params}: { params: { destinationId: string } }) {
                 const docSnap = await getDoc(docRef);
                 if (!docSnap.exists()) {
                     console.log('document does not exist')
-                    // router.push('/404');
+                    setError(true);
                     return;
                 }
 
                 setDestinationData(docSnap.data() as DestinationData);
+                console.log(destinationData)
             } catch (err) {
                 toast.error('Server Error. CODE 500');
             } finally {
@@ -139,47 +62,66 @@ export default function Page({params}: { params: { destinationId: string } }) {
         return <SpinnerFullScreen/>;
     }
 
-    return (
-        <div id={'displayContainer'} className={'w-full h-full'}>
-            <HeroImage name={destinationData?.name as string} coverImageUrl={destinationData?.coverImageUrl as string}/>
+    if (error) return <Err404/>
+
+    if (destinationData !== undefined) return (<div id={'displayContainer'} className={'w-full h-full'}>
+            <HeroImage base64={destinationData.coverImageBase64} name={destinationData.name}
+                       coverImageUrl={destinationData.coverImageUrl}/>
 
             <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
-                <Description name={destinationData?.name as string} data={destinationData?.description as string}/>
+                <Description name={destinationData.name as string} data={destinationData.description}/>
 
-                {destinationData?.packages?.length
-                    ?
-                    <div className="py-6">
-                        <div className="lg:grid lg:grid-cols-12 lg:gap-8">
-                            <div className="lg:col-span-8">
-                                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                                    <div className="container mx-auto sm:px-6 lg:px-8">
-                                        <PackageShowcase destinationId={params.destinationId} data={destinationData?.packages}/>
-                                    </div>
+                {destinationData?.packages?.length ? <div className="py-6">
+                    <div className="lg:grid lg:grid-cols-12 lg:gap-8">
+                        <div className="lg:col-span-8">
+                            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                                <div className="container mx-auto sm:px-6 lg:px-8">
+                                    <PackageShowcase destinationId={params.destinationId}
+                                                     data={destinationData.packages}/>
                                 </div>
                             </div>
+                        </div>
 
 
-                            <div className="hidden lg:block lg:col-span-4">
-                                <nav aria-label="Sidebar" className="sticky top-6 divide-y divide-gray-300">
-                                    <ContactFormSidebar/>
-                                </nav>
-                            </div>
+                        <div className="hidden lg:block lg:col-span-4">
+                            <nav aria-label="Sidebar" className="sticky top-6 divide-y divide-gray-300">
+                                <ContactFormSidebar/>
+                            </nav>
                         </div>
                     </div>
-                    :
-                    <><ContactFormSidebar/></>
-                }
-
-
-
-
-
+                </div> : <><ContactFormSidebar/></>}
             </div>
             <Contact/>
             <NewsLetter/>
             <Footer/>
-        </div>
-    )
+        </div>)
+
+    return (<>Fatal Error. Make a Report</>)
+
+
 }
+
+
+type packageShowcaseProps = {
+    data: Package[]
+    destinationId: string,
+}
+
+const PackageShowcase: React.FC<packageShowcaseProps> = ({data, destinationId}) => {
+
+    if (data.length === 0) return (<></>)
+
+    return (<section id={'packages'}>
+            {data.map((packageData, index) => {
+                return (<div key={index} className={'mt-12'}>
+                        <ul role="list" className="space-y-3 mt-10">
+                            <PackageCard key={index} packageInfo={packageData} destinationId={destinationId} />
+                        </ul>
+                    </div>)
+            })}
+        </section>)
+}
+
+
 
 

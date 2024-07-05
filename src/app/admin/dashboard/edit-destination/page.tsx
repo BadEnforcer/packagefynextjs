@@ -2,55 +2,17 @@
 
 import React, {useEffect, useState} from "react";
 import {toast} from "react-toastify";
-import {getStorage, ref, uploadBytes} from "firebase/storage";
+import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
 import {FirebaseError} from "@firebase/app";
-import {doc, getDoc, setDoc} from "firebase/firestore";
+import {doc, getDoc, setDoc, updateDoc} from "firebase/firestore";
 import firebase from "../../../../../firebase";
 import {useRouter} from "next/navigation";
-
+import {Package, DestinationData} from "@/app/_utility/types";
 import dynamic from 'next/dynamic';
-
+import axios from "axios";
 const PhotoIcon = dynamic(() => import('@heroicons/react/24/solid').then(mod => mod.PhotoIcon));
 const Footer = dynamic(() => import('@/app/components/Footer'));
 const ToastContainer = dynamic(() => import("react-toastify").then(mod => mod.ToastContainer));
-
-
-type Package = {
-    id: string
-    name: string
-    coverImageUrl: string
-    coverImageFilename: string,
-    originalPrice: number
-    discountedPrice: number
-    description: string
-    duration: string,
-    pickupAndDropLocation: string,
-    itinerary:
-        {
-            id: string,
-            heading: string,
-            description: string,
-        }[] | []
-    inclusions: string[] | []
-    exclusions: string[] | []
-}
-
-
-interface DestinationData {
-    id: string,
-    name: string,
-    description: string,
-    coverImageUrl: string,
-    packages: Package[] | [],
-    fileName: string,
-    created: Date,
-    modified: Date,
-    version: number,
-    modificationInfo: {
-        createdBy: string,
-        lastModifiedBy: string
-    }
-}
 
 
 export default function ModifyDestinationPage() {
@@ -132,25 +94,34 @@ export default function ModifyDestinationPage() {
             return;
         }
 
-        // check of existing documents
-
         setIsProcessing(true) // disable button
 
-        const downloadUrl = coverImageUrl;
-        // Extract file extension
-        const fileExtension = coverPhoto?.name.split('.').pop()?.toLowerCase();
-        if (!fileExtension && coverPhoto) {
+        let downloadUrl = coverImageUrl;
+        let base64 : string | undefined;
+
+        let fileExtension: string | undefined;
+
+        if (coverPhoto) { // Extract file extension if file exists.
+            fileExtension = coverPhoto.name.split('.').at(-1)
+        }
+
+
+        // SANITY CHECKS
+        if (coverPhoto && !fileExtension) {
             toast.error("Unable to read file extension.");
             setIsProcessing(false)
             return;
         }
 
         const validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
         if (fileExtension && !validExtensions.includes(fileExtension)) {
             toast.error(`File must have a valid extension: ${validExtensions.join(', ')}`);
             setIsProcessing(false)
             return;
         }
+
+
 
         if (coverPhoto) {
             try {
@@ -166,6 +137,15 @@ export default function ModifyDestinationPage() {
                 toast.info('Uploading updated image...')
                 await uploadBytes(newCoverImageRef, coverPhoto, fileMetaData);
                 toast.success('Image updated successfully.');
+
+                downloadUrl = await getDownloadURL(newCoverImageRef)
+
+                const res = await axios.post('/api/getBase64', JSON.stringify({ imageUrl: downloadUrl  }), {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                base64 = res.data.base64
 
             } catch (err) {
                 console.error(err);
@@ -185,10 +165,13 @@ export default function ModifyDestinationPage() {
             ...fetchedData,
             name: destinationName,
             description: destinationDescription,
-            coverImageUrl: downloadUrl ? downloadUrl : coverImageUrl,
+            coverImageUrl: downloadUrl,
+            coverImageFilename: downloadUrl === coverImageUrl ? fetchedData.coverImageFilename : `${destinationId}.${fileExtension}`,
+            coverImageBase64: base64 ? base64 : fetchedData.coverImageBase64,
             version: fetchedData.version + 1,
-            fileName: downloadUrl ? `${destinationId}.${fileExtension}` : fetchedData.fileName,
-            modified: new Date().toISOString(),
+            fileName: downloadUrl ? `${destinationId}.${fileExtension}` : fetchedData.coverImageFilename,
+
+            modified: new Date(),
             modificationInfo: {
                 createdBy: firebase.auth.currentUser?.email,
                 lastModifiedBy: firebase.auth.currentUser?.email,
@@ -197,7 +180,7 @@ export default function ModifyDestinationPage() {
 
         try {
             // uploaded information
-            await setDoc(doc(firebase.db, "destinations", destinationId), updatedDocument, {merge: true});
+            await updateDoc(doc(firebase.db, "destinations", destinationId), updatedDocument);
 
             toast.success('Data Updated successfully.');
 

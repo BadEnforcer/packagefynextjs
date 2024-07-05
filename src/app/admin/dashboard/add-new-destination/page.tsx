@@ -6,9 +6,12 @@ import { FirebaseError } from "@firebase/app";
 import { doc, getDoc, runTransaction } from "firebase/firestore";
 import firebase from "../../../../../firebase";
 import { useRouter } from "next/navigation";
-
 import dynamic from 'next/dynamic';
 import {uuidv4} from "@firebase/util";
+
+import axios from "axios";
+
+import {DestinationData} from "@/app/_utility/types";
 
 const PhotoIcon = dynamic(() => import('@heroicons/react/24/solid').then(mod => mod.PhotoIcon));
 const Footer = dynamic(() => import('@/app/components/Footer'));
@@ -21,6 +24,8 @@ type SearchListDocument = {
         destinationId: string,
     }[]
 }
+
+
 
 export default function AddNewDestinationPage() {
     const [destinationId, setDestinationId] = useState<string>('');
@@ -80,6 +85,7 @@ export default function AddNewDestinationPage() {
             await uploadBytes(newCoverImageRef, coverPhoto, fileMetaData);
             toast.success('Image uploaded successfully.');
 
+
             const searchListRef = doc(firebase.db, "search", "list");
             await runTransaction(firebase.db, async (transaction) => {
                 const searchListDoc = await transaction.get(searchListRef);
@@ -99,12 +105,22 @@ export default function AddNewDestinationPage() {
                 const updatedSearchListData: SearchListDocument = { entries: updatedEntries };
                 transaction.set(searchListRef, updatedSearchListData);
 
+                const imageDownloadUrl  = await getDownloadURL(newCoverImageRef)
+
+                const res = await axios.post('/api/getBase64', JSON.stringify({ imageUrl: imageDownloadUrl  }), {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                const base64 = res.data.base64
+
                 transaction.set(doc(firebase.db, "destinations", destinationId), {
                     id: destinationId.toLowerCase(),
                     name: destinationName,
                     description: destinationDescription,
-                    coverImageUrl: await getDownloadURL(newCoverImageRef),
-                    fileName: `${destinationId}.${fileExtension}`,
+                    coverImageUrl: imageDownloadUrl,
+                    coverImageBase64: base64,
+                    coverImageFilename: `${destinationId}.${fileExtension}`,
                     packages: [],
                     created: new Date(),
                     modified: new Date(),

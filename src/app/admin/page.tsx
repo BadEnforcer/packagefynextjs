@@ -5,7 +5,6 @@ import React, {useEffect, Suspense} from "react";
 import {useRouter} from "next/navigation";
 
 import {ToastContainer, toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import {FirebaseError} from "@firebase/app";
 import {useSearchParams} from 'next/navigation';
 import SpinnerFullScreen from "@/app/components/FullScreenSpinner";

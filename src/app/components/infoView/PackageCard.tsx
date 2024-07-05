@@ -1,48 +1,21 @@
 import Image from "next/image";
 import React from "react";
-
-
-
-type Package = {
-    id: string
-    name: string
-    coverImageUrl: string
-    coverImageFilename: string,
-    originalPrice: number
-    discountedPrice: number
-    description: string
-    duration: string,
-    pickupAndDropLocation: string,
-    itinerary:
-        {
-            id: string,
-            heading: string,
-            description: string,
-        }[] | []
-    inclusions: string[] | []
-    exclusions: string[] | []
-}
-
-type tripsShowcaseProps = {
-    key: number
-    packageInfo?: Package,
-    destinationId:string,
-}
-
+import {Package} from "@/app/_utility/types";
 
 import { LuBedDouble } from "react-icons/lu";
 import { PiTaxi } from "react-icons/pi";
 import { GiHotMeal } from "react-icons/gi";
 import { PiMapTrifoldLight } from "react-icons/pi";
-
 import Link from "next/link";
 
+type tripsShowcaseProps = {
+    key: number
+    packageInfo: Package,
+    destinationId:string,
+}
+
+
 export default function PackageCard({key, packageInfo, destinationId}: tripsShowcaseProps) {
-
-
-    if (!packageInfo) {
-        return (<></>)
-    }
 
     return (
         <li key={key}
@@ -59,6 +32,8 @@ export default function PackageCard({key, packageInfo, destinationId}: tripsShow
                                 src={packageInfo.coverImageUrl}
                                 alt={packageInfo.description}
                                 className="w-full h-48 object-cover rounded-t-lg"
+                                placeholder={'blur'}
+                                blurDataURL={packageInfo.coverImageBase64}
                                 // height={200}
                                 // width={200}
 
@@ -107,6 +82,8 @@ export default function PackageCard({key, packageInfo, destinationId}: tripsShow
                         className="absolute top-0 left-0 w-full h-full object-cover rounded-lg"
                         fill={true}
                         objectFit="cover"
+                        placeholder={'blur'}
+                        blurDataURL={packageInfo.coverImageBase64}
                     />
                 </Link>
                 <div className="col-span-3 flex flex-col justify-between">

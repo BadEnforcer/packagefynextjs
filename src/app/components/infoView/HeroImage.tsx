@@ -6,12 +6,17 @@ import dynamic from "next/dynamic";
 const Navbar = dynamic(() => import ('../Navbar'))
 
 
+
 type SectionProps = {
     name: string,
-    coverImageUrl: string
+    coverImageUrl: string,
+    base64: string,
 }
 
-export default function HeroSection({name, coverImageUrl}: SectionProps) {
+
+
+export default function HeroSection({name, coverImageUrl, base64}: SectionProps) {
+
     return (
         <section id={'hero'} className={'overflow-hidden'}>
             <Transition as={Fragment} show appear>
@@ -23,10 +28,13 @@ export default function HeroSection({name, coverImageUrl}: SectionProps) {
                         <Image
                             src={coverImageUrl}
                             alt="Background"
-                            layout="fill"
+                            fill
                             objectFit="cover"
                             objectPosition="center"
                             priority // Optional: prioritize loading the image
+                            placeholder={'blur'}
+                            blurDataURL={base64}
+
                         />
                     </TransitionChild>
                     <TransitionChild as={Fragment} enter={'transition-all delay-500 duration-100'}
