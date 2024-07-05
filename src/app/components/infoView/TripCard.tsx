@@ -2,12 +2,12 @@ import React from "react";
 import Image from "next/image";
 
 type Trip = {
-    id:string
-    name:string
-    coverImageUrl:string
-    originalPrice:string
-    discountedPrice:string
-    description:string
+    id: string
+    name: string
+    coverImageUrl: string
+    originalPrice: string
+    discountedPrice: string
+    description: string
     itinerary:
         {
             heading: string,

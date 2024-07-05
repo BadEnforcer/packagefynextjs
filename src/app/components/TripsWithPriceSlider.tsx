@@ -48,7 +48,6 @@ function RightArrow(props: { className?: any; style?: any; onClick?: any; }) {
 }
 
 
-
 const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
     const settings = {
         className: "center",

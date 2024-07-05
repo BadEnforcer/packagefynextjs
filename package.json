@@ -17,6 +17,7 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.7",
     "@vercel/speed-insights": "^1.0.12",
+    "ckeditor-tailwind-reset": "^1.0.5",
     "ckeditor5": "^42.0.0",
     "firebase": "^10.12.3",
     "next": "14.2.4",
@@ -31,6 +32,7 @@
     "uuid": "^10.0.0"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.13",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

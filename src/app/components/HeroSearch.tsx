@@ -1,6 +1,6 @@
 "use client"
-import { useRouter } from 'next/navigation'
-import { CiSearch } from "react-icons/ci";
+import {useRouter} from 'next/navigation'
+import {CiSearch} from "react-icons/ci";
 import React, {useEffect} from "react";
 import {Combobox, ComboboxInput, ComboboxOption} from '@headlessui/react'
 import {doc, getDoc} from "firebase/firestore";
@@ -15,8 +15,8 @@ interface visitingLocations {
 }
 
 
-type searchListDocument ={
-    entries : {
+type searchListDocument = {
+    entries: {
         id: string,
         destinationName: string,
         destinationId: string,
@@ -29,7 +29,13 @@ function classNames(...classes: (string | boolean)[]) {
 }
 
 export default function HeroSearch() {
-    const [locations, setLocations] = React.useState<searchListDocument>({entries: [{id: '0', destinationName: 'Search is down right now', destinationId: '404Err'}]})
+    const [locations, setLocations] = React.useState<searchListDocument>({
+        entries: [{
+            id: '0',
+            destinationName: 'Search is down right now',
+            destinationId: '404Err'
+        }]
+    })
     const [loading, setLoading] = React.useState<boolean>(true)
     const router = useRouter();
     const [query, setQuery] = React.useState('')
@@ -77,11 +83,10 @@ export default function HeroSearch() {
                     <div className="mt-7 sm:mt-12 mx-auto max-w-xl relative">
 
 
-
                         <Combobox
                             as="div"
                             className={"z-10 bg-white rounded-2xl mx-auto max-w-xl relative"} // Added relative positioning to parent div
-                            onChange={(location:visitingLocations) => location !== null  ? router.push('/destination'+ location.url) : ''}
+                            onChange={(location: visitingLocations) => location !== null ? router.push('/destination' + location.url) : ''}
                         >
                             <div className="relative">
                                 <CiSearch
@@ -97,13 +102,14 @@ export default function HeroSearch() {
                             </div>
 
                             {filteredLocations.length > 0 && (
-                                <div className="rounded-lg absolute w-full max-h-72 overflow-y-auto bg-white rounded-b-xl shadow-lg border border-gray-200 mt-1">
+                                <div
+                                    className="rounded-lg absolute w-full max-h-72 overflow-y-auto bg-white rounded-b-xl shadow-lg border border-gray-200 mt-1">
                                     <div className="py-3 text-sm text-gray-800">
                                         {filteredLocations.map((location) => (
                                             <ComboboxOption
                                                 key={location.id}
                                                 value={location}
-                                                className={({ focus }) =>
+                                                className={({focus}) =>
                                                     classNames(
                                                         ' flex justify-start cursor-default select-none px-4 py-2',
                                                         focus && 'bg-indigo-600 text-white'
@@ -118,10 +124,10 @@ export default function HeroSearch() {
                             )}
 
                             {query !== '' && filteredLocations.length === 0 && (
-                                <p className="absolute inset-x-0 top-full p-4 text-sm text-gray-500">No people found.</p>
+                                <p className="absolute inset-x-0 top-full p-4 text-sm text-gray-500">No people
+                                    found.</p>
                             )}
                         </Combobox>
-
 
 
                         <div className="hidden md:block absolute top-0 end-0 -translate-y-12 translate-x-20">
@@ -136,7 +142,8 @@ export default function HeroSearch() {
                             </svg>
                         </div>
                         <div className="hidden md:block absolute bottom-0 start-0 translate-y-10 -translate-x-32">
-                            <svg className="w-[9rem] h-auto text-cyan-500" width="347" height="188" viewBox="0 0 347 188"
+                            <svg className="w-[9rem] h-auto text-cyan-500" width="347" height="188"
+                                 viewBox="0 0 347 188"
                                  fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M4 82.4591C54.7956 92.8751 30.9771 162.782 68.2065 181.385C112.642 203.59 127.943 78.57 122.161 25.5053C120.504 2.2376 93.4028 -8.11128 89.7468 25.5053C85.8633 61.2125 130.186 199.678 180.982 146.248L214.898 107.02C224.322 95.4118 242.9 79.2851 258.6 107.02C274.299 134.754 299.315 125.589 309.861 117.539L343 93.4426"

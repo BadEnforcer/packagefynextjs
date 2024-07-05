@@ -1,15 +1,11 @@
 "use client"
-
 import React, {useEffect, useState} from "react";
-
-
-//
 import {toast} from "react-toastify";
 import {FirebaseError} from "@firebase/app";
-import {doc, getDoc, deleteDoc } from "firebase/firestore";
+import {doc, getDoc, deleteDoc} from "firebase/firestore";
 import firebase from "../../../../../firebase";
 import {useRouter} from "next/navigation";
-import { getStorage, ref, deleteObject } from "firebase/storage";
+import {getStorage, ref, deleteObject} from "firebase/storage";
 
 import dynamic from 'next/dynamic';
 
@@ -21,16 +17,20 @@ type Package = {
     id: string
     name: string
     coverImageUrl: string
-    originalPrice: string
-    discountedPrice: string
+    coverImageFilename: string,
+    originalPrice: number
+    discountedPrice: number
     description: string
+    duration: string,
+    pickupAndDropLocation: string,
     itinerary:
         {
+            id: string,
             heading: string,
             description: string,
-        }[]
-    inclusions: string[]
-    Exclusions: string[]
+        }[] | []
+    inclusions: string[] | []
+    exclusions: string[] | []
 }
 
 interface DestinationData {
@@ -134,8 +134,8 @@ export default function ModifyDestinationPage() {
         try {
             // uploaded information
             const storage = getStorage(firebase.app);
-            const desertRef = ref(storage, `/destination/${fetchedData.fileName}`);
-            await deleteObject(desertRef)
+            const imageRef = ref(storage, `/destinations/${fetchedData.fileName}`);
+            await deleteObject(imageRef)
 
             toast.success("Removed cover image from DB.")
 
@@ -180,7 +180,7 @@ export default function ModifyDestinationPage() {
                                 </label>
                                 <div className="mt-2">
                                     <div
-                                        className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                                        className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-red-600 sm:max-w-md">
                                         <span
                                             className="flex select-none items-center pl-3 text-gray-500 sm:text-sm"></span>
                                         <input
@@ -199,7 +199,7 @@ export default function ModifyDestinationPage() {
                                 <button
                                     disabled={isProcessing}
                                     type="submit"
-                                    className="mt-4 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-opacity-30"
+                                    className="mt-4 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:bg-opacity-30"
                                 >
                                     Search
                                 </button>
@@ -256,7 +256,12 @@ export default function ModifyDestinationPage() {
                                                 value={destinationId}
                                                 readOnly={true}
                                                 className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-red-600 placeholder:text-red-600 focus:ring-0 sm:text-sm sm:leading-6"
-                                                onChange={(e) => setDestinationId(e.target.value ? e.target.value : '')}
+                                                onChange={(e) => {
+                                                    const trimmedValue = e.target.value.trim(); // Trim leading and trailing whitespace
+                                                    if (!trimmedValue.includes(' ')) { // Check if the trimmed value contains spaces
+                                                        setDestinationId(trimmedValue.toLowerCase()); // Update state with lowercase value
+                                                    }
+                                                }}
                                             />
                                         </div>
                                     </div>
@@ -270,7 +275,7 @@ export default function ModifyDestinationPage() {
                                     </label>
                                     <div className="mt-2">
                                         <div
-                                            className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                                            className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-red-600 sm:max-w-md">
                                         <span
                                             className="flex select-none items-center pl-3 text-gray-500 sm:text-sm"></span>
                                             <input
@@ -302,7 +307,7 @@ export default function ModifyDestinationPage() {
                     onChange={(e) => setDestinationDescription(e.target.value ? e.target.value : '')}
                     required={false}
                     readOnly={true}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6"
                 />
                                     </div>
                                 </div>
@@ -347,7 +352,7 @@ export default function ModifyDestinationPage() {
             {/*length 0 is false*/}
             {fetchedData?.packages && <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <form onSubmit={async (e) => await handleDestinationUpdate(e)}>
-                <div className="space-y-12">
+                    <div className="space-y-12">
                         <div className="border-b border-gray-900/10 pb-12">
                             <h2 className="mt-10 text-2xl font-semibold leading-7 text-gray-900">Packages</h2>
                             <p className="mt-1 text-sm leading-6 text-gray-600">

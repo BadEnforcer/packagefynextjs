@@ -1,16 +1,12 @@
 "use client"
 
 import React, {useEffect, useState} from "react";
-
-
-//
 import {toast} from "react-toastify";
-import {getStorage, ref, uploadBytes } from "firebase/storage";
+import {getStorage, ref, uploadBytes} from "firebase/storage";
 import {FirebaseError} from "@firebase/app";
 import {doc, getDoc, setDoc} from "firebase/firestore";
 import firebase from "../../../../../firebase";
 import {useRouter} from "next/navigation";
-
 
 import dynamic from 'next/dynamic';
 
@@ -23,16 +19,20 @@ type Package = {
     id: string
     name: string
     coverImageUrl: string
-    originalPrice: string
-    discountedPrice: string
+    coverImageFilename: string,
+    originalPrice: number
+    discountedPrice: number
     description: string
+    duration: string,
+    pickupAndDropLocation: string,
     itinerary:
         {
+            id: string,
             heading: string,
             description: string,
-        }[]
-    inclusions: string[]
-    Exclusions: string[]
+        }[] | []
+    inclusions: string[] | []
+    exclusions: string[] | []
 }
 
 
@@ -41,19 +41,16 @@ interface DestinationData {
     name: string,
     description: string,
     coverImageUrl: string,
-    packages : Package[] | [],
+    packages: Package[] | [],
     fileName: string,
     created: Date,
     modified: Date,
-    version:number,
-    modificationInfo : {
+    version: number,
+    modificationInfo: {
         createdBy: string,
         lastModifiedBy: string
     }
 }
-
-
-
 
 
 export default function ModifyDestinationPage() {
@@ -81,7 +78,6 @@ export default function ModifyDestinationPage() {
     }, [router]);
 
 
-
     async function HandleIdSearch(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
@@ -104,7 +100,7 @@ export default function ModifyDestinationPage() {
             }
 
             // if data exists
-            const destinationDataSnapshot : DestinationData = docSnap.data() as DestinationData;
+            const destinationDataSnapshot: DestinationData = docSnap.data() as DestinationData;
             setFetchedData(destinationDataSnapshot)
             console.log(destinationDataSnapshot)
 
@@ -188,7 +184,7 @@ export default function ModifyDestinationPage() {
 
         try {
             // uploaded information
-            await setDoc(doc(firebase.db, "destination", destinationId), updatedDocument, {merge: true});
+            await setDoc(doc(firebase.db, "destinations", destinationId), updatedDocument, {merge: true});
 
             toast.success('Data Updated successfully.');
 
@@ -196,8 +192,6 @@ export default function ModifyDestinationPage() {
                 // note: if  success, button will not be re-enabled.
                 router.push('/admin/dashboard');
             }, 3000);
-
-
 
 
         } catch (err) {
@@ -212,7 +206,7 @@ export default function ModifyDestinationPage() {
         <>
             <ToastContainer/>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <form onSubmit={async (e) => await HandleIdSearch(e)} >
+                <form onSubmit={async (e) => await HandleIdSearch(e)}>
                     <div className="space-y-12">
                         <div className="border-b border-gray-900/10 pb-12">
                             {/*ID FORM START*/}
@@ -244,7 +238,12 @@ export default function ModifyDestinationPage() {
                                             autoComplete="off"
                                             className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                             placeholder="new-york"
-                                            onChange={(e) => setSearchId(e.target.value.toLowerCase() ? e.target.value : '')}
+                                            onChange={(e) => {
+                                                const trimmedValue = e.target.value.trim(); // Trim leading and trailing whitespace
+                                                if (!trimmedValue.includes(' ')) { // Check if the trimmed value contains spaces
+                                                    setSearchId(trimmedValue.toLowerCase()); // Update state with lowercase value
+                                                }
+                                            }}
                                         />
                                     </div>
                                 </div>
@@ -271,7 +270,7 @@ export default function ModifyDestinationPage() {
             </div>
 
             {fetchedData && <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <form onSubmit={async (e) => await handleDestinationUpdate(e)} >
+                <form onSubmit={async (e) => await handleDestinationUpdate(e)}>
                     <div className="space-y-12">
                         <div className="border-b border-gray-900/10 pb-12">
 
@@ -284,7 +283,8 @@ export default function ModifyDestinationPage() {
 
                             <h2 className="mt-10 text-base font-semibold leading-7 text-gray-900">Stats</h2>
                             <p className="mt-1 text-sm leading-6 text-gray-600">
-                                This Destination has <span className={'font-bold'} >{fetchedData.packages.length}</span> Packages.
+                                This Destination has <span
+                                className={'font-bold'}>{fetchedData.packages.length}</span> Packages.
                                 They will not be modified by this operation.
                             </p>
 
@@ -443,7 +443,7 @@ export default function ModifyDestinationPage() {
                         </button>
                     </div>
                 </form>
-            </div> }
+            </div>}
 
             {fetchedData?.packages && <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <form onSubmit={async (e) => await handleDestinationUpdate(e)}>

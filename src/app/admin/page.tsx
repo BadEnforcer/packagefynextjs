@@ -1,17 +1,17 @@
 "use client"
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import firebase from "../../../firebase";
-import React, { useEffect, Suspense } from "react";
-import { useRouter } from "next/navigation";
+import React, {useEffect, Suspense} from "react";
+import {useRouter} from "next/navigation";
 
-import { ToastContainer, toast } from 'react-toastify';
+import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FirebaseError } from "@firebase/app";
-import { useSearchParams } from 'next/navigation';
+import {FirebaseError} from "@firebase/app";
+import {useSearchParams} from 'next/navigation';
 import SpinnerFullScreen from "@/app/components/FullScreenSpinner";
 
 function AdminEntryContent() {
-    const router  = useRouter();
+    const router = useRouter();
     const searchParams = useSearchParams();
 
     useEffect(() => {
@@ -48,7 +48,7 @@ function AdminEntryContent() {
 
     return (
         <>
-            <ToastContainer />
+            <ToastContainer/>
             <section id={'login-section'}>
                 <div className={'absolute inset-0 bg-neutral-700 flex items-center justify-center w-screen h-screen'}>
                     <button
@@ -65,8 +65,8 @@ function AdminEntryContent() {
 
 export default function AdminEntryPage() {
     return (
-        <Suspense fallback={<SpinnerFullScreen />}>
-            <AdminEntryContent />
+        <Suspense fallback={<SpinnerFullScreen/>}>
+            <AdminEntryContent/>
         </Suspense>
     );
 }

@@ -47,12 +47,11 @@ const TripCard = dynamic(() => import('@/app/components/infoView/TripCard'),
 // }
 
 
-
 type packageShowcaseData = {
-    data : Package[]
+    data: Package[]
 }
 
-const PackageShowcase:React.FC<packageShowcaseData> = ({data}) => {
+const PackageShowcase: React.FC<packageShowcaseData> = ({data}) => {
     return (
         <section id={'packages'}>
             {data.map((packageData, index) => {
@@ -69,7 +68,7 @@ const PackageShowcase:React.FC<packageShowcaseData> = ({data}) => {
 }
 
 
-const TripsShowcase:React.FC<packageShowcaseData> = ({data}) => {
+const TripsShowcase: React.FC<packageShowcaseData> = ({data}) => {
     return (
         <section id={'trips'}>
             {data.map((trip, index) => {
@@ -213,21 +212,21 @@ export default function Page({params}: { params: { destinationId: string } }) {
                                 <div className="container mx-auto sm:px-6 lg:px-8">
                                     {currentTab === 0 ?
 
-                                        (destinationData?.packages?.length)  ? // since length is 0, it is false
-                                        <PackageShowcase data={destinationData.packages} />
+                                        (destinationData?.packages?.length) ? // since length is 0, it is false
+                                            <PackageShowcase data={destinationData.packages}/>
 
                                             : <>We have no packages right now</>
 
-                                        :  <></>}
+                                        : <></>}
 
                                     {currentTab === 1 ?
 
-                                        (destinationData?.trips?.length)  ? // since length is 0, it is false
-                                            <TripsShowcase data={destinationData.trips} />
+                                        (destinationData?.trips?.length) ? // since length is 0, it is false
+                                            <TripsShowcase data={destinationData.trips}/>
 
                                             : <>We have no Trips right now.</>
 
-                                        :  <></>}
+                                        : <></>}
 
                                 </div>
                             </div>

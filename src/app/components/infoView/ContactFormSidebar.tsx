@@ -1,4 +1,3 @@
-
 import React from "react";
 import dynamic from "next/dynamic";
 
@@ -8,7 +7,7 @@ const ChevronDownIcon = dynamic(() =>
 export default function ContactFormSidebar() {
 
     return (
-        <div className="isolate bg-white px-6  sm:py-32 lg:px-8" >
+        <div className="isolate bg-white px-6  sm:py-32 lg:px-8">
             <div
                 className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
                 aria-hidden="true"
@@ -22,7 +21,8 @@ export default function ContactFormSidebar() {
                 />
             </div>
             <div className="mx-auto max-w-2xl text-center">
-                <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Get in Touch with our Travel experts.</h2>
+                <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Get in Touch with our Travel
+                    experts.</h2>
             </div>
             <form action="#" method="POST" className="mx-auto mt-8  max-w-xl ">
                 <div className="grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-2">
@@ -102,7 +102,8 @@ export default function ContactFormSidebar() {
                     </div>
 
                     <div className="sm:col-span-2">
-                        <label htmlFor="no-of-travellers" className="block text-sm font-semibold leading-6 text-gray-900">
+                        <label htmlFor="no-of-travellers"
+                               className="block text-sm font-semibold leading-6 text-gray-900">
                             Number of travellers
                         </label>
                         <div className="mt-2.5">

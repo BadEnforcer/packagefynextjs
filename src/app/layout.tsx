@@ -29,7 +29,7 @@ export default function RootLayout({
         <html lang="en">
         <SpeedInsights/>
         <body className={inter.className}>
-        <ToastContainer />
+        <ToastContainer/>
 
         {children}
         <PrelineScript/>

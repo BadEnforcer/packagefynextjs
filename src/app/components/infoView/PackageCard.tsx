@@ -3,12 +3,12 @@ import React from "react";
 
 
 type Package = {
-    id:string
-    name:string
-    coverImageUrl:string
-    originalPrice:string
-    discountedPrice:string
-    description:string
+    id: string
+    name: string
+    coverImageUrl: string
+    originalPrice: string
+    discountedPrice: string
+    description: string
     itinerary:
         {
             heading: string,
@@ -39,7 +39,7 @@ export default function PackageCard({key, packageInfo}: tripsShowcaseProps) {
             <div className="md:hidden bg-white p-4 rounded-lg shadow-lg">
                 {/* Image Row */}
                 <div className="relative md:hidden">
-                    <div className={'h-48'} >
+                    <div className={'h-48'}>
                         <Image
                             src={packageInfo.coverImageUrl}
                             alt={packageInfo.description}

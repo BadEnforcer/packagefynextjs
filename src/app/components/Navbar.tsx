@@ -18,7 +18,7 @@ import Image from "next/image";
 //     {name: "Trips", href: "/trips" },
 // ]
 
-export default function Navbar () {
+export default function Navbar() {
     // const pathname = usePathname()
 
     return (
@@ -29,7 +29,7 @@ export default function Navbar () {
                 aria-label="Global">
                 <div className="flex items-center justify-between">
                     <a className="flex-none text-xl font-semibold" href="/" aria-label="Brand">
-                        <Image src={logo} alt={'logo'} height={40} width={120} />
+                        <Image src={logo} alt={'logo'} height={40} width={120}/>
                     </a>
                     <div className="sm:hidden">
                         <button type="button"

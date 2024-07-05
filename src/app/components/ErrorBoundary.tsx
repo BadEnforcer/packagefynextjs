@@ -1,5 +1,5 @@
 // components/ErrorBoundary.tsx
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import React, {Component, ErrorInfo, ReactNode} from 'react';
 
 interface Props {
     children: ReactNode;
@@ -12,12 +12,12 @@ interface State {
 class ErrorBoundary extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
-        this.state = { hasError: false };
+        this.state = {hasError: false};
     }
 
     static getDerivedStateFromError(_: Error): State {
         // Update state so the next render will show the fallback UI.
-        return { hasError: true };
+        return {hasError: true};
     }
 
     componentDidCatch(error: Error, errorInfo: ErrorInfo) {
