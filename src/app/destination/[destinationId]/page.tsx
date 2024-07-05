@@ -35,11 +35,7 @@ const NewsLetter = dynamic(() => import('@/app/components/NewsLetter'), {
         return <ParagraphSkeleton/>
     }
 })
-const TripCard = dynamic(() => import('@/app/components/infoView/TripCard'),
-    {
-        loading: () => (<ParagraphSkeleton/>)
-    }
-)
+
 
 
 // type SectionProps = {
@@ -48,44 +44,27 @@ const TripCard = dynamic(() => import('@/app/components/infoView/TripCard'),
 
 
 type packageShowcaseData = {
-    data: Package[]
+    data?: Package[]
+    destinationId: string,
 }
 
-const PackageShowcase: React.FC<packageShowcaseData> = ({data}) => {
+const PackageShowcase: React.FC<packageShowcaseData> = ({data, destinationId}) => {
+
+    if (!data) return (<></>)
+
     return (
         <section id={'packages'}>
             {data.map((packageData, index) => {
                 return (
                     <div key={index} className={'mt-12'}>
                         <ul role="list" className="space-y-3 mt-10">
-                            <PackageCard key={index} packageInfo={packageData}/>
+                            <PackageCard key={index} destinationId={destinationId} packageInfo={packageData}/>
                         </ul>
                     </div>
                 )
             })}
         </section>
     )
-}
-
-
-const TripsShowcase: React.FC<packageShowcaseData> = ({data}) => {
-    return (
-        <section id={'trips'}>
-            {data.map((trip, index) => {
-                return (
-                    <div key={index} className={'mt-12'}>
-                        <ul role="list" className="space-y-3 mt-10">
-                            <TripCard key={index} tripInfo={trip}/>
-                        </ul>
-                    </div>
-                )
-            })}
-        </section>
-    )
-}
-
-function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(' ')
 }
 
 
@@ -93,54 +72,42 @@ type Package = {
     id: string
     name: string
     coverImageUrl: string
-    originalPrice: string
-    discountedPrice: string
+    coverImageFilename: string,
+    originalPrice: number
+    discountedPrice: number
     description: string
+    duration: string,
+    pickupAndDropLocation: string,
     itinerary:
         {
+            id: string,
             heading: string,
             description: string,
-        }[]
-    inclusions: string[]
-    Exclusions: string[]
+        }[] | []
+    inclusions: string[] | []
+    exclusions: string[] | []
 }
 
-type Trip = {
-    id: string
-    name: string
-    coverImageUrl: string
-    originalPrice: string
-    discountedPrice: string
-    description: string
-    itinerary:
-        {
-            heading: string,
-            description: string,
-        }[]
-
-    inclusions: string[]
-    Exclusions: string[]
-}
-
-
-type DestinationData = {
+interface DestinationData {
     id: string,
     name: string,
     description: string,
     coverImageUrl: string,
-    packages?: Package[],
-    trips?: Trip[]
+    fileName: string,
+    packages: Package[] | [],
+    created: Date,
+    modified: Date,
+    version: number,
+    modificationInfo: {
+        createdBy: string,
+        lastModifiedBy: string
+    }
 }
 
 
-const tabs = [
-    {name: 'Packages'},
-    {name: 'Trips'},
-]
 
 export default function Page({params}: { params: { destinationId: string } }) {
 
-    const [currentTab, setCurrentTab] = React.useState(0);
     const [destinationData, setDestinationData] = React.useState<DestinationData>()
     const [loading, setLoading] = React.useState(true);
     const router = useRouter();
@@ -179,81 +146,40 @@ export default function Page({params}: { params: { destinationId: string } }) {
             <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
                 <Description name={destinationData?.name as string} data={destinationData?.description as string}/>
 
-
-                <div className="border-b border-gray-200">
-                    <div className="sm:flex sm:items-baseline">
-                        {/*<h3 className="text-lg leading-6 font-medium text-gray-900">Issues</h3>*/}
-                        <div className="mt-4 sm:mt-0 sm:ml-10">
-                            <nav className="-mb-px flex space-x-8">
-                                {tabs.map((tab, index) => (
-                                    <button
-                                        key={index}
-                                        onClick={() => setCurrentTab(index)}
-                                        className={classNames(
-                                            currentTab === index
-                                                ? 'border-indigo-500 text-indigo-600'
-                                                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
-                                            'whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm'
-                                        )}
-                                        aria-current={currentTab === index ? 'page' : undefined}
-                                    >
-                                        {tab.name}
-                                    </button>
-                                ))}
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="py-6">
-                    <div className="lg:grid lg:grid-cols-12 lg:gap-8">
-                        <div className="lg:col-span-8">
-                            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                                <div className="container mx-auto sm:px-6 lg:px-8">
-                                    {currentTab === 0 ?
-
-                                        (destinationData?.packages?.length) ? // since length is 0, it is false
-                                            <PackageShowcase data={destinationData.packages}/>
-
-                                            : <>We have no packages right now</>
-
-                                        : <></>}
-
-                                    {currentTab === 1 ?
-
-                                        (destinationData?.trips?.length) ? // since length is 0, it is false
-                                            <TripsShowcase data={destinationData.trips}/>
-
-                                            : <>We have no Trips right now.</>
-
-                                        : <></>}
-
+                {destinationData?.packages?.length
+                    ?
+                    <div className="py-6">
+                        <div className="lg:grid lg:grid-cols-12 lg:gap-8">
+                            <div className="lg:col-span-8">
+                                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                                    <div className="container mx-auto sm:px-6 lg:px-8">
+                                        <PackageShowcase destinationId={params.destinationId} data={destinationData?.packages}/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
 
-                        <div className="hidden lg:block lg:col-span-4">
-                            <nav aria-label="Sidebar" className="sticky top-6 divide-y divide-gray-300">
-                                <ContactFormSidebar/>
-                            </nav>
+                            <div className="hidden lg:block lg:col-span-4">
+                                <nav aria-label="Sidebar" className="sticky top-6 divide-y divide-gray-300">
+                                    <ContactFormSidebar/>
+                                </nav>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    :
+                    <><ContactFormSidebar/></>
+                }
 
 
-                <Contact/>
-                <NewsLetter/>
-                <Footer/>
+
+
 
             </div>
+            <Contact/>
+            <NewsLetter/>
+            <Footer/>
         </div>
     )
 }
-
-
-/* This example requires Tailwind CSS v2.0+ */
-
-
 
 

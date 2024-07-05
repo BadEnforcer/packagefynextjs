@@ -139,14 +139,16 @@ export default function ModifyDestinationPage() {
         const downloadUrl = coverImageUrl;
         // Extract file extension
         const fileExtension = coverPhoto?.name.split('.').pop()?.toLowerCase();
-        if (!fileExtension) {
+        if (!fileExtension && coverPhoto) {
             toast.error("Unable to read file extension.");
+            setIsProcessing(false)
             return;
         }
 
         const validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-        if (!validExtensions.includes(fileExtension)) {
+        if (fileExtension && !validExtensions.includes(fileExtension)) {
             toast.error(`File must have a valid extension: ${validExtensions.join(', ')}`);
+            setIsProcessing(false)
             return;
         }
 
