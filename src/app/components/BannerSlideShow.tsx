@@ -33,7 +33,7 @@ export default function BannerSlideShow() {
                 <div className="max-w-7xl mx-auto">
                     <Slider {...settings}>
                         {bannerImages.map((image, i) => (
-                            <div key={i} className="flex items-center justify-center h-screen max-h-[75vh]">
+                            <div key={i} className="flex items-center justify-center h-screen max-h-[25vh] sm:max-h-[26vh] md:max-h-[50vh] lg:max-h-[60vh]">
                                 <div className="relative w-full h-full">
                                     <Image
                                         src={image}

@@ -137,7 +137,18 @@ export default function ModifyDestinationPage() {
         setIsProcessing(true) // disable button
 
         const downloadUrl = coverImageUrl;
-        const fileExtension = coverPhoto?.name.split('.').pop();
+        // Extract file extension
+        const fileExtension = coverPhoto?.name.split('.').pop()?.toLowerCase();
+        if (!fileExtension) {
+            toast.error("Unable to read file extension.");
+            return;
+        }
+
+        const validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        if (!validExtensions.includes(fileExtension)) {
+            toast.error(`File must have a valid extension: ${validExtensions.join(', ')}`);
+            return;
+        }
 
         if (coverPhoto) {
             try {
@@ -384,36 +395,19 @@ export default function ModifyDestinationPage() {
                                                     className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                                                 >
                                                     <span>Upload a file</span>
-                                                    <input id="file-upload" required={false} name="file-upload"
-                                                           type="file"
-                                                           onChange={(e) => {
-                                                               if (e.target.files !== null) {
-                                                                   const file = e.target.files[0];
-
-                                                                   // check file extension
-                                                                   const validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-                                                                   const fileExtension = file.name.split('.').pop()?.toLowerCase();
-
-                                                                   // return fileExtension ? validExtensions.includes(fileExtension) : false;
-                                                                   if (!fileExtension) {
-                                                                       toast.error("Unable to read file extension.");
-                                                                       return
-                                                                   }
-
-                                                                   if (validExtensions.includes(fileExtension)) {
-                                                                       setCoverPhoto(file);
-                                                                       toast('File is valid.')
-                                                                   } else {
-                                                                       toast.error(`File must have a valid extension : ${validExtensions.toString()}`);
-                                                                       return
-                                                                   }
-                                                               } else {
-                                                                   toast.error('File was not received successfully');
-                                                                   return
-                                                               }
-
-                                                           }}
-                                                           className="sr-only"/>
+                                                    <input
+                                                        id="file-upload"
+                                                        name="file-upload"
+                                                        type="file"
+                                                        onChange={(e) => {
+                                                            if (e.target.files && e.target.files.length > 0) {
+                                                                const file = e.target.files[0];
+                                                                setCoverPhoto(file);
+                                                                toast('File is valid.');
+                                                            }
+                                                        }}
+                                                        className="sr-only"
+                                                    />
                                                 </label>
                                                 <p className="pl-1">or drag and drop</p>
                                             </div>
