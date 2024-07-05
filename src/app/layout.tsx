@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import dynamic from "next/dynamic";
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from "react-toastify";
-
+import { Analytics } from "@vercel/analytics/react"
 const PrelineScript = dynamic(() => import('./components/PrelineScript'))
 
 
@@ -28,6 +28,8 @@ export default function RootLayout({
 
         <html lang="en">
         <SpeedInsights/>
+        <Analytics />
+
         <body className={inter.className}>
         <ToastContainer/>
 
