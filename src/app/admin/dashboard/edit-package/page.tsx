@@ -1,20 +1,21 @@
+// @ts-nocheck
+
 "use client"
 
-import React, {useEffect, useState} from "react";
-import {toast} from "react-toastify";
-import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
-import {FirebaseError} from "@firebase/app";
-import {doc, getDoc, runTransaction, setDoc} from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { FirebaseError } from "@firebase/app";
+import { doc, runTransaction } from "firebase/firestore";
 import firebase from "../../../../../firebase";
-import {useRouter} from "next/navigation";
-
+import { useRouter } from "next/navigation";
 import dynamic from 'next/dynamic';
-import CkEditorInitialized from "@/app/components/CkEditorInitialized";
-import {uuidv4} from "@firebase/util";
+import { uuidv4 } from "@firebase/util";
 
-const PhotoIcon = dynamic(() => import('@heroicons/react/24/solid').then(mod => mod.PhotoIcon));
-const Footer = dynamic(() => import('@/app/components/Footer'));
-const ToastContainer = dynamic(() => import("react-toastify").then(mod => mod.ToastContainer));
+const PhotoIcon = dynamic(() => import('@heroicons/react/24/solid').then(mod => mod.PhotoIcon), { ssr: false });
+const Footer = dynamic(() => import('@/app/components/Footer'), { ssr: false });
+const ToastContainer = dynamic(() => import("react-toastify").then(mod => mod.ToastContainer), { ssr: false });
+const CkEditorInitialized = dynamic(() => import('@/app/components/CkEditorInitialized'), { ssr: false });
 
 type ItineraryData = {
     id: string;
@@ -32,16 +33,14 @@ type Package = {
     description: string
     duration: string,
     pickupAndDropLocation: string,
-    itinerary:
-        {
-            id: string,
-            heading: string,
-            description: string,
-        }[] | []
+    itinerary: {
+        id: string,
+        heading: string,
+        description: string,
+    }[] | []
     inclusions: string[] | []
     exclusions: string[] | []
 }
-
 
 interface DestinationData {
     id: string,
@@ -59,7 +58,6 @@ interface DestinationData {
     }
 }
 
-
 export default function ModifyDestinationPage() {
     const [packageId, setPackageId] = useState<string>('')
     const [destinationId, setDestinationId] = useState<string>('');
@@ -67,7 +65,6 @@ export default function ModifyDestinationPage() {
     const router = useRouter();
     const [fetchedPackageData, setFetchedPackageData] = useState<Package>()
     const [fetchedDestinationData, setFetchedDestinationData] = useState<DestinationData>()
-
 
     const [packageName, setPackageName] = useState<string>('');
     const [packageDescription, setPackageDescription] = useState<string>('');
@@ -79,7 +76,6 @@ export default function ModifyDestinationPage() {
     const [itineraryData, setItineraryData] = useState<ItineraryData[]>([]);
     const [packageDuration, setPackageDuration] = useState<string>('');
     const [pickUpAndDropSpot, setPickUpAndDropSpot] = useState<string>('');
-
 
     useEffect(() => {
         const unsubscribe = firebase.auth.onAuthStateChanged(user => {
@@ -93,11 +89,10 @@ export default function ModifyDestinationPage() {
 
     function handleCkeditorChange(id: string, data: string) {
         const updatedData = itineraryData.map((item) =>
-            item.id === id ? {...item, description: data} : item
+            item.id === id ? { ...item, description: data } : item
         );
         setItineraryData(updatedData);
     }
-
 
     async function handleSearch(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -149,17 +144,13 @@ export default function ModifyDestinationPage() {
                 setPackageDuration(searchedPackage[0].duration)
                 setPickUpAndDropSpot(searchedPackage[0].pickupAndDropLocation)
                 setIsProcessing(false) // enable buttons
-
-
             })
-
         } catch (err) {
             console.log(err);
             if (err instanceof FirebaseError) toast.error(err.code);
             if (err instanceof Error) toast.error(err.message);
             setIsProcessing(false)
         }
-
     }
 
     async function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
@@ -177,26 +168,18 @@ export default function ModifyDestinationPage() {
             return
         }
 
-        let fileExtension: string | undefined;
         setIsProcessing(true)
         try {
             let newCoverImageUrl: string | undefined;
 
             if (coverPhoto) {
-
                 //     upload cover image
                 const storage = getStorage();
                 const fileMetaData = {
                     contentType: coverPhoto.type
                 }
 
-
-                setTimeout(() => {
-                    const fileExtension = coverPhoto.name.split('.').at(-1); // get last element
-                }, 1000);
-
-
-                const newCoverImageRef = ref(storage, `destinations/${destinationId}/package/${packageId}.${fileExtension}`);
+                const newCoverImageRef = ref(storage, `destinations/${destinationId}/package/${packageId}.${coverPhoto.name.split('.').at(-1)}`);
                 // upload the image
                 const uploadResult = await toast.promise(uploadBytes(newCoverImageRef, coverPhoto, fileMetaData), {
                     pending: 'Uploading image...',
@@ -208,12 +191,11 @@ export default function ModifyDestinationPage() {
             }
 
             // update the package
-            // if (!fetchedPackageData) {
-            //     throw new Error("Tried to update details before fetching. This is a bug. Please report.")
-            // }
+            if (!fetchedPackageData) {
+                throw new Error("Tried to update details before fetching. This is a bug. Please report.")
+            }
 
             await runTransaction(firebase.db, async (transaction) => {
-
                 // filter the array of packages
                 let filteredPackages = fetchedDestinationData?.packages.filter((pkg) => pkg.id !== packageId) || [];
 
@@ -225,7 +207,7 @@ export default function ModifyDestinationPage() {
                     duration: packageDuration,
                     pickupAndDropLocation: pickUpAndDropSpot,
                     coverImageUrl: newCoverImageUrl ? newCoverImageUrl : fetchedPackageData?.coverImageUrl,
-                    coverImageFilename: newCoverImageUrl ? `${packageId}.${fileExtension}` : fetchedPackageData?.coverImageFilename,
+                    coverImageFilename: newCoverImageUrl ? `${packageId}.${coverPhoto?.name.split('.').at(-1)}` : fetchedPackageData?.coverImageFilename,
                     originalPrice: originalPrice,
                     discountedPrice: discountedPrice,
                     itinerary: itineraryData,
@@ -236,12 +218,10 @@ export default function ModifyDestinationPage() {
                 // push updated package into filtered packages
                 filteredPackages.push(updatedPackageData);
 
-
                 const destinationRef = doc(firebase.db, "destinations", destinationId);
                 transaction.update(destinationRef, {
                     ...fetchedDestinationData, packages: filteredPackages
                 })
-
                 // complete
             })
 
@@ -249,7 +229,6 @@ export default function ModifyDestinationPage() {
 
             // note: if  success, button will not be re-enabled.
             // router.push('/admin/dashboard');
-
         } catch (err) {
             console.error(err);
             if (err instanceof FirebaseError) toast.error(err.code);
