@@ -1,7 +1,7 @@
-import {JSX, SVGProps} from "react"
 import { IoLogoInstagram } from "react-icons/io";
 import { BsTwitterX } from "react-icons/bs";
 import { SiYoutube } from "react-icons/si";
+import Image from "next/image";
 const footerNavigation = {
     explore: [
         {name: 'Popular', href: '/#showcase-grid'},
@@ -50,11 +50,15 @@ export default function Footer() {
             <div className="max-w-md mx-auto py-12 px-4 sm:max-w-3xl sm:py-24 sm:px-6 lg:max-w-full lg:mx-20 lg:px-8">
                 <div className="xl:grid xl:grid-cols-3 xl:gap-8">
                     <div className="space-y-8 xl:col-span-1">
-                        <img
-                            className="h-16"
-                            src={'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/resources%2Fnewlogo.svg?alt=media&token=833503db-fc0a-4385-9779-58abdd059d78'}
-                            alt="Packagefy"
-                        />
+                        <div className={'relative h-16'}>
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                                className="h-16"
+                                src={'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/resources%2Fnewlogo.svg?alt=media&token=833503db-fc0a-4385-9779-58abdd059d78'}
+                                alt="Packagefy"
+                            />
+                        </div>
+
                         <p className="text-white text-base">
                             Find your Best Holiday Packages.
                         </p>
