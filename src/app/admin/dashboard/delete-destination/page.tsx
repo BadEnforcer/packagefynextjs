@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import {FirebaseError} from "@firebase/app";
-import {doc, getDoc, deleteDoc} from "firebase/firestore";
+import {doc, getDoc, deleteDoc, runTransaction} from "firebase/firestore";
 import firebase from "../../../../../firebase";
 import {useRouter} from "next/navigation";
 import {getStorage, ref, deleteObject} from "firebase/storage";
@@ -12,42 +12,7 @@ import dynamic from 'next/dynamic';
 const Footer = dynamic(() => import('@/app/components/Footer'));
 const ToastContainer = dynamic(() => import("react-toastify").then(mod => mod.ToastContainer));
 
-
-type Package = {
-    id: string
-    name: string
-    coverImageUrl: string
-    coverImageFilename: string,
-    originalPrice: number
-    discountedPrice: number
-    description: string
-    duration: string,
-    pickupAndDropLocation: string,
-    itinerary:
-        {
-            id: string,
-            heading: string,
-            description: string,
-        }[] | []
-    inclusions: string[] | []
-    exclusions: string[] | []
-}
-
-interface DestinationData {
-    id: string,
-    name: string,
-    description: string,
-    coverImageUrl: string,
-    fileName: string,
-    packages: Package[] | [],
-    created: Date,
-    modified: Date,
-    version: number,
-    modificationInfo: {
-        createdBy: string,
-        lastModifiedBy: string
-    }
-}
+import {DestinationData} from "@/app/_utility/types";
 
 
 export default function ModifyDestinationPage() {
@@ -130,22 +95,37 @@ export default function ModifyDestinationPage() {
             return
         }
 
-
         try {
-            // uploaded information
-            const storage = getStorage(firebase.app);
-            const imageRef = ref(storage, `/destinations/${fetchedData.fileName}`);
-            await deleteObject(imageRef)
 
-            toast.success("Removed cover image from DB.")
+        const storage = getStorage(firebase.app);
+
+        await runTransaction(firebase.db, async(transaction) => {
+            const destinationDocRef = doc(firebase.db, "destinations", destinationId);
+            const fetchedDestinationData = (await transaction.get(destinationDocRef)).data() as DestinationData;
+
+            fetchedDestinationData.packages.map(async (pkg) => {
+                const packageCoverImageRef = ref(storage, `/destinations/${destinationId}/package/${pkg.coverImageFilename}`);
+                await deleteObject(packageCoverImageRef)
+
+            })
+
+            const imageRef = ref(storage, `/destinations/${fetchedData.coverImageFilename}`);
+            await deleteObject(imageRef);
+
+            toast.success("Removed All Images.")
 
             await deleteDoc(doc(firebase.db, "destinations", destinationId));
             toast.success('Data deleted successfully.');
+
+            transaction.delete(destinationDocRef)
+        })
 
             setTimeout(() => {
                 // note: if  success, button will not be re-enabled.
                 router.push('/admin/dashboard');
             }, 3000);
+
+
 
 
         } catch (err) {
