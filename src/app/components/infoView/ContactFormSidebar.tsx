@@ -11,7 +11,7 @@ const ChevronDownIcon = dynamic(() =>
 
 type SidebarProps = {
     heading?: string,
-    destinationId:string,
+    destinationId?:string,
     packageId?:string
 }
 
