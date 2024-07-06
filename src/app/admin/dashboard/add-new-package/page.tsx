@@ -29,7 +29,7 @@ type ItineraryData = {
 }
 
 
-export default function AddNewDestinationPage() {
+export default function AddNewPackagePage() {
     const [destinationId, setDestinationId] = useState<string>('');
     const [packageId, setPackageId] = useState<string>('');
     const [packageName, setPackageName] = useState<string>('');
@@ -190,32 +190,37 @@ export default function AddNewDestinationPage() {
                 if (!isTrending) return; // if false
 
                 let trendingPackagesData = trendingPackagesSnapshot.data() as PackageShowcaseDataFile;
+                console.log("trendingPackages", trendingPackagesData);
 
                 if (!trendingPackagesData.entries || trendingPackagesData.entries.length === 0) {
-                    trendingPackagesData = {entries: []}
+                    trendingPackagesData = {entries: []};
+                    console.log("Entries are null. initialized null values again");
 
                     trendingPackagesData.entries.push({
                         packageId: packageId, destinationId: destinationId, addTimestamp: new Date(),
-                    } as TrendingPackageShowcaseData) // push to local array
+                    } as TrendingPackageShowcaseData); // push to local array
 
-                    transaction.set(trendingPackagesRef, {...trendingPackagesData}) // set
-
+                    transaction.set(trendingPackagesRef, {...trendingPackagesData}); // set
+                    console.log("Set null value into db");
                 } else {
-                    // filter all other packages.
-                    const filterPackages = trendingPackagesData.entries.filter(
-                        (data) => data.packageId !== packageId && data.destinationId !== destinationId
-                    );
+                    // Check if the package already exists
+                    const existingIndex = trendingPackagesData.entries.findIndex(data => data.packageId === packageId && data.destinationId === destinationId);
 
-                    filterPackages.push({
-                        packageId: packageId, destinationId: destinationId, addTimestamp: new Date(),
-                    } as TrendingPackageShowcaseData) // push to local array
+                    if (existingIndex === -1) {
+                        // Package does not exist, add new
+                        trendingPackagesData.entries.push({
+                            packageId: packageId, destinationId: destinationId, addTimestamp: new Date(),
+                        } as TrendingPackageShowcaseData); // push to local array
+                        console.log("Added new package since it didn't exist.");
+                    } else {
+                        // Package exists, you can update it or leave as is. For now, we'll just log it.
+                        console.log("Package already exists, not adding.");
+                        // If you want to update the timestamp or any other detail, do it here.
+                        // trendingPackagesData.entries[existingIndex].addTimestamp = new Date(); // Example update
+                    }
 
-                    trendingPackagesData.entries = filterPackages // update with new-modified array
-
-
-                    // update in db
-                    transaction.update(trendingPackagesRef, {...trendingPackagesData}) // update
-
+                    // Update in db
+                    transaction.update(trendingPackagesRef, {...trendingPackagesData}); // update
                 }
 
             })
@@ -337,7 +342,10 @@ export default function AddNewDestinationPage() {
                                     </span>
                                         <Switch
                                             checked={isTrending}
-                                            onChange={setIsTrending}
+                                            onChange={(e) => {
+                                                console.log("value changed", e.valueOf())
+                                                setIsTrending(e.valueOf())
+                                            }}
                                             className="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-green-600"
                                         >
                                             <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6" />

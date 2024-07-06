@@ -7,11 +7,12 @@ import {Suspense} from 'react';
 import SpinnerFullScreen from "@/app/components/FullScreenSpinner";
 import ErrorBoundary from "@/app/components/ErrorBoundary";
 import Image from "next/image";
+import TrendingDestinations from "@/app/components/TrendingDestinations";
 
 
 const HeroSearch = dynamic(() => import('./components/HeroSearch'))
 const ImageGrid = dynamic(() => import('./components/ImageGrid'))
-const TripsWithPriceSlider = dynamic(() => import('./components/TripsWithPriceSlider'))
+const TripsWithPriceSlider = dynamic(() => import('./components/NormalTripsSlider'))
 const Navbar = dynamic(() => import('./components/Navbar'))
 const Footer = dynamic(() => import('./components/Footer'))
 const LogoCloud = dynamic(() => import('./components/LogoCloud'))
@@ -203,6 +204,7 @@ export default function HomePage() {
                 <section>
                     <ImageGrid/>
                     <BannerSlideShow/>
+                    <TrendingDestinations />
                     <TripsWithPriceSlider heading1={'Trending'} heading2={"Domestic"} heading3={"Spots"} entries={content}/>
                     <TripsWithPriceSlider heading1={'Best of'} heading2={'International'} heading3={"Destinations"} entries={files} rtl={false}/>
                 </section>

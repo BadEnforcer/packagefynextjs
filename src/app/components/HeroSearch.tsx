@@ -43,7 +43,6 @@ export default function HeroSearch() {
 
                 // if search list exists
                 setLocations((docSnapshot.data() as searchListDocument));
-                console.log((docSnapshot.data() as searchListDocument))
                 setIsLoading(false)
 
             })
@@ -89,7 +88,7 @@ export default function HeroSearch() {
                                     as="div"
                                     className={"z-10 bg-white rounded-2xl mx-auto max-w-xl relative"} // Added relative positioning to parent div
                                     onChange={(location: searchEntry) => {
-                                        setIsLoading(true);
+                                        location ? setIsLoading(true) : null
                                         location ? router.push('/destination/' + location.destinationId) : ''
                                     }}
                                 >

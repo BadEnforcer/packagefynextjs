@@ -1,14 +1,10 @@
 import Image from "next/image";
 import React from "react";
+import {TestimonialData} from "@/app/_utility/types";
 
-interface TestimonialProps {
-    imageSrc: string;
-    name: string;
-    content: string;
-    position: string;
-}
 
-export default function Testimonial({imageSrc, name, content, position}: TestimonialProps) {
+
+export default function Testimonial({imageSrc, name, content, authorPosition}: TestimonialData) {
     return (
         <div className="bg-white pt-16 lg:py-24">
             <div className={'pb-16 flex w-full items-center justify-center mt-8 lg:mt-20 lg:mb-10'}>
@@ -53,7 +49,7 @@ export default function Testimonial({imageSrc, name, content, position}: Testimo
                                 </div>
                                 <footer className="mt-6">
                                     <p className="text-base font-medium text-white">{name}</p>
-                                    <p className="text-base font-medium text-indigo-100">{position}</p>
+                                    <p className="text-base font-medium text-indigo-100">{authorPosition}</p>
                                 </footer>
                             </blockquote>
                         </div>

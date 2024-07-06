@@ -55,3 +55,14 @@ export interface TrendingPackageShowcaseData {
 export interface PackageShowcaseDataFile {
     entries : TrendingPackageShowcaseData[]
 }
+
+export interface TestimonialData {
+    imageSrc: string
+    name: string
+    content: string
+    authorPosition: string
+}
+
+export interface TestimonialFile {
+    entries: TestimonialData[]
+}

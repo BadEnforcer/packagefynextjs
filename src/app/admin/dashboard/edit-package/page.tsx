@@ -262,30 +262,33 @@ export default function ModifyDestinationPage() {
                 let trendingPackagesData = trendingPackagesSnapshot.data() as PackageShowcaseDataFile;
 
                 if (!trendingPackagesData.entries || trendingPackagesData.entries.length === 0) {
-                    trendingPackagesData = {entries: []}
+                    trendingPackagesData = {entries: []};
 
                     trendingPackagesData.entries.push({
                         packageId: packageId, destinationId: destinationId, addTimestamp: new Date(),
-                    } as TrendingPackageShowcaseData) // push to local array
+                    } as TrendingPackageShowcaseData); // push to local array
 
-                    transaction.set(trendingPackagesRef, {...trendingPackagesData}) // set
+                    transaction.set(trendingPackagesRef, {...trendingPackagesData}); // set
 
                 } else {
-                    // filter all other packages.
-                    const filterPackages = trendingPackagesData.entries.filter(
-                        (data) => data.packageId !== packageId && data.destinationId !== destinationId
-                    );
+                    // Check if the package already exists
+                    const existingIndex = trendingPackagesData.entries.findIndex(data => data.packageId === packageId && data.destinationId === destinationId);
 
-                    filterPackages.push({
-                        packageId: packageId, destinationId: destinationId, addTimestamp: new Date(),
-                    } as TrendingPackageShowcaseData) // push to local array
+                    if (existingIndex === -1) {
+                        // Package does not exist, add new
+                        trendingPackagesData.entries.push({
+                            packageId: packageId, destinationId: destinationId, addTimestamp: new Date(),
+                        } as TrendingPackageShowcaseData); // push to local array
+                    } else {
+                        // Package exists, you can update it or leave as is. For now, we'll just log it.
+                        console.log("Package already exists, not adding.");
+                        toast.info("Package already exists, not adding.")
+                        // If you want to update the timestamp or any other detail, do it here.
+                        // trendingPackagesData.entries[existingIndex].addTimestamp = new Date(); // Example update
+                    }
 
-                    trendingPackagesData.entries = filterPackages // update with new-modified array
-
-
-                    // update in db
-                    transaction.update(trendingPackagesRef, {...trendingPackagesData}) // update
-
+                    // Update in db
+                    transaction.update(trendingPackagesRef, {...trendingPackagesData}); // update
                 }
 
                 // complete
