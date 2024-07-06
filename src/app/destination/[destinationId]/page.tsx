@@ -90,7 +90,8 @@ export default function Page({params}: { params: { destinationId: string } }) {
             </div> : <><ContactFormSidebar destinationId={destinationData.id}/></>}
 
             <div className={'lg:hidden'}>
-                <ContactFormSidebar destinationId={destinationData.id}/>
+                {destinationData?.packages?.length ?  <ContactFormSidebar destinationId={destinationData.id}/> : <></>}
+
             </div>
 
         </div>

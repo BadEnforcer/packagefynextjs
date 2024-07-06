@@ -19,14 +19,13 @@ export default function PackageCard({key, packageInfo, destinationId}: tripsShow
 
     return (
         <li key={key}
-            className="bg-white outline outline-[1px] outline-black/10 hover:ring-1 hover:ring-purple-500 hover:scale-[101%] overflow-hidden rounded-2xl px-2 py-2 sm:px-6 sm:rounded-md">
+            className="mb-10 md:mb-0 bg-white outline outline-[1px] outline-black/10 hover:ring-1 hover:ring-[#008DDA] hover:scale-[101%] overflow-hidden rounded-2xl px-2 py-2 sm:px-6 sm:rounded-md">
 
             {/*// TODO : CHANGE BUTTON COLOR*/}
             {/*mobile*/}
-            <div className="md:hidden bg-white p-4 rounded-lg shadow-lg">
+            <div className="md:hidden bg-white p-4  rounded-lg shadow-lg">
                 {/* Image Row */}
-                <div className="relative md:hidden">
-                    <Link href={`${destinationId}/package/${packageInfo.id}`}>
+                <Link href={`${destinationId}/package/${packageInfo.id}`} className="relative md:hidden">
                         <div className={'h-48'}>
                             <Image
                                 src={packageInfo.coverImageUrl}
@@ -37,13 +36,10 @@ export default function PackageCard({key, packageInfo, destinationId}: tripsShow
                                 fill={true}
                             />
                         </div>
-                    </Link>
-
-
-                </div>
+                </Link>
 
                 {/* Content Row */}
-                <div className="flex flex-col md:flex-row justify-between">
+                <Link href={`${destinationId}/package/${packageInfo.id}`} className="flex flex-col md:flex-row justify-between">
                     {/*ONCLICK FUNCTION*/}
                     <div className="md:w-2/3 md:ml-4 flex flex-col justify-between">
                         <div>
@@ -63,16 +59,16 @@ export default function PackageCard({key, packageInfo, destinationId}: tripsShow
                             </p>
 
                         </div>
-                        <button className="mt-4 bg-indigo-600 text-white py-2 px-4 rounded hover:bg-blue-600">
-                            Inquire
+                        <button type={'button'} className="flex items-center justify-center mt-4 bg-[#008DDA] text-white py-2 px-4 rounded hover:bg-[#40A2E3]">
+                            See Details
                         </button>
                     </div>
-                </div>
+                </Link>
             </div>
 
             {/*Desktop*/}
-            <div className="hidden md:grid grid-cols-5 gap-4 bg-white p-4 rounded-lg shadow-lg w-full">
-                <Link href={`${destinationId}/package/${packageInfo.id}`} className="relative overflow-hidden  col-span-2 flex-shrink-0 w-full  xl:pb-[60%]">
+            <Link href={`${destinationId}/package/${packageInfo.id}`} className="hidden md:grid grid-cols-5 gap-4 bg-white p-4 rounded-lg shadow-lg w-full">
+                <div  className="relative overflow-hidden  col-span-2 flex-shrink-0 w-full  xl:pb-[60%]">
                     <Image
                         src={packageInfo.coverImageUrl}
                         alt={packageInfo.description}
@@ -82,13 +78,13 @@ export default function PackageCard({key, packageInfo, destinationId}: tripsShow
                         placeholder={'blur'}
                         blurDataURL={packageInfo.coverImageBase64}
                     />
-                </Link>
+                </div>
                 <div className="col-span-3 flex flex-col justify-between">
-                    <Link href={`${destinationId}/package/${packageInfo.id}`} className={''} >
+                    <div className={''} >
                         <h3 className="text-sm text-gray-800">{packageInfo.duration}</h3>
                         <h1 className="text-2xl font-bold pt-2 text-black">{packageInfo.name}</h1>
-                    </Link>
-                    <Link href={`${destinationId}/package/${packageInfo.id}`} className="row-span-2 mt-2 ">
+                    </div>
+                    <div className="row-span-2 mt-2 ">
                         <div className={'grid grid-cols-2'}>
                             <div className={'flex items-center justify-start gap-x-2 md:scale-75 md:mr-14 xl:scale-90'}>
                                 <div className={'grid grid-rows-2'}>
@@ -110,7 +106,7 @@ export default function PackageCard({key, packageInfo, destinationId}: tripsShow
                             </div>
                             <div></div>
                         </div>
-                    </Link>
+                    </div>
                     <div className="mt-4 grid grid-cols-2 items-center ">
                         <div>
                             <p>
@@ -125,13 +121,13 @@ export default function PackageCard({key, packageInfo, destinationId}: tripsShow
                         </div>
                         <div className="flex justify-end">
                             <button
-                                className="bg-indigo-600 font-medium rounded-xl text-white py-2 px-4  hover:bg-indigo-500">
-                                Send Inquiry
+                                className="bg-[#008DDA] font-medium rounded-xl text-white py-2 px-4  hover:bg-[#40A2E3]">
+                                See Details
                             </button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </Link>
         </li>
 
     )

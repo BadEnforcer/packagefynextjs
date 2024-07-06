@@ -13,7 +13,7 @@ const CkEditorInitialized = dynamic(() => import('@/app/components/CkEditorIniti
 const PhotoIcon = dynamic(() => import('@heroicons/react/24/solid').then(mod => mod.PhotoIcon));
 const Footer = dynamic(() => import('@/app/components/Footer'));
 const ToastContainer = dynamic(() => import("react-toastify").then(mod => mod.ToastContainer));
-import {Package, DestinationData} from "@/app/_utility/types";
+import {Package, DestinationData, PackageReview} from "@/app/_utility/types";
 
 type ItineraryData = {
     id: string;
@@ -38,6 +38,7 @@ export default function AddNewDestinationPage() {
     const [itineraryData, setItineraryData] = useState<ItineraryData[]>([]);
     const [packageDuration, setPackageDuration] = useState<string>('');
     const [pickUpAndDropSpot, setPickUpAndDropSpot] = useState<string>('');
+    const [reviewsData, setReviewsData] = useState<PackageReview[]>([]);
 
     const router = useRouter();
 
@@ -46,6 +47,13 @@ export default function AddNewDestinationPage() {
             item.id === id ? {...item, description: data} : item
         );
         setItineraryData(updatedData);
+    }
+
+    function handleReviewCkEditorChange(id: string, data: string) {
+        const updatedData = reviewsData.map((item) =>
+            item.id === id ? {...item, content: data} : item
+        );
+        setReviewsData(updatedData);
     }
 
 
@@ -154,7 +162,8 @@ export default function AddNewDestinationPage() {
                         itinerary: itineraryData,
                         inclusions: inclusions,
                         exclusions: exclusions,
-                        coverImageBase64: base64
+                        coverImageBase64: base64,
+                        reviews: reviewsData
                     } as Package
                 )
 
@@ -434,7 +443,7 @@ export default function AddNewDestinationPage() {
                                 <div className="sm:col-span-4">
                                     <label htmlFor="original-price"
                                            className="block text-sm font-medium leading-6 text-gray-900  ">
-                                    Original Price
+                                        Original Price
                                     </label>
                                     <div className="mt-2">
                                         <div
@@ -702,6 +711,210 @@ export default function AddNewDestinationPage() {
                             </div>
                         </div>
                     </div>
+
+                    {/*REVIEWS*/}
+                    <section className="space-y-12">
+                        <div className="border-b border-gray-900/10 pb-12">
+                            <h2 className="mt-10 text-2xl font-semibold leading-7 text-gray-900">Reviews</h2>
+                            <p className="mt-1 text-sm leading-6 text-gray-600">
+                                This items will appear in Reviews section.
+                            </p>
+                            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                <div className="sm:col-span-4">
+                                    {reviewsData.length > 0 && reviewsData.map((review, i) => (
+                                        <div key={i} className="flex flex-col items-start my-2">
+
+                                            {/*Review Title*/}
+                                            <div className="sm:col-span-4 w-full mb-4">
+                                                <label htmlFor={`review-${review.id}-title`}
+                                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                                    Review Title
+                                                </label>
+                                                <div className="mt-2">
+                                                    <div
+                                                        className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-green-600 sm:max-w-md w-full">
+                                                        <input
+                                                            type="text"
+                                                            name={`review-${review.id}-title`}
+                                                            id={`review-${review.id}-title`}
+                                                            required
+                                                            value={review.title}
+                                                            autoComplete="off"
+                                                            className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                                            placeholder="Great Work by the Team."
+                                                            onChange={(e) => {
+                                                                const updatedData = reviewsData.map((item, index) =>
+                                                                    index === i ? {
+                                                                        ...item,
+                                                                        title: e.target.value
+                                                                    } : item
+                                                                );
+                                                                setReviewsData(updatedData);
+                                                            }}
+                                                        />
+                                                        <button
+                                                            onClick={() => {
+                                                                const filterdReviews = reviewsData.filter(item => item.id !== review.id);
+                                                                setReviewsData(filterdReviews);
+                                                            }}
+                                                            type="button"
+                                                            className="translate-x-20 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                                                        >
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                 viewBox="0 0 24 24" strokeWidth={1.5}
+                                                                 stroke="currentColor" className="size-4">
+                                                                <path strokeLinecap="round" strokeLinejoin="round"
+                                                                      d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"/>
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/*Author Name*/}
+                                            <div className="sm:col-span-4 w-full mb-4">
+                                                <label htmlFor={`review-${review.id}-name`}
+                                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                                    Author Name
+                                                </label>
+                                                <div className="mt-2">
+                                                    <div
+                                                        className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-green-600 sm:max-w-md w-full">
+                                                        <input
+                                                            type="text"
+                                                            name={`review-${review.id}-name`}
+                                                            id={`review-${review.id}-name`}
+                                                            required
+                                                            value={review.name}
+                                                            autoComplete="off"
+                                                            className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                                            placeholder="Great Work."
+                                                            onChange={(e) => {
+                                                                const updatedData = reviewsData.map((item, index) =>
+                                                                    index === i ? {
+                                                                        ...item,
+                                                                        name: e.target.value
+                                                                    } : item
+                                                                );
+                                                                setReviewsData(updatedData);
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {/*Number of stars*/}
+                                            <div className="sm:col-span-4 w-full mb-4">
+                                                <label htmlFor={`review-${review.id}-name`}
+                                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                                    Rating / Stars (out of 5)
+                                                </label>
+                                                <div className="mt-2">
+                                                    <div
+                                                        className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-green-600 sm:max-w-md w-full">
+                                                        <input
+                                                            type="number"
+                                                            name={`review-${review.id}-stars`}
+                                                            id={`review-${review.id}-stars`}
+                                                            required
+                                                            value={review.stars}
+                                                            max={5}
+                                                            min={0}
+                                                            autoComplete="off"
+                                                            className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                                            placeholder="Great Work."
+                                                            onChange={(e) => {
+                                                                const updatedData = reviewsData.map((item, index) =>
+                                                                    index === i ? {
+                                                                        ...item,
+                                                                        stars: Number(e.target.value)
+                                                                    } : item
+                                                                );
+                                                                setReviewsData(updatedData);
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/*POST DATE*/}
+                                            <div className="sm:col-span-4 w-full mb-4">
+                                                <label htmlFor={`review-${review.id}-postDate`}
+                                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                                    Post Date (When the review was posted)
+                                                </label>
+                                                <div className="mt-2">
+                                                    <div
+                                                        className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-green-600 sm:max-w-md w-full">
+                                                        <input
+                                                            type={'date'}
+                                                            name={`review-${review.id}-postDate`}
+                                                            id={`review-${review.id}-postDate`}
+                                                            required
+                                                            value={review.postDate}
+                                                            max={5}
+                                                            min={0}
+                                                            autoComplete="off"
+                                                            className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                                            placeholder="Great Work."
+                                                            onChange={(e) => {
+                                                                const updatedData = reviewsData.map((item, index) =>
+                                                                    index === i ? {
+                                                                        ...item,
+                                                                        postDate: e.target.value
+                                                                    } : item
+                                                                );
+                                                                setReviewsData(updatedData);
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {/*CONTENT*/}
+                                            <div className="sm:col-span-4 w-full">
+                                                <label htmlFor={`review-content-${i}`}
+                                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                                    Description
+                                                </label>
+                                                <div className="mt-2">
+                                                    <div
+                                                        className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-green-600 sm:max-w-md w-full">
+                                                        <div id={`review-content-${i}`}
+                                                             className="block w-full border-0 bg-transparent">
+                                                            <CkEditorInitialized
+                                                                key={review.id} // Use the unique id as key
+                                                                initialValue={review.content}
+                                                                onChangeFunction={(id, data) => handleReviewCkEditorChange(id, data)}
+                                                                id={review.id} // Pass the unique id instead of dataIndex
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+
+
+                                    <button
+                                        disabled={isProcessing}
+                                        onClick={() => setReviewsData((prev) => [...prev, {
+                                            id: uuidv4(),
+                                            name: '',
+                                            title: '',
+                                            content: '',
+                                            stars: 0,
+                                            postDate: '',
+                                            description: '',
+                                        }])}
+                                        type="button"
+                                        className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 disabled:bg-opacity-30"
+                                    >
+                                        Add
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
 
                     {/*Submission*/}
                     <div className="mt-6 flex items-center justify-end gap-x-6">

@@ -4,7 +4,7 @@ type ExclusionProps = {
 
 export default function Exclusions({exclusions}: ExclusionProps) {
     return (
-        <div>
+        <section id={'exclusions'}>
             <div className="pb-5 border-b border-gray-200 mb-8">
                 <h3 className="font-bold text-2xl leading-6 text-gray-900">Exclusions</h3>
             </div>
@@ -42,7 +42,7 @@ export default function Exclusions({exclusions}: ExclusionProps) {
                     ))}
                 </ul>
             </div>
-        </div>
+        </section>
 
     )
 }

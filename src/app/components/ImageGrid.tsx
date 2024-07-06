@@ -43,8 +43,8 @@ const ImageGrid: React.FC = () => {
 
     return (
         <section id={'showcase-grid'}>
-            <div className={'flex w-full items-center justify-center mt-8 lg:mt-10 lg:mb-10'}>
-                <h1 className={'font-bold text-2xl lg:text-4xl'}>Best Trips Across <span className={'text-blue-700'}>The Globe</span>
+            <div className={'flex w-full items-center justify-center mt-8 lg:mt-14 lg:mb-10'}>
+                <h1 className={'font-bold text-2xl lg:text-4xl'}>Best Trips Across <span className={'text-[#008DDA]'}>The Globe</span>
                 </h1>
             </div>
 

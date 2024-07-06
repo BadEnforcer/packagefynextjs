@@ -14,7 +14,6 @@ const ImageGrid = dynamic(() => import('./components/ImageGrid'))
 const TripsWithPriceSlider = dynamic(() => import('./components/TripsWithPriceSlider'))
 const Navbar = dynamic(() => import('./components/Navbar'))
 const Footer = dynamic(() => import('./components/Footer'))
-const NewsLetter = dynamic(() => import('./components/NewsLetter'))
 const LogoCloud = dynamic(() => import('./components/LogoCloud'))
 const TestimonialSlider = dynamic(() => import('./components/TestimonialSlider'))
 const BannerSlideShow = dynamic(() => import('./components/BannerSlideShow'))
@@ -192,7 +191,7 @@ export default function HomePage() {
     return (
         <ErrorBoundary>
             <Suspense fallback={<SpinnerFullScreen/>}>
-                <section className={'relative overflow-hidden'}>
+                <section id={'Hero Section'} className={'relative overflow-hidden'}>
                     <Image src={backgroundImage} alt={'Background Image'} fill={true}
                            className={'absolute bg-no-repeat bg-center -z-10'} placeholder={'blur'} priority
                            fetchPriority={'high'} blurDataURL={backgroundBlurImage} objectFit={'cover'}/>
@@ -204,8 +203,8 @@ export default function HomePage() {
                 <section>
                     <ImageGrid/>
                     <BannerSlideShow/>
-                    <TripsWithPriceSlider heading={'Season Spots'} entries={content}/>
-                    <TripsWithPriceSlider heading={'International Destinations'} entries={files} rtl={false}/>
+                    <TripsWithPriceSlider heading1={'Trending'} heading2={"Domestic"} heading3={"Spots"} entries={content}/>
+                    <TripsWithPriceSlider heading1={'Best of'} heading2={'International'} heading3={"Destinations"} entries={files} rtl={false}/>
                 </section>
 
                 <TestimonialSlider/>

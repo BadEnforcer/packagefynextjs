@@ -1,41 +1,16 @@
 import Image from "next/image";
 
 const contactDetails = [
-    {name: 'Collaborate', email: 'support@example.com', telephone: '+1 (555) 123-4567'},
-    {name: 'Press', email: 'support@example.com', telephone: '+1 (555) 123-4567'},
+    {name: 'Collaborate', email: 'Packagefytours@gmail.com', telephone: '+91 (638) 802-9737'},
+    {name: 'Press', email: 'Press@packagefy.com', telephone: '+91 (933) 672-4747'},
     // { name: 'Join our team', email: 'support@example.com', telephone: '+1 (555) 123-4567' },
     // { name: 'Say hello', email: 'support@example.com', telephone: '+1 (555) 123-4567' },
 ]
 const locations = [
-    {city: 'Los Angeles', address: ['4556 Brendan Ferry', 'Los Angeles, CA 90210']},
+    {city: 'Jhansi', address: ['Elite Square', 'Jhansi, UP 284001']},
     // { city: 'New York', address: ['886 Walter Streets', 'New York, NY 12345'] },
     // { city: 'Toronto', address: ['7363 Cynthia Pass', 'Toronto, ON N3Y 4H8'] },
     // { city: 'Chicago', address: ['726 Mavis Island', 'Chicago, IL 60601'] },
-]
-const faqs = [
-    {
-        id: 1,
-        question: 'How do you make holy water?',
-        answer:
-            'You boil the hell out of it. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.',
-    },
-    {
-        id: 2,
-        question: "What's the best thing about Switzerland?",
-        answer:
-            "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
-    },
-    {
-        id: 3,
-        question: 'What do you call someone with no body and no nose?',
-        answer: 'Nobody knows. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.',
-    },
-    {
-        id: 4,
-        question: 'Why do you never see elephants hiding in trees?',
-        answer:
-            "Because they're so good at it. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
-    },
 ]
 
 export default function Contact() {
@@ -58,7 +33,7 @@ export default function Contact() {
                 <div
                     className="relative mt-10 pt-10 max-w-md mx-auto px-4 sm:max-w-3xl sm:mt-32 sm:px-6 lg:max-w-7xl lg:px-8 ">
                     <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">Want
-                        something more customized?</h1>
+                        something more customized ?</h1>
                     <p className="mt-6 text-xl text-white max-w-3xl">
                         Mattis amet hendrerit dolor, quisque lorem pharetra. Pellentesque lacus nisi urna, arcu sociis
                         eu. Orci vel
@@ -119,37 +94,6 @@ export default function Contact() {
                         </div>
                     </div>
                 </div>
-
-                {/* FAQ */}
-                <div className="bg-warm-gray-50">
-                    <div className="max-w-md mx-auto py-24 px-4 sm:max-w-3xl sm:py-32 sm:px-6 lg:max-w-7xl lg:px-8">
-                        <div className="lg:grid lg:grid-cols-3 lg:gap-8">
-                            <div>
-                                <h2 className="text-3xl font-extrabold text-warm-gray-900">Frequently asked
-                                    questions</h2>
-                                <p className="mt-4 text-lg text-warm-gray-500">
-                                    Can’t find the answer you’re looking for? Reach out to our{' '}
-                                    <a href="#" className="font-medium text-cyan-700 hover:text-cyan-600">
-                                        customer support
-                                    </a>{' '}
-                                    team.
-                                </p>
-                            </div>
-                            <div className="mt-12 lg:mt-0 lg:col-span-2">
-                                <dl className="space-y-12">
-                                    {faqs.map((faq) => (
-                                        <div key={faq.id}>
-                                            <dt className="text-lg font-medium text-warm-gray-900">{faq.question}</dt>
-                                            <dd className="mt-2 text-base text-warm-gray-500">{faq.answer}</dd>
-                                        </div>
-                                    ))}
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
         </div>
     )

@@ -13,42 +13,17 @@ type ShowcaseEntries = {
 
 
 interface SimpleSliderProps {
-    heading: string
+    heading1: string
+    heading2: string
+    heading3?: string
     entries: ShowcaseEntries[];
     rtl?: boolean
 
 }
 
-function LeftArrow(props: { className?: any; style?: any; onClick?: any; }) {
-    const {className, style, onClick} = props;
-
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-             stroke="currentColor" className={`size-6 ${className}`}
-             style={{...style, display: "block", color: 'black'}}
-             onClick={onClick}
-        >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"/>
-        </svg>
-    )
-}
-
-function RightArrow(props: { className?: any; style?: any; onClick?: any; }) {
-    const {className, style, onClick} = props;
-
-    return (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                 stroke="currentColor" className={`size-6 ${className}`}
-                 style={{...style, display: "block", color: 'black'}}
-                 onClick={onClick}
-    >
-        <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/>
-    </svg>)
 
 
-}
-
-
-const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
+const SimpleSlider: React.FC<SimpleSliderProps> = ({heading1, heading2, heading3, entries, rtl}) => {
     const settings = {
         className: "center",
         centerMode: true,
@@ -61,10 +36,7 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
         focusOnSelect: true,
         rtl: rtl || false,
         arrows: true,
-        dots: false,
-        nextArrow: <RightArrow/>,
-        prevArrow: <LeftArrow/>,
-        // lazyLoad: true,
+        // dots: true,
         // useCSS: true,
         responsive: [
             //all
@@ -129,9 +101,13 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
 
     return (
         <section>
-            <div className={'flex w-full items-center justify-center mt-8 lg:mt-20 lg:mb-10'}>
-                <h1 className={'font-bold text-2xl lg:text-4xl '}>Top <span
-                    className={'text-blue-700'}>{heading}</span></h1>
+            <div className={'pb-8  flex w-full items-center justify-center mt-8 lg:mt-20 lg:mb-10'}>
+                <h1 className={'font-bold text-lg md:text-2xl lg:text-4xl '}>
+                    {heading1} <span
+                    className={'text-[#008DDA]'}>
+                    {heading2} </span>
+                    <span>{heading3}</span>
+                </h1>
             </div>
             <div className={'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'}>
                 <div className="max-w-7xl mx-auto">
@@ -146,12 +122,9 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading, entries, rtl}) => {
                                                content={'contain'}
                                                placeholder={'blur'}
                                                blurDataURL={'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII='}
-                                            // width={300}
-                                            // height={300}
                                                className="pointer-events-none group-hover:opacity-75 "/>
                                         <button type="button" className="absolute inset-0 focus:outline-none">
-                                            <span
-                                                className="sr-only  translate-x-5">View details for {entry.title}</span>
+                                            <span className="sr-only translate-x-5">View details for {entry.title}</span>
                                         </button>
                                     </div>
                                     <p className="pl-4 mt-1 block text-sm font-medium text-gray-900 truncate pointer-events-none">{entry.title}</p>

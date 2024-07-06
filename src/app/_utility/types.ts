@@ -9,6 +9,7 @@ export interface Package {
     description: string
     duration: string,
     pickupAndDropLocation: string,
+    reviews: PackageReview[];
     itinerary:
         {
             id: string,
@@ -34,4 +35,13 @@ export interface DestinationData {
         createdBy: string,
         lastModifiedBy: string
     }
+}
+
+export interface PackageReview {
+    id: string,
+    name: string,
+    title: string,
+    content: string,
+    stars: number,
+    postDate: string,
 }
