@@ -88,7 +88,10 @@ export default function HeroSearch() {
                                 <Combobox
                                     as="div"
                                     className={"z-10 bg-white rounded-2xl mx-auto max-w-xl relative"} // Added relative positioning to parent div
-                                    onChange={(location: searchEntry) => location  ? router.push('/destination/' + location.destinationId) : ''}
+                                    onChange={(location: searchEntry) => {
+                                        setIsLoading(true);
+                                        location ? router.push('/destination/' + location.destinationId) : ''
+                                    }}
                                 >
                                     <div className="relative">
                                         <CiSearch
