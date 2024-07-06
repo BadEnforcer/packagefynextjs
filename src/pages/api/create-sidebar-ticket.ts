@@ -23,8 +23,8 @@ type TicketRequest = {
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: process.env.SMTP_SENDER_EMAIL,
-        pass: process.env.SMTP_SENDER_PASSWORD,
+        user: process.env.SMTP_SENDER_EMAIL || process.env.NEXT_PUBLIC_SMTP_SENDER_EMAIL,
+        pass: process.env.SMTP_SENDER_PASSWORD || process.env.NEXT_PUBLIC_SMTP_SENDER_EMAIL,
     },
 });
 
