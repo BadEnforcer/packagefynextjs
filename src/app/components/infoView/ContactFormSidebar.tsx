@@ -23,6 +23,8 @@ export default function ContactFormSidebar({destinationId, packageId, heading}:S
     const [travellers, setTravellers] = useState(1);
     const [message, setMessage] = useState('');
     const [disableButton, setDisableButton] = useState(false)
+    const [isProcessing, setIsProcessing] = useState(false)
+
 
     const pathname = usePathname();
 
@@ -30,6 +32,7 @@ export default function ContactFormSidebar({destinationId, packageId, heading}:S
         e.preventDefault();
         // since all fields are required, we are skipping check.
         // get current URL
+        setIsProcessing(true);
 
         try {
             await axios.post('/api/create-sidebar-ticket', JSON.stringify({
@@ -43,14 +46,18 @@ export default function ContactFormSidebar({destinationId, packageId, heading}:S
             setDisableButton(true)
         } catch (err) {
             toast.error("Server Error")
+        } finally {
+            setIsProcessing(false);
         }
 
 
 
     }
 
+
+
     return (
-        <div className="isolate bg-white px-6  sm:py-32 lg:px-8">
+        <div className={`isolate ${isProcessing ? 'opacity-50' : ''}  bg-white px-6  sm:py-32 lg:px-8`}>
             <div
                 className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
                 aria-hidden="true"
@@ -80,6 +87,7 @@ export default function ContactFormSidebar({destinationId, packageId, heading}:S
                                 value={name}
                                 required
                                 id="name"
+                                disabled={disableButton}
                                 autoComplete="name"
                                 onChange={(e) => setName(e.target.value)}
                                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -97,6 +105,7 @@ export default function ContactFormSidebar({destinationId, packageId, heading}:S
                                 name="email"
                                 id="email"
                                 required
+                                disabled={disableButton}
                                 value={email}
                                 autoComplete="email"
                                 onChange={(e) => setEmail(e.target.value)}
@@ -114,6 +123,7 @@ export default function ContactFormSidebar({destinationId, packageId, heading}:S
                                 name="address"
                                 id="address"
                                 required
+                                disabled={disableButton}
                                 value={address}
                                 onChange={(e) => setAddress(e.target.value)}
                                 autoComplete="address-level1"
@@ -150,6 +160,7 @@ export default function ContactFormSidebar({destinationId, packageId, heading}:S
                                 id="phone-number"
                                 autoComplete="tel"
                                 required
+                                disabled={disableButton}
                                 value={phone}
                                 onChange={(e) => setPhone(e.target.value)}
                                 minLength={10}
@@ -168,6 +179,7 @@ export default function ContactFormSidebar({destinationId, packageId, heading}:S
                                 type="number"
                                 required
                                 min={1}
+                                disabled={disableButton}
                                 value={travellers}
                                 onChange={(e) => setTravellers(Number(e.target.value))}
                                 name="no-of-travellers"
@@ -188,6 +200,7 @@ export default function ContactFormSidebar({destinationId, packageId, heading}:S
                   id="message"
                   rows={4}
                   value={message}
+                  disabled={disableButton}
                   onChange={(e) => setMessage(e.target.value)}
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   defaultValue={message}
@@ -201,7 +214,7 @@ export default function ContactFormSidebar({destinationId, packageId, heading}:S
                         disabled={disableButton}
                         className="block disabled:bg-opacity-50 w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
-                        SEND ME DETAILS
+                        {isProcessing ? 'Please wait...' : 'SEND ME DETAILS'}
                     </button>
                 </div>
             </form>
