@@ -211,7 +211,7 @@ export default function HomePage() {
                 <TestimonialSlider/>
 
                 <LogoCloud/>
-                <NewsLetter marginT={20}/>
+                {/*<NewsLetter marginT={20}/>*/}
                 <Footer/>
             </Suspense>
         </ErrorBoundary>

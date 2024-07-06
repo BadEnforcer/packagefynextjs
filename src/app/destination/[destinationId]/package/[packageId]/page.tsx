@@ -122,7 +122,7 @@ export default function Page({params}: { params: { destinationId: string, packag
 
                 </div>
                 <Contact/>
-                <NewsLetter/>
+                {/*<NewsLetter/>*/}
                 <Footer/>
             </div>
         )

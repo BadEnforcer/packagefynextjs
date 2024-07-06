@@ -1,10 +1,13 @@
 export default function NewsLetter({marginT}: { marginT?: number }) {
 
+
+
     return (
         <div className={`relative mt-${marginT}`}>
             <div className={`absolute left-0 right-0 h-1/2  ${!marginT ? 'bg-warm-gray-50' : null}`}
                  aria-hidden="true"/>
             <div className="relative max-w-md mx-auto px-4 sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8">
+
                 <div
                     className="py-10 px-6 bg-gradient-to-l from-[#2E5EAA] to-[#642ca9] rounded-3xl sm:py-16 sm:px-12 lg:py-20 lg:px-20 lg:flex lg:items-center">
                     <div className="lg:w-0 lg:flex-1">

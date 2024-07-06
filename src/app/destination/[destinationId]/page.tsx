@@ -92,7 +92,7 @@ export default function Page({params}: { params: { destinationId: string } }) {
                 </div> : <><ContactFormSidebar/></>}
             </div>
             <Contact/>
-            <NewsLetter/>
+            {/*<NewsLetter/>*/}
             <Footer/>
         </div>)
 

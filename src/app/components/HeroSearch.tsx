@@ -6,21 +6,19 @@ import {Combobox, ComboboxInput, ComboboxOption} from '@headlessui/react'
 import {doc, getDoc} from "firebase/firestore";
 import firebase from "../../../firebase";
 import {toast} from "react-toastify";
+import ParagraphSkeleton from "@/app/components/ParagraphSkeleton";
 
 
-interface visitingLocations {
+interface searchEntry {
+    destinationId: string,
     id: string,
-    name: string,
-    url: string,
+    destinationName: string,
+
 }
 
 
-type searchListDocument = {
-    entries: {
-        id: string,
-        destinationName: string,
-        destinationId: string,
-    }[]
+interface searchListDocument {
+    entries: searchEntry[];
 }
 
 
@@ -29,14 +27,8 @@ function classNames(...classes: (string | boolean)[]) {
 }
 
 export default function HeroSearch() {
-    const [locations, setLocations] = React.useState<searchListDocument>({
-        entries: [{
-            id: '0',
-            destinationName: 'Search is down right now',
-            destinationId: '404Err'
-        }]
-    })
-    const [loading, setLoading] = React.useState<boolean>(true)
+    const [isLoading, setIsLoading] = React.useState(true);
+    const [locations, setLocations] = React.useState<searchListDocument>()
     const router = useRouter();
     const [query, setQuery] = React.useState('')
 
@@ -50,25 +42,32 @@ export default function HeroSearch() {
                 }
 
                 // if search list exists
-                setLocations(docSnapshot.data() as searchListDocument);
-                console.log(docSnapshot.data())
-                setLoading(false)
+                setLocations((docSnapshot.data() as searchListDocument));
+                console.log((docSnapshot.data() as searchListDocument))
+                setIsLoading(false)
 
             })
 
         } catch (err) {
-            toast.error("Invalid ID or Entry does not exist in Database.")
+            toast.error("Failed to fetch search items. Server Error")
         }
 
     }, []);
 
 
-    const filteredLocations =
-        query === ''
-            ? []
-            : locations.entries.filter((location) => {
-                return location.destinationId.includes(query.toLowerCase())
-            }).slice(0, 4) // only gives top 4
+    // if locations in undefined it will return an empty array.
+    const filteredLocations = query === '' ? [] :
+
+        (locations && locations.entries.length > 0) ?
+
+        locations.entries.filter((location) => {
+        return location.destinationName.toLowerCase().includes(query.toLowerCase())}).slice(0, 4)
+
+            :
+
+            [] // return empty array if locations is undefined.
+
+
 
     return (
 
@@ -82,52 +81,58 @@ export default function HeroSearch() {
                     </h1>
                     <div className="mt-7 sm:mt-12 mx-auto max-w-xl relative">
 
+                        {isLoading && !locations ? <ParagraphSkeleton />
+                        :
 
-                        <Combobox
-                            as="div"
-                            className={"z-10 bg-white rounded-2xl mx-auto max-w-xl relative"} // Added relative positioning to parent div
-                            onChange={(location: visitingLocations) => location !== null ? router.push('/destination' + location.url) : ''}
-                        >
-                            <div className="relative">
-                                <CiSearch
-                                    className=" pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400"
-                                    aria-hidden="true"
-                                />
-                                <ComboboxInput
-                                    disabled={loading}
-                                    className="h-12 rounded-lg w-full disabled:bg-neutral-500 focus-visible:outline-0 border-0 bg-transparent pl-11 pr-4 text-sm text-gray-800 placeholder-gray-400 focus:ring-0"
-                                    placeholder="Search..."
-                                    onChange={(event) => setQuery(event.target.value ? event.target.value : '')}
-                                />
-                            </div>
-
-                            {filteredLocations.length > 0 && (
-                                <div
-                                    className="rounded-lg absolute w-full max-h-72 overflow-y-auto bg-white rounded-b-xl shadow-lg border border-gray-200 mt-1">
-                                    <div className="py-3 text-sm text-gray-800">
-                                        {filteredLocations.map((location) => (
-                                            <ComboboxOption
-                                                key={location.id}
-                                                value={location}
-                                                className={({focus}) =>
-                                                    classNames(
-                                                        ' flex justify-start cursor-default select-none px-4 py-2',
-                                                        focus && 'bg-indigo-600 text-white'
-                                                    )
-                                                }
-                                            >
-                                                {location.destinationName}
-                                            </ComboboxOption>
-                                        ))}
+                            <>
+                                <Combobox
+                                    as="div"
+                                    className={"z-10 bg-white rounded-2xl mx-auto max-w-xl relative"} // Added relative positioning to parent div
+                                    onChange={(location: searchEntry) => location  ? router.push('/destination/' + location.destinationId) : ''}
+                                >
+                                    <div className="relative">
+                                        <CiSearch
+                                            className=" pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400"
+                                            aria-hidden="true"
+                                        />
+                                        <ComboboxInput
+                                            disabled={isLoading}
+                                            className="h-12 rounded-lg w-full focus-visible:outline-0 border-0 bg-transparent pl-11 pr-4 text-sm text-gray-800 placeholder-gray-400 focus:ring-0"
+                                            placeholder="Search..."
+                                            onChange={(event) => setQuery(event.target.value ? event.target.value.toLowerCase() : '')}
+                                        />
                                     </div>
-                                </div>
-                            )}
 
-                            {query !== '' && filteredLocations.length === 0 && (
-                                <p className="absolute inset-x-0 top-full p-4 text-sm text-gray-500">No people
-                                    found.</p>
-                            )}
-                        </Combobox>
+                                    {filteredLocations.length > 0 && (
+                                        <div
+                                            className="rounded-lg absolute w-full max-h-72 overflow-y-auto bg-white rounded-b-xl shadow-lg border border-gray-200 mt-1">
+                                            <div className="py-3 text-sm text-gray-800">
+                                                {filteredLocations.map((location) => (
+                                                    <ComboboxOption
+                                                        key={location.id}
+                                                        value={location}
+                                                        className={({focus}) =>
+                                                            classNames(
+                                                                ' flex justify-start cursor-default select-none px-4 py-2',
+                                                                focus && 'bg-indigo-600 text-white'
+                                                            )
+                                                        }
+                                                    >
+                                                        {location.destinationName}
+                                                    </ComboboxOption>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {query !== '' && filteredLocations.length === 0 && (
+                                        <p className="absolute inset-x-0 top-full p-4 text-sm text-white">No Results Found.</p>
+                                    )}
+                                </Combobox>
+                            </>
+
+                        }
+
 
 
                         <div className="hidden md:block absolute top-0 end-0 -translate-y-12 translate-x-20">
