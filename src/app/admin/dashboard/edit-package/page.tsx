@@ -233,7 +233,12 @@ export default function ModifyDestinationPage() {
             toast.success('Updated Successfully.');
 
             // note: if  success, button will not be re-enabled.
-            // router.push('/admin/dashboard');
+            setTimeout(() => {
+                // note: if  success, button will not be re-enabled.
+                router.push('/admin/dashboard');
+            }, 3000);
+
+
         } catch (err) {
             console.error(err);
             if (err instanceof FirebaseError) toast.error(err.code);
