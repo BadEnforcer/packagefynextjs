@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import Image from "next/image";
 
 const bannerImages: string[] = [
-    'https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?cs=srgb&dl=pexels-rpnickson-2559941.jpg&fm=jpg&w=1920&h=1280&_gl=1*1s2rhm4*_ga*MjY2NjIwNzMwLjE3MTgxODMzNTg.*_ga_8JE65Q40S6*MTcyMDI0MDk0MS4yMi4xLjE3MjAyNDA5NjYuMC4wLjA.',
+    'https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg',
     'https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?cs=srgb&dl=pexels-rpnickson-2559941.jpg&fm=jpg&w=1920&h=1280&_gl=1*1s2rhm4*_ga*MjY2NjIwNzMwLjE3MTgxODMzNTg.*_ga_8JE65Q40S6*MTcyMDI0MDk0MS4yMi4xLjE3MjAyNDA5NjYuMC4wLjA.',
     'https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?cs=srgb&dl=pexels-rpnickson-2559941.jpg&fm=jpg&w=1920&h=1280&_gl=1*1s2rhm4*_ga*MjY2NjIwNzMwLjE3MTgxODMzNTg.*_ga_8JE65Q40S6*MTcyMDI0MDk0MS4yMi4xLjE3MjAyNDA5NjYuMC4wLjA.',
 ]
@@ -37,8 +37,10 @@ export default function BannerSlideShow() {
                                     <Image
                                         src={image}
                                         alt="Banner"
-                                        fill={true}
-                                        objectFit="fill"
+                                        // fill={true}
+                                        objectFit={'cover'}
+                                        height={1920}
+                                        width={1080}
                                         objectPosition="center"
                                         className="pointer-events-none group-hover:opacity-75"
                                     />

@@ -13,7 +13,6 @@ export default async function handler(
 ) {
     if (req.method === 'POST') {
         const { imageUrl } = req.body;
-        console.log(req.body.imageUrl, typeof req.body.imageUrl)
         if (typeof imageUrl !== 'string') {
             res.status(400).json({ error: 'Invalid image URL provided.' });
             return;

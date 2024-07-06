@@ -10,7 +10,7 @@ interface TestimonialProps {
 export default function Testimonial({imageSrc, name, content, position}: TestimonialProps) {
     return (
         <div className="bg-white pt-16 lg:py-24">
-            <div className="pb-16 bg-indigo-600 lg:pb-0 lg:z-10 lg:relative">
+            <div className="pb-16 #bg-indigo-600 bg-[#0F0F0F] lg:pb-0 lg:z-10 lg:relative">
                 <div className="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-8">
                     <div className="relative lg:-my-8">
                         <div aria-hidden="true" className="absolute inset-x-0 top-0 h-1/2 bg-white lg:hidden"/>
@@ -24,7 +24,7 @@ export default function Testimonial({imageSrc, name, content, position}: Testimo
                                             ? imageSrc
                                             : "https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
                                     }
-                                    alt=""
+                                    alt="Testimonial"
                                     fill={true}
                                 />
                             </div>
@@ -35,8 +35,8 @@ export default function Testimonial({imageSrc, name, content, position}: Testimo
                             <blockquote>
                                 <div>
                                     <svg
-                                        className="h-12 w-12 text-white opacity-25"
-                                        fill="currentColor"
+                                        className="h-12 w-12 text-white opacity"
+                                        fill="#F1D302"
                                         viewBox="0 0 32 32"
                                         aria-hidden="true"
                                     >
