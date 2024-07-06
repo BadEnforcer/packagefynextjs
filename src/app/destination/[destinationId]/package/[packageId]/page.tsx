@@ -96,9 +96,9 @@ export default function Page({params}: { params: { destinationId: string, packag
                                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                                         <div className="container mx-auto sm:px-6 lg:px-8">
                                             <div className={'grid gap-y-20'}>
-                                                <Itinerary itinerary={packageData.itinerary} />
-                                                <Inclusions inclusions={packageData.inclusions} />
-                                                <Exclusions exclusions={packageData.exclusions} />
+                                                <Itinerary itinerary={packageData.itinerary}/>
+                                                <Inclusions inclusions={packageData.inclusions}/>
+                                                <Exclusions exclusions={packageData.exclusions}/>
                                             </div>
 
                                         </div>
@@ -141,8 +141,11 @@ export default function Page({params}: { params: { destinationId: string, packag
                             </div>
                         </div>
                         :
-                        <><ContactFormSidebar/></>
+                        <><ContactFormSidebar /></>
                     }
+                    <div className={'lg:hidden mt-20 mb-8'}>
+                        <ContactFormSidebar destinationId={destinationData.id}/>
+                    </div>
 
 
                 </div>

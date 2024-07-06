@@ -66,33 +66,38 @@ export default function Page({params}: { params: { destinationId: string } }) {
             <HeroImage base64={destinationData.coverImageBase64} name={destinationData.name}
                        coverImageUrl={destinationData.coverImageUrl}/>
 
-            <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
-                <Description name={destinationData.name as string} data={destinationData.description}/>
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Description name={destinationData.name as string} data={destinationData.description}/>
 
-                {destinationData?.packages?.length ? <div className="py-6">
-                    <div className="lg:grid lg:grid-cols-12 lg:gap-8">
-                        <div className="lg:col-span-8">
-                            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                                <div className="container mx-auto sm:px-6 lg:px-8">
-                                    <PackageShowcase destinationId={params.destinationId}
-                                                     data={destinationData.packages}/>
-                                </div>
+            {destinationData?.packages?.length ? <div className="py-6">
+                <div className="lg:grid lg:grid-cols-12 lg:gap-8">
+                    <div className="lg:col-span-8">
+                        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="container mx-auto sm:px-6 lg:px-8">
+                                <PackageShowcase destinationId={params.destinationId}
+                                                 data={destinationData.packages}/>
                             </div>
                         </div>
-
-
-                        <div className="hidden lg:block lg:col-span-4">
-                            <nav aria-label="Sidebar" className="sticky top-6 divide-y divide-gray-300">
-                                <ContactFormSidebar/>
-                            </nav>
-                        </div>
                     </div>
-                </div> : <><ContactFormSidebar destinationId={destinationData.id} /></>}
+
+
+                    <div className="hidden lg:block lg:col-span-4">
+                        <nav aria-label="Sidebar" className="sticky top-6 divide-y divide-gray-300">
+                            <ContactFormSidebar/>
+                        </nav>
+                    </div>
+                </div>
+            </div> : <><ContactFormSidebar destinationId={destinationData.id}/></>}
+
+            <div className={'lg:hidden'}>
+                <ContactFormSidebar destinationId={destinationData.id}/>
             </div>
-            <Contact/>
-            {/*<NewsLetter/>*/}
-            <Footer/>
-        </div>)
+
+        </div>
+        <Contact/>
+        {/*<NewsLetter/>*/}
+        <Footer/>
+    </div>)
 
     return (<>Fatal Error. Make a Report</>)
 
