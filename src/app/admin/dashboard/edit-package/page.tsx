@@ -11,8 +11,15 @@ import firebase from "../../../../../firebase";
 import { useRouter } from "next/navigation";
 import dynamic from 'next/dynamic';
 import { uuidv4 } from "@firebase/util";
-import {Package, DestinationData, PackageReview} from "@/app/_utility/types";
+import {
+    Package,
+    DestinationData,
+    PackageReview,
+    TrendingPackageShowcaseData,
+    PackageShowcaseDataFile
+} from "@/app/_utility/types";
 import axios from "axios";
+import {Field, Label, Switch} from "@headlessui/react";
 
 const PhotoIcon = dynamic(() => import('@heroicons/react/24/solid').then(mod => mod.PhotoIcon), { ssr: false });
 const Footer = dynamic(() => import('@/app/components/Footer'), { ssr: false });
@@ -45,6 +52,7 @@ export default function ModifyDestinationPage() {
     const [packageDuration, setPackageDuration] = useState<string>('');
     const [pickUpAndDropSpot, setPickUpAndDropSpot] = useState<string>('');
     const [reviewsData, setReviewsData] = useState<PackageReview[]>([]);
+    const [isTrending, setIsTrending] = useState(false);
 
     useEffect(() => {
         const unsubscribe = firebase.auth.onAuthStateChanged(user => {
@@ -209,6 +217,14 @@ export default function ModifyDestinationPage() {
             }
 
             await runTransaction(firebase.db, async (transaction) => {
+
+                // get trending-document ref
+                const trendingPackagesRef = doc(firebase.db, "homepage", "trendingPackages");
+                //fetch data
+                const trendingPackagesSnapshot = await transaction.get(trendingPackagesRef);
+
+                // all reads before write
+
                 // filter the array of packages
                 let filteredPackages = fetchedDestinationData?.packages.filter((pkg) => pkg.id !== packageId) || [];
 
@@ -227,8 +243,11 @@ export default function ModifyDestinationPage() {
                     itinerary: itineraryData,
                     inclusions: inclusions,
                     exclusions: exclusions,
-                    reviews: reviewsData
+                    reviews: reviewsData || []
                 } as Package;
+
+                console.log(updatedPackageData)
+
 
                 // push updated package into filtered packages
                 filteredPackages.push(updatedPackageData);
@@ -237,7 +256,40 @@ export default function ModifyDestinationPage() {
                 transaction.update(destinationRef, {
                     ...fetchedDestinationData, packages: filteredPackages
                 })
+
+                if (!isTrending) return;
+
+                let trendingPackagesData = trendingPackagesSnapshot.data() as PackageShowcaseDataFile;
+
+                if (!trendingPackagesData.entries || trendingPackagesData.entries.length === 0) {
+                    trendingPackagesData = {entries: []}
+
+                    trendingPackagesData.entries.push({
+                        packageId: packageId, destinationId: destinationId, addTimestamp: new Date(),
+                    } as TrendingPackageShowcaseData) // push to local array
+
+                    transaction.set(trendingPackagesRef, {...trendingPackagesData}) // set
+
+                } else {
+                    // filter all other packages.
+                    const filterPackages = trendingPackagesData.entries.filter(
+                        (data) => data.packageId !== packageId && data.destinationId !== destinationId
+                    );
+
+                    filterPackages.push({
+                        packageId: packageId, destinationId: destinationId, addTimestamp: new Date(),
+                    } as TrendingPackageShowcaseData) // push to local array
+
+                    trendingPackagesData.entries = filterPackages // update with new-modified array
+
+
+                    // update in db
+                    transaction.update(trendingPackagesRef, {...trendingPackagesData}) // update
+
+                }
+
                 // complete
+
             })
 
             toast.success('Updated Successfully.');
@@ -363,6 +415,26 @@ export default function ModifyDestinationPage() {
 
                 {/*  DATA SHOWCASE FORM  */}
                 {fetchedPackageData && <form onSubmit={async (e) => await handleUpdate(e)}>
+
+                    {/*TRENDING SWITCH*/}
+                    {/*IsTrending*/}
+                    <div className="sm:col-span-4">
+                        <Field as="div" className="flex items-center justify-between my-10">
+                                    <span className="flex-grow flex flex-col">
+                                        <Label as="span" className="text-sm font-medium text-gray-900" passive>
+                                            Add The package to Trending Packages List?
+                                        </Label>
+                                    </span>
+                            <Switch
+                                checked={isTrending}
+                                onChange={setIsTrending}
+                                className="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-blue-600"
+                            >
+                                <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6" />
+                            </Switch>
+                        </Field>
+                    </div>
+
                     {/*1St section*/}
                     <section className="space-y-12">
                         <div className="border-b border-gray-900/10 pb-12">
@@ -857,7 +929,7 @@ export default function ModifyDestinationPage() {
                             </p>
                             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div className="sm:col-span-4">
-                                    {reviewsData.length > 0 && reviewsData.map((review, i) => (
+                                    {reviewsData?.length > 0 && reviewsData.map((review, i) => (
                                         <div key={i} className="flex flex-col items-start my-2">
 
                                             {/*Review Title*/}

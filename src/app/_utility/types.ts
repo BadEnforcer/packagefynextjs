@@ -45,3 +45,13 @@ export interface PackageReview {
     stars: number,
     postDate: string,
 }
+
+export interface TrendingPackageShowcaseData {
+    destinationId: string,
+    packageId: string,
+    addTimestamp: Date,
+}
+
+export interface PackageShowcaseDataFile {
+    entries : TrendingPackageShowcaseData[]
+}

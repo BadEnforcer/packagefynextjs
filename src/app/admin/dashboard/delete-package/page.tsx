@@ -2,13 +2,14 @@
 
 import React, {useEffect, useState} from "react";
 import {toast} from "react-toastify";
-import {deleteObject, getStorage, ref, uploadBytes} from "firebase/storage";
+import {deleteObject, getStorage, ref} from "firebase/storage";
 import {FirebaseError} from "@firebase/app";
-import {doc, getDoc, runTransaction, setDoc} from "firebase/firestore";
+import {doc, runTransaction} from "firebase/firestore";
 import firebase from "../../../../../firebase";
 import {useRouter} from "next/navigation";
 
 import dynamic from 'next/dynamic';
+import {PackageShowcaseDataFile} from "@/app/_utility/types";
 
 const Footer = dynamic(() => import('@/app/components/Footer'));
 const ToastContainer = dynamic(() => import("react-toastify").then(mod => mod.ToastContainer));
@@ -79,6 +80,9 @@ export default function ModifyDestinationPage() {
                 // get destination document
                 const destinationRef = doc(firebase.db, "destinations", destinationId);
                 const destinationSnapshot = await transaction.get(destinationRef);
+                const trendingPackagesRef = doc(firebase.db, "homepage", "trendingPackages");
+                //fetch data
+                const trendingPackagesSnapshot = await transaction.get(trendingPackagesRef);
 
                 if (!destinationSnapshot.exists()) { // if it does not exist
                     setIsProcessing(false);
@@ -109,9 +113,27 @@ export default function ModifyDestinationPage() {
                 const coverImageRef = ref(storage, `destinations/${destinationId}/package/${deletionPackage[0].coverImageFilename}`)
                 await deleteObject(coverImageRef); // delete image
                 toast.success("Image deleted from db.")
-
-
                 destinationData = {...destinationData, packages: availablePackages} // updated the data
+
+
+                // find the package in trending list
+                let trendingPackagesData = trendingPackagesSnapshot.data() as PackageShowcaseDataFile;
+                if (!trendingPackagesData || !trendingPackagesData.entries || trendingPackagesData.entries.length === 0) { // no data in cloud
+                    toast("Package Not detected in Trending List.")
+                }
+
+                trendingPackagesData.entries = trendingPackagesData.entries.filter(
+                    (data) => data.packageId !== packageId && data.destinationId !== destinationId
+                ); // filter and set it again.
+
+
+
+
+
+                // update the new list
+                transaction.update(trendingPackagesRef, {...trendingPackagesData})
+
+
                 transaction.update(destinationRef, {...destinationData})
             })
 

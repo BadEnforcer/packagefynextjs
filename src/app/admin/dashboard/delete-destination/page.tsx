@@ -8,7 +8,7 @@ import {useRouter} from "next/navigation";
 import {getStorage, ref, deleteObject} from "firebase/storage";
 
 import dynamic from 'next/dynamic';
-
+import {PackageShowcaseDataFile} from '@/app/_utility/types';
 const Footer = dynamic(() => import('@/app/components/Footer'));
 const ToastContainer = dynamic(() => import("react-toastify").then(mod => mod.ToastContainer));
 
@@ -102,6 +102,10 @@ export default function ModifyDestinationPage() {
         await runTransaction(firebase.db, async(transaction) => {
             const destinationDocRef = doc(firebase.db, "destinations", destinationId);
             const fetchedDestinationData = (await transaction.get(destinationDocRef)).data() as DestinationData;
+            // get trending-document ref
+            const trendingPackagesRef = doc(firebase.db, "homepage", "trendingPackages");
+            //fetch data
+            const trendingPackagesSnapshot = await transaction.get(trendingPackagesRef);
 
             fetchedDestinationData.packages.map(async (pkg) => {
                 const packageCoverImageRef = ref(storage, `/destinations/${destinationId}/package/${pkg.coverImageFilename}`);
@@ -117,6 +121,24 @@ export default function ModifyDestinationPage() {
             await deleteDoc(doc(firebase.db, "destinations", destinationId));
             toast.success('Data deleted successfully.');
 
+
+            // check trending list
+            // find the package in trending list
+            let trendingPackagesData = trendingPackagesSnapshot.data() as PackageShowcaseDataFile;
+            if (!trendingPackagesData || !trendingPackagesData.entries || trendingPackagesData.entries.length === 0) { // no data in cloud
+                toast("Package Not detected in Trending List.")
+            }
+
+            trendingPackagesData.entries = trendingPackagesData.entries.filter(
+                (data) => data.destinationId !== destinationId
+            ); // filter and set it again.
+            console.log("Packages filtered")
+            console.log(trendingPackagesData.entries)
+
+
+            // update the new list
+            transaction.set(trendingPackagesRef, {...trendingPackagesData})
+
             transaction.delete(destinationDocRef)
         })
 
@@ -124,8 +146,6 @@ export default function ModifyDestinationPage() {
                 // note: if  success, button will not be re-enabled.
                 router.push('/admin/dashboard');
             }, 3000);
-
-
 
 
         } catch (err) {

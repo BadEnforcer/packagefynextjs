@@ -8,20 +8,25 @@ import firebase from "../../../../../firebase";
 import {useRouter} from "next/navigation";
 import dynamic from 'next/dynamic';
 import {uuidv4} from "@firebase/util";
+import {Switch} from '@headlessui/react'
 import axios from "axios";
+
 const CkEditorInitialized = dynamic(() => import('@/app/components/CkEditorInitialized'));
 const PhotoIcon = dynamic(() => import('@heroicons/react/24/solid').then(mod => mod.PhotoIcon));
 const Footer = dynamic(() => import('@/app/components/Footer'));
 const ToastContainer = dynamic(() => import("react-toastify").then(mod => mod.ToastContainer));
-import {Package, DestinationData, PackageReview} from "@/app/_utility/types";
+import {
+    Package,
+    DestinationData,
+    PackageReview,
+    TrendingPackageShowcaseData,
+    PackageShowcaseDataFile
+} from "@/app/_utility/types";
+import {Field, Label} from "@headlessui/react";
 
 type ItineraryData = {
-    id: string;
-    heading: string,
-    description: string,
+    id: string; heading: string, description: string,
 }
-
-
 
 
 export default function AddNewDestinationPage() {
@@ -39,20 +44,17 @@ export default function AddNewDestinationPage() {
     const [packageDuration, setPackageDuration] = useState<string>('');
     const [pickUpAndDropSpot, setPickUpAndDropSpot] = useState<string>('');
     const [reviewsData, setReviewsData] = useState<PackageReview[]>([]);
+    const [isTrending, setIsTrending] = useState(false);
 
     const router = useRouter();
 
     function handleCkeditorChange(id: string, data: string) {
-        const updatedData = itineraryData.map((item) =>
-            item.id === id ? {...item, description: data} : item
-        );
+        const updatedData = itineraryData.map((item) => item.id === id ? {...item, description: data} : item);
         setItineraryData(updatedData);
     }
 
     function handleReviewCkEditorChange(id: string, data: string) {
-        const updatedData = reviewsData.map((item) =>
-            item.id === id ? {...item, content: data} : item
-        );
+        const updatedData = reviewsData.map((item) => item.id === id ? {...item, content: data} : item);
         setReviewsData(updatedData);
     }
 
@@ -116,9 +118,17 @@ export default function AddNewDestinationPage() {
                 const destinationRef = doc(firebase.db, "destinations", destinationId.toLowerCase());
                 const destinationSnapshot = await transaction.get(destinationRef);
 
+
+
                 if (!destinationSnapshot.exists()) {
                     throw new Error('No Destination found from given ID.')
                 }
+
+                // get trending-document ref
+                const trendingPackagesRef = doc(firebase.db, "homepage", "trendingPackages");
+                //fetch data
+                const trendingPackagesSnapshot = await transaction.get(trendingPackagesRef);
+
 
                 let destinationData = destinationSnapshot.data() as DestinationData;
 
@@ -140,7 +150,7 @@ export default function AddNewDestinationPage() {
                 })
 
                 const imageDownloadUrl = await getDownloadURL(newCoverImageRef)
-                const res = await axios.post('/api/getBase64', JSON.stringify({ imageUrl: imageDownloadUrl  }), {
+                const res = await axios.post('/api/getBase64', JSON.stringify({imageUrl: imageDownloadUrl}), {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -148,36 +158,66 @@ export default function AddNewDestinationPage() {
                 const base64 = res.data.base64
 
 
-                availablePackages.push(
-                    {
-                        id: packageId,
-                        name: packageName,
-                        coverImageUrl: imageDownloadUrl, // get download URL for cover image
-                        coverImageFilename: `${packageId}.${fileExtension}`,
-                        duration: packageDuration,
-                        pickupAndDropLocation: pickUpAndDropSpot,
-                        originalPrice: originalPrice,
-                        discountedPrice: discountedPrice,
-                        description: packageDescription,
-                        itinerary: itineraryData,
-                        inclusions: inclusions,
-                        exclusions: exclusions,
-                        coverImageBase64: base64,
-                        reviews: reviewsData
-                    } as Package
-                )
+                availablePackages.push({
+                    id: packageId,
+                    name: packageName,
+                    coverImageUrl: imageDownloadUrl, // get download URL for cover image
+                    coverImageFilename: `${packageId}.${fileExtension}`,
+                    duration: packageDuration,
+                    pickupAndDropLocation: pickUpAndDropSpot,
+                    originalPrice: originalPrice,
+                    discountedPrice: discountedPrice,
+                    description: packageDescription,
+                    itinerary: itineraryData,
+                    inclusions: inclusions,
+                    exclusions: exclusions,
+                    coverImageBase64: base64,
+                    reviews: reviewsData
+                } as Package)
 
                 destinationData = {
-                    ...destinationData, packages: availablePackages,
-                    modified: new Date(),
-                    modificationInfo: {
+                    ...destinationData, packages: availablePackages, modified: new Date(), modificationInfo: {
                         createdBy: firebase.auth.currentUser?.email as string,
                         lastModifiedBy: firebase.auth.currentUser?.email as string,
-                    },
-                    version: destinationData.version + 1,
+                    }, version: destinationData.version + 1,
                 } // update data locally
 
                 transaction.update(destinationRef, {...destinationData}) // send updated data
+
+
+                // if package needs to be added to trending
+
+                if (!isTrending) return; // if false
+
+                let trendingPackagesData = trendingPackagesSnapshot.data() as PackageShowcaseDataFile;
+
+                if (!trendingPackagesData.entries || trendingPackagesData.entries.length === 0) {
+                    trendingPackagesData = {entries: []}
+
+                    trendingPackagesData.entries.push({
+                        packageId: packageId, destinationId: destinationId, addTimestamp: new Date(),
+                    } as TrendingPackageShowcaseData) // push to local array
+
+                    transaction.set(trendingPackagesRef, {...trendingPackagesData}) // set
+
+                } else {
+                    // filter all other packages.
+                    const filterPackages = trendingPackagesData.entries.filter(
+                        (data) => data.packageId !== packageId && data.destinationId !== destinationId
+                    );
+
+                    filterPackages.push({
+                        packageId: packageId, destinationId: destinationId, addTimestamp: new Date(),
+                    } as TrendingPackageShowcaseData) // push to local array
+
+                    trendingPackagesData.entries = filterPackages // update with new-modified array
+
+
+                    // update in db
+                    transaction.update(trendingPackagesRef, {...trendingPackagesData}) // update
+
+                }
+
             })
 
             toast.success("Added a new Package.");
@@ -199,8 +239,7 @@ export default function AddNewDestinationPage() {
     }
 
 
-    return (
-        <div className={'mt-10'}>
+    return (<div className={'mt-10'}>
             <ToastContainer/>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <form onSubmit={async (e) => {
@@ -287,6 +326,25 @@ export default function AddNewDestinationPage() {
                                         </p>
                                     </div>
                                 </div>
+
+                                {/*IsTrending*/}
+                                <div className="sm:col-span-4">
+                                    <Field as="div" className="flex items-center justify-between">
+                                    <span className="flex-grow flex flex-col">
+                                        <Label as="span" className="text-sm font-medium text-gray-900" passive>
+                                            Add The package to Trending Packages List?
+                                        </Label>
+                                    </span>
+                                        <Switch
+                                            checked={isTrending}
+                                            onChange={setIsTrending}
+                                            className="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-green-600"
+                                        >
+                                            <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6" />
+                                        </Switch>
+                                    </Field>
+                                </div>
+
 
 
                                 {/*Package Name*/}
@@ -524,12 +582,9 @@ export default function AddNewDestinationPage() {
                                                             className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                                             placeholder="Swiss New Year Bash"
                                                             onChange={(e) => {
-                                                                const updatedData = itineraryData.map((item, index) =>
-                                                                    index === i ? {
-                                                                        ...item,
-                                                                        heading: e.target.value
-                                                                    } : item
-                                                                );
+                                                                const updatedData = itineraryData.map((item, index) => index === i ? {
+                                                                    ...item, heading: e.target.value
+                                                                } : item);
                                                                 setItineraryData(updatedData);
                                                             }}
                                                         />
@@ -573,16 +628,13 @@ export default function AddNewDestinationPage() {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        </div>))}
 
 
                                     <button
                                         disabled={isProcessing}
                                         onClick={() => setItineraryData((prev) => [...prev, {
-                                            heading: '',
-                                            description: '',
-                                            id: uuidv4()
+                                            heading: '', description: '', id: uuidv4()
                                         }])}
                                         type="button"
                                         className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 disabled:bg-opacity-30"
@@ -604,8 +656,7 @@ export default function AddNewDestinationPage() {
                             </p>
                             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div className="sm:col-span-4">
-                                    {inclusions.map((inclusion, i) => (
-                                        <div key={i} className="flex items-center my-2">
+                                    {inclusions.map((inclusion, i) => (<div key={i} className="flex items-center my-2">
                                             <textarea
                                                 id={`inclusion-${i}`}
                                                 name={`inclusion-${i}`}
@@ -663,8 +714,7 @@ export default function AddNewDestinationPage() {
                             </p>
                             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div className="sm:col-span-4">
-                                    {exclusions.map((exclusion, i) => (
-                                        <div key={i} className="flex items-center my-2">
+                                    {exclusions.map((exclusion, i) => (<div key={i} className="flex items-center my-2">
                                             <textarea
                                                 id={`exclusion-${i}`}
                                                 name={`exclusion-${i}`}
@@ -743,12 +793,9 @@ export default function AddNewDestinationPage() {
                                                             className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                                             placeholder="Great Work by the Team."
                                                             onChange={(e) => {
-                                                                const updatedData = reviewsData.map((item, index) =>
-                                                                    index === i ? {
-                                                                        ...item,
-                                                                        title: e.target.value
-                                                                    } : item
-                                                                );
+                                                                const updatedData = reviewsData.map((item, index) => index === i ? {
+                                                                    ...item, title: e.target.value
+                                                                } : item);
                                                                 setReviewsData(updatedData);
                                                             }}
                                                         />
@@ -790,12 +837,9 @@ export default function AddNewDestinationPage() {
                                                             className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                                             placeholder="Great Work."
                                                             onChange={(e) => {
-                                                                const updatedData = reviewsData.map((item, index) =>
-                                                                    index === i ? {
-                                                                        ...item,
-                                                                        name: e.target.value
-                                                                    } : item
-                                                                );
+                                                                const updatedData = reviewsData.map((item, index) => index === i ? {
+                                                                    ...item, name: e.target.value
+                                                                } : item);
                                                                 setReviewsData(updatedData);
                                                             }}
                                                         />
@@ -823,12 +867,9 @@ export default function AddNewDestinationPage() {
                                                             className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                                             placeholder="Great Work."
                                                             onChange={(e) => {
-                                                                const updatedData = reviewsData.map((item, index) =>
-                                                                    index === i ? {
-                                                                        ...item,
-                                                                        stars: Number(e.target.value)
-                                                                    } : item
-                                                                );
+                                                                const updatedData = reviewsData.map((item, index) => index === i ? {
+                                                                    ...item, stars: Number(e.target.value)
+                                                                } : item);
                                                                 setReviewsData(updatedData);
                                                             }}
                                                         />
@@ -857,12 +898,9 @@ export default function AddNewDestinationPage() {
                                                             className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                                             placeholder="Great Work."
                                                             onChange={(e) => {
-                                                                const updatedData = reviewsData.map((item, index) =>
-                                                                    index === i ? {
-                                                                        ...item,
-                                                                        postDate: e.target.value
-                                                                    } : item
-                                                                );
+                                                                const updatedData = reviewsData.map((item, index) => index === i ? {
+                                                                    ...item, postDate: e.target.value
+                                                                } : item);
                                                                 setReviewsData(updatedData);
                                                             }}
                                                         />
@@ -890,8 +928,7 @@ export default function AddNewDestinationPage() {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        </div>))}
 
 
                                     <button
