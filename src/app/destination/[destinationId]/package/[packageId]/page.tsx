@@ -25,8 +25,6 @@ const Description = dynamic(() => import('@/app/components/infoView/Description'
 const ContactFormSidebar = dynamic(() => import('@/app/components/infoView/ContactFormSidebar'))
 const Contact = dynamic(() => import('@/app/components/infoView/Contact'))
 const Footer = dynamic(() => import('@/app/components/Footer'))
-const NewsLetter = dynamic(() => import('@/app/components/NewsLetter'))
-
 
 
 export default function Page({params}: { params: { destinationId: string, packageId: string } }) {
@@ -109,8 +107,35 @@ export default function Page({params}: { params: { destinationId: string, packag
 
 
                                 <div className="hidden lg:block lg:col-span-4">
+                                    <div>
+                                        <div className="border-b border-gray-200 mb-8">
+                                            <h3 className="leading-6 font-bold text-2xl text-gray-900">Details</h3>
+                                        </div>
+                                        <p>
+                                            <h3 className="text-lg text-gray-800 pb-5 flex items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                     viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
+                                                     className="size-6 mr-3">
+                                                    <path strokeLinecap="round" strokeLinejoin="round"
+                                                          d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                                </svg>
+
+                                                {packageData.duration}</h3>
+                                            <span
+                                                className="text-black text-2xl font-bold pr-1">₹ {packageData.discountedPrice}</span>
+                                            <span
+                                                className="text-gray-500 font-medium text-lg line-through">₹ {packageData.originalPrice} </span>
+                                            <span
+                                                className="ml-1 text-neutral-700 font-sans text-sm ">Per person</span>
+                                        </p>
+                                    </div>
                                     <nav aria-label="Sidebar" className="sticky top-6 divide-y divide-gray-300">
-                                        <ContactFormSidebar/>
+
+
+                                        <ContactFormSidebar heading={'Book Now!'} destinationId={destinationData.id}
+                                                            packageId={packageData.id}/>
+
+
                                     </nav>
                                 </div>
                             </div>

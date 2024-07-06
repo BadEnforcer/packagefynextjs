@@ -34,9 +34,6 @@ export default function PackageCard({key, packageInfo, destinationId}: tripsShow
                                 className="w-full h-48 object-cover rounded-t-lg"
                                 placeholder={'blur'}
                                 blurDataURL={packageInfo.coverImageBase64}
-                                // height={200}
-                                // width={200}
-
                                 fill={true}
                             />
                         </div>
@@ -66,7 +63,7 @@ export default function PackageCard({key, packageInfo, destinationId}: tripsShow
                             </p>
 
                         </div>
-                        <button className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+                        <button className="mt-4 bg-indigo-600 text-white py-2 px-4 rounded hover:bg-blue-600">
                             Inquire
                         </button>
                     </div>

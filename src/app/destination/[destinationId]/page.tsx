@@ -24,8 +24,6 @@ const PackageCard = dynamic(() => import('@/app/components/infoView/PackageCard'
 const ContactFormSidebar = dynamic(() => import('@/app/components/infoView/ContactFormSidebar'))
 const Contact = dynamic(() => import('@/app/components/infoView/Contact'))
 const Footer = dynamic(() => import('@/app/components/Footer'))
-const NewsLetter = dynamic(() => import('@/app/components/NewsLetter'))
-
 
 export default function Page({params}: { params: { destinationId: string } }) {
 
@@ -54,9 +52,9 @@ export default function Page({params}: { params: { destinationId: string } }) {
             }
         };
 
-        fetchDestinationData().then(r => {
+        fetchDestinationData().then(_ => {
         });
-    }, [params.destinationId, router]);
+    }, [destinationData, params.destinationId, router]);
 
     if (loading) {
         return <SpinnerFullScreen/>;
@@ -89,7 +87,7 @@ export default function Page({params}: { params: { destinationId: string } }) {
                             </nav>
                         </div>
                     </div>
-                </div> : <><ContactFormSidebar/></>}
+                </div> : <><ContactFormSidebar destinationId={destinationData.id} /></>}
             </div>
             <Contact/>
             {/*<NewsLetter/>*/}

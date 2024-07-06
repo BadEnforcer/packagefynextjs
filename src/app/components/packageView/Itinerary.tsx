@@ -23,13 +23,13 @@ export default function Itinerary({itinerary}: ItineraryProps) {
             </div>
             <ul role="list" className="space-y-3">
                 {itinerary.map((section, i) => (
-                    <li key={i} className="bg-white shadow overflow-hidden rounded-2xl px-6 py-4">
-                        <div className="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
-                            <h3 className="text-lg leading-6 font-medium text-gray-900">{section.heading}</h3>
+                    <li key={i} className="shadow hover:outline hover:outline-[1px] hover:outline-indigo-500 hover:scale-[101%] overflow-hidden rounded-2xl px-6 py-4">
+                        <div className="bg-white px-4 py-5 border-b border-gray-200 sm:px-6 flex items-center justify-center">
+                            <h3 className="text-md leading-6 font-bold lg:text-2xl text-black">{section.heading}</h3>
                         </div>
 
                         {/*    content   */}
-                        <div className={'list-disc'} dangerouslySetInnerHTML={createMarkup(section.description)}/>
+                        <div className={'list-disc pt-3 text-sm'} dangerouslySetInnerHTML={createMarkup(section.description)}/>
 
                     </li>
                 ))}
