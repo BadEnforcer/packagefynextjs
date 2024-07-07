@@ -43,7 +43,6 @@ export default function AdminDashboard() {
                 router.push(`/admin?message=Please Login`);
             }
         });
-
         return () => unsubscribe();
     }, [router]);
 

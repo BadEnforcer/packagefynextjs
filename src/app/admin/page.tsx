@@ -7,11 +7,14 @@ import {useRouter} from "next/navigation";
 import {ToastContainer, toast} from 'react-toastify';
 import {FirebaseError} from "@firebase/app";
 import {useSearchParams} from 'next/navigation';
-import SpinnerFullScreen from "@/app/components/FullScreenSpinner";
+const SpinnerFullScreen = dynamic(() => import('@/app/components/FullScreenSpinner'), {ssr: true})
 
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment, useState } from 'react'
 import {Dialog, DialogTitle, Transition, TransitionChild} from '@headlessui/react'
+import dynamic from "next/dynamic";
+
+
 
 function AdminEntryContent() {
     const [open, setOpen] = useState(true)

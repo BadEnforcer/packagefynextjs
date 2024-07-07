@@ -2,23 +2,56 @@
 
 import React from "react";
 import dynamic from "next/dynamic";
-
 import {Suspense} from 'react';
-import SpinnerFullScreen from "@/app/components/FullScreenSpinner";
 import ErrorBoundary from "@/app/components/ErrorBoundary";
 import Image from "next/image";
-import TrendingDestinations from "@/app/components/TrendingDestinations";
+
+const SpinnerFullScreen = dynamic(() => import('./components/FullScreenSpinner'), {
+    ssr: true,
+})
+
+const ImageSkeleton = dynamic(() => import('./components/ImageSkeleton'), {
+    ssr: true,
+})
+
+const LoadingSpinner = dynamic(() => import('./components/LoadingSpinner'), {
+    ssr: true,
+})
+
+const ParagraphSkeleton = dynamic(() => import('./components/ParagraphSkeleton'), {
+    ssr: true,
+})
 
 
-const HeroSearch = dynamic(() => import('./components/HeroSearch'))
-const ImageGrid = dynamic(() => import('./components/ImageGrid'))
-const TripsWithPriceSlider = dynamic(() => import('./components/NormalTripsSlider'))
-const Navbar = dynamic(() => import('./components/Navbar'))
-const Footer = dynamic(() => import('./components/Footer'))
-const LogoCloud = dynamic(() => import('./components/LogoCloud'))
-const TestimonialSlider = dynamic(() => import('./components/TestimonialSlider'))
-const BannerSlideShow = dynamic(() => import('./components/BannerSlideShow'))
+const HeroSearch = dynamic(() => import('./components/HeroSearch'), {
+    ssr: true,
+})
+const ImageGrid = dynamic(() => import('./components/ImageGrid'), {
+    loading: () => <LoadingSpinner />, ssr: true
+})
+const TripsWithPriceSlider = dynamic(() => import('./components/NormalTripsSlider'), {
+    loading: ()=> <ImageSkeleton />
+})
 
+
+const Navbar = dynamic(() => import('./components/Navbar'), {
+    loading: () => <SpinnerFullScreen />, ssr: true
+})
+
+
+const Footer = dynamic(() => import('./components/Footer'), {ssr: true})
+const LogoCloud = dynamic(() => import('./components/LogoCloud'), {
+    loading: () => <ParagraphSkeleton />
+})
+const TestimonialSlider = dynamic(() => import('./components/TestimonialSlider'), {
+    loading: () => <LoadingSpinner />
+})
+const BannerSlideShow = dynamic(() => import('./components/BannerSlideShow'), {
+    loading: () => <ImageSkeleton />
+})
+const TrendingDestinations = dynamic(()=>import('./components/TrendingDestinations'), {
+    loading: () => <ImageSkeleton />
+})
 
 const files = [
     {

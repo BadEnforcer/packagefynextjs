@@ -207,7 +207,18 @@ export default function AddNewPackagePage() {
                     const existingIndex = trendingPackagesData.entries.findIndex(data => data.packageId === packageId && data.destinationId === destinationId);
 
                     if (existingIndex === -1) {
-                        // Package does not exist, add new
+                        // Before adding a new package, check if the array length is 10 or over
+                        if (trendingPackagesData.entries.length >= 10) {
+                            // Sort the entries by addTimestamp to ensure oldest is first
+                            trendingPackagesData.entries.sort((a, b) => a.addTimestamp.getTime() - b.addTimestamp.getTime());
+
+                            // Remove the oldest elements until the array length is under 10
+                            while (trendingPackagesData.entries.length >= 10) {
+                                trendingPackagesData.entries.shift(); // Removes the first (oldest) element
+                            }
+                        }
+
+                        // Now safe to add the new package
                         trendingPackagesData.entries.push({
                             packageId: packageId, destinationId: destinationId, addTimestamp: new Date(),
                         } as TrendingPackageShowcaseData); // push to local array
@@ -222,7 +233,6 @@ export default function AddNewPackagePage() {
                     // Update in db
                     transaction.update(trendingPackagesRef, {...trendingPackagesData}); // update
                 }
-
             })
 
             toast.success("Added a new Package.");

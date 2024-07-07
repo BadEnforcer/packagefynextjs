@@ -275,14 +275,25 @@ export default function ModifyDestinationPage() {
                     const existingIndex = trendingPackagesData.entries.findIndex(data => data.packageId === packageId && data.destinationId === destinationId);
 
                     if (existingIndex === -1) {
-                        // Package does not exist, add new
+                        // Before adding a new package, check if the array length is 10 or over
+                        if (trendingPackagesData.entries.length >= 10) {
+                            // Sort the entries by addTimestamp to ensure oldest is first
+                            trendingPackagesData.entries.sort((a, b) => a.addTimestamp.getTime() - b.addTimestamp.getTime());
+
+                            // Remove the oldest elements until the array length is under 10
+                            while (trendingPackagesData.entries.length >= 10) {
+                                trendingPackagesData.entries.shift(); // Removes the first (oldest) element
+                            }
+                        }
+
+                        // Now safe to add the new package
                         trendingPackagesData.entries.push({
                             packageId: packageId, destinationId: destinationId, addTimestamp: new Date(),
                         } as TrendingPackageShowcaseData); // push to local array
+                        console.log("Added new package since it didn't exist.");
                     } else {
                         // Package exists, you can update it or leave as is. For now, we'll just log it.
                         console.log("Package already exists, not adding.");
-                        toast.info("Package already exists, not adding.")
                         // If you want to update the timestamp or any other detail, do it here.
                         // trendingPackagesData.entries[existingIndex].addTimestamp = new Date(); // Example update
                     }

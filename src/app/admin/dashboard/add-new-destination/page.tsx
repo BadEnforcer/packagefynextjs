@@ -9,9 +9,8 @@ import { useRouter } from "next/navigation";
 import dynamic from 'next/dynamic';
 import {uuidv4} from "@firebase/util";
 
-import axios from "axios";
 
-import {DestinationData} from "@/app/_utility/types";
+import axios from "axios";
 
 const PhotoIcon = dynamic(() => import('@heroicons/react/24/solid').then(mod => mod.PhotoIcon));
 const Footer = dynamic(() => import('@/app/components/Footer'));

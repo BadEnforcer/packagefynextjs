@@ -2,28 +2,40 @@
 import React, {useEffect} from "react";
 
 import dynamic from "next/dynamic";
-import SpinnerFullScreen from "@/app/components/FullScreenSpinner";
-import ParagraphSkeleton from "@/app/components/ParagraphSkeleton";
+// import SpinnerFullScreen from "@/app/components/FullScreenSpinner";
+// import ParagraphSkeleton from "@/app/components/ParagraphSkeleton";
 import {doc, getDoc} from "firebase/firestore";
 import firebase from "../../../../firebase";
 import {toast} from "react-toastify";
 import {useRouter} from "next/navigation";
 import {Package, DestinationData} from "@/app/_utility/types";
-import Err404 from "@/app/404/page";
+// import Err404 from "@/app/404/page";
+// import LoadingSpinner from "@/app/components/LoadingSpinner";
 
-const HeroImage = dynamic(() => import('@/app/components/infoView/HeroImage'))
+
+const LoadingSpinner = dynamic(() => import('@/app/components/LoadingSpinner'), {ssr: true})
+const SpinnerFullScreen = dynamic(() => import('@/app/components/FullScreenSpinner'), {ssr: true})
+const ParagraphSkeleton = dynamic(() => import("@/app/components/ParagraphSkeleton"), {ssr: true})
+const Err404 = dynamic(() => import('@/app/404/page'), {ssr: true})
+
+
+const HeroImage = dynamic(() => import('@/app/components/infoView/HeroImage'), {ssr: true})
 const Description = dynamic(() => import('@/app/components/infoView/Description'), {
     loading: () => {
         return <ParagraphSkeleton/>
-    }
+    }, ssr:true
 })
 const PackageCard = dynamic(() => import('@/app/components/infoView/PackageCard'), {
     loading: () => (<ParagraphSkeleton/>)
 
 })
-const ContactFormSidebar = dynamic(() => import('@/app/components/infoView/ContactFormSidebar'))
-const Contact = dynamic(() => import('@/app/components/infoView/Contact'))
-const Footer = dynamic(() => import('@/app/components/Footer'))
+const ContactFormSidebar = dynamic(() => import('@/app/components/infoView/ContactFormSidebar'), {
+    loading: () => (<LoadingSpinner/>)
+})
+
+
+const Contact = dynamic(() => import('@/app/components/infoView/Contact'), {loading: () => (<LoadingSpinner/>)})
+const Footer = dynamic(() => import('@/app/components/Footer'), {ssr:true})
 
 export default function Page({params}: { params: { destinationId: string } }) {
 

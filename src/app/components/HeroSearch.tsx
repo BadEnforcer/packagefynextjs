@@ -1,12 +1,32 @@
 "use client"
 import {useRouter} from 'next/navigation'
-import {CiSearch} from "react-icons/ci";
 import React, {useEffect} from "react";
-import {Combobox, ComboboxInput, ComboboxOption} from '@headlessui/react'
 import {doc, getDoc} from "firebase/firestore";
 import firebase from "../../../firebase";
 import {toast} from "react-toastify";
-import ParagraphSkeleton from "@/app/components/ParagraphSkeleton";
+import dynamic from "next/dynamic";
+import {ComboboxInput} from "@headlessui/react";
+
+const Combobox = dynamic(() => import('@headlessui/react').then((mod) => mod.Combobox), {
+    ssr: true,
+})
+
+// const ComboboxInput = dynamic(() => import('@headlessui/react').then((mod) => mod.ComboboxInput), {
+//     ssr: true,
+// })
+
+const ComboboxOption = dynamic(() => import('@headlessui/react').then((mod) => mod.ComboboxOption), {
+    ssr: true,
+})
+
+const CiSearch = dynamic(() => import('react-icons/ci').then((mod) => mod.CiSearch), {
+    ssr: true,
+})
+
+const ParagraphSkeleton = dynamic(() => import('@/app/components/ParagraphSkeleton'), {
+    ssr: true,
+})
+
 
 
 interface searchEntry {
@@ -68,6 +88,7 @@ export default function HeroSearch() {
 
 
 
+    // @ts-ignore
     return (
 
         <section id={'hero-search'} className="relative overflow-hidden">
@@ -80,7 +101,7 @@ export default function HeroSearch() {
                     </h1>
                     <div className="mt-7 sm:mt-12 mx-auto max-w-xl relative">
 
-                        {isLoading && !locations ? <ParagraphSkeleton />
+                        {isLoading && !locations ? <ParagraphSkeleton singleLine={true} />
                         :
 
                             <>
@@ -97,6 +118,7 @@ export default function HeroSearch() {
                                             className=" pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400"
                                             aria-hidden="true"
                                         />
+                                        {/*//@ ts-ignore */}
                                         <ComboboxInput
                                             disabled={isLoading}
                                             className="h-12 rounded-lg w-full focus-visible:outline-0 border-0 bg-transparent pl-11 pr-4 text-sm text-gray-800 placeholder-gray-400 focus:ring-0"
@@ -113,7 +135,7 @@ export default function HeroSearch() {
                                                     <ComboboxOption
                                                         key={location.id}
                                                         value={location}
-                                                        className={({focus}) =>
+                                                        className={({focus}: {focus: boolean}) =>
                                                             classNames(
                                                                 ' flex justify-start cursor-default select-none px-4 py-2',
                                                                 focus && 'bg-indigo-600 text-white'

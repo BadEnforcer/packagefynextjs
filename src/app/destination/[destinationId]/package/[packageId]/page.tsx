@@ -1,37 +1,54 @@
 "use client"
 import dynamic from "next/dynamic";
 import React, {useEffect} from "react";
-import SpinnerFullScreen from "@/app/components/FullScreenSpinner";
-import ParagraphSkeleton from "@/app/components/ParagraphSkeleton";
+// import SpinnerFullScreen from "@/app/components/FullScreenSpinner";
+// import ParagraphSkeleton from "@/app/components/ParagraphSkeleton";
 import {doc, getDoc} from "firebase/firestore";
 import firebase from "../../../../../../firebase";
 import {toast} from "react-toastify";
 import {useRouter} from "next/navigation";
-import Err404 from "@/app/404/page";
-import Exclusions from "@/app/components/packageView/Exclusions";
-import Inclusions from "@/app/components/packageView/Inclusions";
-import Itinerary from "@/app/components/packageView/Itinerary";
+// import Err404 from "@/app/404/page";
+
+
+// import Exclusions from "@/app/components/packageView/Exclusions";
+// import Inclusions from "@/app/components/packageView/Inclusions";
+// import Itinerary from "@/app/components/packageView/Itinerary";
 
 import {Package, DestinationData} from "@/app/_utility/types";
+import LoadingSpinner from "@/app/components/LoadingSpinner";
 
-const HeroImage = dynamic(() => import('@/app/components/infoView/HeroImage'))
+
+const Err404 = dynamic(() => import("@/app/404/page"), {ssr:false})
+const ParagraphSkeleton = dynamic(() => import("@/app/components/FullScreenSpinner"), {ssr:false})
+const SpinnerFullScreen = dynamic(() => import("@/app/components/ParagraphSkeleton"), {ssr:false})
+
+
+const Itinerary = dynamic(() => import("@/app/components/packageView/Itinerary"), {ssr:true})
+const Inclusions = dynamic(() => import("@/app/components/packageView/Inclusions"), {ssr:true})
+const Exclusions = dynamic(() => import("@/app/components/packageView/Exclusions"), {ssr:false})
+
+
+const HeroImage = dynamic(() => import('@/app/components/infoView/HeroImage'), {ssr:true})
 const ReviewSlider = dynamic(() => import('@/app/components/packageView/ReviewsSlider'),
     {
-        loading: () => {
-            return <ParagraphSkeleton/>
-        }
+        ssr: false,
     }
     )
+
+
 const Description = dynamic(() => import('@/app/components/infoView/Description'),
     {
         loading: () => {
             return <ParagraphSkeleton/>
-        }
+        }, ssr:true
     })
 
-const ContactFormSidebar = dynamic(() => import('@/app/components/infoView/ContactFormSidebar'))
-const Contact = dynamic(() => import('@/app/components/infoView/Contact'))
-const Footer = dynamic(() => import('@/app/components/Footer'))
+
+const ContactFormSidebar = dynamic(() => import('@/app/components/infoView/ContactFormSidebar'), {
+    loading: () => (<LoadingSpinner/>)
+})
+const Contact = dynamic(() => import('@/app/components/infoView/Contact'), {loading: () => (<LoadingSpinner/>)})
+const Footer = dynamic(() => import('@/app/components/Footer'), {ssr:true})
 
 
 export default function Page({params}: { params: { destinationId: string, packageId: string } }) {

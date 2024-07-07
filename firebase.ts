@@ -1,6 +1,7 @@
-import { initializeApp } from "firebase/app";
+import  { initializeApp } from "firebase/app"
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, browserSessionPersistence  } from "firebase/auth";
+import { getAuth, setPersistence, browserSessionPersistence  } from "firebase/auth";
+
 import {
     initializeFirestore,
     persistentMultipleTabManager,
@@ -26,7 +27,14 @@ if (typeof window !== "undefined") {
 const auth = getAuth();
 const db = initializeFirestore(app,  {localCache: persistentLocalCache({tabManager: persistentMultipleTabManager()})});
 
-auth.setPersistence(browserSessionPersistence );
+setPersistence(auth, browserSessionPersistence)
+    .then(() => {
+// Now the auth state will be persisted in local storage
+    })
+    .catch((error) => {
+        console.error("Error setting persistence:", error);
+    });
+
 
 const firebaseServices = {
     app, auth, db, analytics
