@@ -28,12 +28,12 @@ export default function BannerSlideShow() {
 
     return (
         <div className="my-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
                 <div className="max-w-7xl mx-auto">
                     <Slider {...settings}>
                         {bannerImages.map((image, i) => (
                             <div key={i} className="flex items-center justify-center h-screen max-h-[25vh] sm:max-h-[26vh] md:max-h-[50vh] lg:max-h-[60vh]">
-                                <div className="relative w-full h-full">
+                                <div className="relative flex items-center justify-center w-full h-full">
                                     <Image
                                         src={image}
                                         alt="Banner"

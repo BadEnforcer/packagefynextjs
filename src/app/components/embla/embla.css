@@ -74,8 +74,18 @@
     margin: auto;
     --slide-height: 19rem;
     --slide-spacing: 0.5rem;
-    --slide-size: 80%;
+    --slide-size: 80%; /* Default for small devices */
 }
+
+/* For lg devices and above */
+@media (min-width: 1024px) {
+    .embla {
+        --slide-size: 40%;
+    }
+}
+
+
+
 .embla__viewport {
     overflow: hidden;
 }
