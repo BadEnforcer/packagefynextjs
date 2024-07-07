@@ -143,7 +143,7 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading1, heading2, heading3
             <section id={`${heading1 + heading2}${heading3 || ''}`}>
                 <div className="pb-8 flex w-full items-center justify-center mt-8 lg:mt-20 lg:mb-10">
                     <h1 className="font-bold text-lg md:text-2xl lg:text-4xl">
-                        {heading1} <span className="text-[#008DDA]">{heading2}</span> <span>{heading3}</span>
+                        {heading1} <span className="bg-clip-text text-transparent bg-gradient-to-l from-[#2B32B2] to-[#1488CC]">{heading2}</span> <span>{heading3}</span>
                     </h1>
                 </div>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

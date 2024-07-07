@@ -46,7 +46,7 @@ const ImageGrid: React.FC = () => {
     const router = useRouter();
 
     return (
-        <section id={'showcase-grid'} className={'max-w-7xl mx-auto'}>
+        <section id={'showcase-grid'} className={'max-w-[90rem] lg:pb-14 mx-auto'}>
             <div className={'flex w-full items-center justify-center mt-8 lg:mt-14 lg:mb-10'}>
                 <h1 className={'font-bold text-2xl lg:text-4xl'}>Best Trips Across <span className={'text-[#008DDA]'}>The Globe</span>
                 </h1>
@@ -74,7 +74,7 @@ const ImageGrid: React.FC = () => {
                         content.slice(0, 18).map((item, index) => {
                             let isDoubleSize = index === 0 || index === 6; // First and seventh items are double-sized.
                             let additionalClasses = "";
-                            let wrapperStyle = {};
+                            let wrapperStyle: {};
                             if (index === 0) {
                                 additionalClasses = "col-span-3 sm:col-span-2 row-span-2";
                                 wrapperStyle = {maxWidth: '100%', aspectRatio: '16 / 10'}; // Adjust for big image

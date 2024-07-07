@@ -87,16 +87,19 @@ export default function HeroSearch() {
             [] // return empty array if locations is undefined.
 
 
-
+    // background-image: radial-gradient( circle 311px at 8.6% 27.9%,  rgba(62,147,252,0.57) 12.9%, rgba(239,183,192,0.44) 91.2% );
     // @ts-ignore
     return (
 
         <section id={'hero-search'} className="relative overflow-hidden">
-            <div className="relative z-10 max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-24 md:mb-[150px]">
+            <div className="relative z-10 max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-24 md:mb-[150px] from-[4facfe] to-[#00f2fe]">
                 <div className="text-center">
-                    <h1 className="text-4xl sm:text-6xl font-bold text-white pb-12 lg:pb-10">
+                    <h1 className="text-4xl sm:text-6xl font-bold pb-12 lg:pb-10 text-white">
 
-                        Find your best Holiday Package.
+                        Find your <span
+                        className={'bg-clip-text text-transparent bg-gradient-to-bl from-[#FFE6FA] to-[#E3FDF5]'}>Best </span>
+                        <span
+                            className={'bg-clip-text text-transparent bg-gradient-to-tr from-[#FFE6FA] to-[#E3FDF5]'}>Holiday Package. </span>
 
                     </h1>
                     <div className="mt-7 sm:mt-12 mx-auto max-w-xl relative">

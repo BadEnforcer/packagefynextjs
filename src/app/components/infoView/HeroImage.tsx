@@ -51,7 +51,7 @@ export default function HeroSection({name, coverImageUrl, base64}: SectionProps)
                                              enterTo={'opacity-100 scale-100'}
                                              leave={'transition-all duration-300'} leaveFrom={'opacity-100 scale-100'}
                                              leaveTo={'opacity-100 scale-75'}>
-                                <h1 className="flex w-full items-center justify-center text-[11vw] lg:text-[9vw] font-zasque text-white ">
+                                <h1 className="flex w-full items-center justify-center text-[11vw] lg:text-[9vw] bg-clip-text font-zasque text-transparent bg-gradient-to-tr from-[#FFE6FA] to-[#E3FDF5] ">
                                     {name}
                                 </h1>
                             </TransitionChild>

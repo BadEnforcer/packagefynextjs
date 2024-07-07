@@ -31,8 +31,8 @@ export default function Contact() {
                 </div>
 
                 <div
-                    className="relative mt-10 pt-10 max-w-md mx-auto px-4 sm:max-w-3xl sm:mt-32 sm:px-6 lg:max-w-7xl lg:px-8 ">
-                    <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">Want
+                    className=" relative mt-10 pt-10 max-w-md mx-auto px-4 sm:max-w-3xl sm:mt-32 sm:px-6 lg:max-w-7xl lg:px-8 ">
+                    <h1 className=" text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">Want
                         something more customized ?</h1>
                     <p className="mt-6 text-xl text-white max-w-3xl">
                         Mattis amet hendrerit dolor, quisque lorem pharetra. Pellentesque lacus nisi urna, arcu sociis
@@ -49,7 +49,7 @@ export default function Contact() {
                         <div className="divide-y divide-warm-gray-200">
                             <section className="lg:grid lg:grid-cols-3 lg:gap-8" aria-labelledby="contact-heading">
                                 <h2 id="contact-heading"
-                                    className="text-2xl font-extrabold text-warm-gray-900 sm:text-3xl">
+                                    className="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-l from-[#E3FDF5] to-[#3F5EFB] sm:text-3xl">
                                     Get in touch
                                 </h2>
                                 <div
@@ -74,7 +74,7 @@ export default function Contact() {
                             <section className="mt-16 pt-16 lg:grid lg:grid-cols-3 lg:gap-8"
                                      aria-labelledby="location-heading">
                                 <h2 id="location-heading"
-                                    className="text-2xl font-extrabold text-warm-gray-900 sm:text-3xl">
+                                    className="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-l from-[#E3FDF5] to-[#EF629F] sm:text-3xl">
                                     Locations
                                 </h2>
                                 <div

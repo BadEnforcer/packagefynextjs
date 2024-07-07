@@ -10,7 +10,7 @@ export default function Testimonial({imageSrc, name, content, authorPosition}: T
             <div className={'pb-16 flex w-full items-center justify-center mt-8 lg:mt-20 lg:mb-10'}>
                 <h1 className={'font-bold text-2xl lg:text-4xl '}>Testimonials</h1>
             </div>
-            <div className="pb-16 #bg-indigo-600 bg-[#008DDA] lg:pb-0 lg:z-10 lg:relative">
+            <div className="pb-16 #bg-indigo-600 testimonial-bg lg:pb-0 lg:z-10 lg:relative">
                 <div className="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-8">
                     <div className="relative lg:-my-8">
                         <div aria-hidden="true" className="absolute inset-x-0 top-0 h-1/2 bg-white lg:hidden"/>

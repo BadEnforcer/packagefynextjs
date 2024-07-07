@@ -39,7 +39,7 @@ const PackageComponent: React.FC<PackageProps> = ({blurDataURL, coverImageUrl, d
                     height={300}
                     className="object-cover"
                 />
-                <div className="lg:block flex items-center absolute bottom-0 right-0 mb-2 mr-2 bg-black bg-opacity-50 text-white p-1 sm:p-2 rounded-lg z-10 text-xs sm:text-sm md:text-base lg:text-lg">
+                <div className=" lg:block flex items-center absolute bottom-0 right-0 mb-2 mr-2 bg-black bg-opacity-70 text-white p-1 sm:p-2 rounded-lg z-10 lg:px-2 lg:py-1 text-xs sm:text-sm md:text-base lg:text-sm">
                     {duration}
                 </div>
                 <button type="button" className="absolute inset-0 focus:outline-none">
@@ -147,7 +147,7 @@ const SimpleSlider: React.FC = () => {
             <section id={`trending-dest`}>
                 <div className="pb-20 flex w-full items-center justify-center mt-8 lg:mt-20 lg:mb-10">
                     <h1 className="font-bold text-lg md:text-2xl lg:text-4xl">
-                        Hot & <span className="text-[#008DDA]">Trending</span> <span>Destinations</span>
+                        Hot & <span className="bg-clip-text text-transparent bg-gradient-to-tr from-[#3a7bd5] to-[#00d2ff]">Trending</span> <span>Destinations</span>
                     </h1>
                 </div>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
