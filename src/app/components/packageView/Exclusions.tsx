@@ -31,7 +31,7 @@ export default function Exclusions({exclusions}: ExclusionProps) {
                                     </div>
                                     <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
                                         <div>
-                                            <p className="text-sm text-gray-500">
+                                            <p className="text-sm text-black">
                                                 {exclusion}{' '}
                                             </p>
                                         </div>

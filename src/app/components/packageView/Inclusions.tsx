@@ -33,7 +33,7 @@ export default function Inclusions({inclusions}: InclusionProps) {
                                     </div>
                                     <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
                                         <div>
-                                        <p className="text-sm text-gray-500">
+                                        <p className="text-sm text-black">
                                                 {inclusion}{' '}
                                             </p>
                                         </div>
