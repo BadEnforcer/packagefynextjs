@@ -46,7 +46,7 @@ const PackageComponent: React.FC<PackageProps> = ({blurDataURL, coverImageUrl, d
                     <span className="sr-only">View details for {packageDestination}</span>
                 </button>
             </div>
-            <p className="hidden lg:block mt-2 text-center text-md sm:text-md md:text-lg lg:text-xl font-medium text-gray-900">
+            <p className="lg:block mt-2 text-center text-md sm:text-md md:text-lg lg:text-xl font-medium text-gray-900">
                 {packageDestination}
             </p>
         </div>
@@ -153,7 +153,7 @@ const SimpleSlider: React.FC = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <section className="embla lg:scale-[140%] ">
                         <div className="embla__viewport" ref={emblaRef}>
-                            <div className="embla__container">
+                            <div className="lg:mt-8 embla__container">
                                 {packagesData.map((SlideDataElement, index) => (
                                     <div className="embla__slide" key={index}>
                                         {/*<div className="embla__slide__number">{index + 1}</div>*/}

@@ -73,7 +73,7 @@
     max-width: 48rem;
     margin: auto;
     --slide-height: 19rem;
-    --slide-spacing: 1.7rem;
+    --slide-spacing: 0.5rem;
     --slide-size: 80%;
 }
 .embla__viewport {
@@ -88,7 +88,7 @@
 .embla__slide {
     flex: 0 0 var(--slide-size);
     min-width: 0;
-    padding-left: var(--slide-spacing);
+    /*padding-left: var(--slide-spacing);*/
 }
 .embla__slide__number {
     box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
