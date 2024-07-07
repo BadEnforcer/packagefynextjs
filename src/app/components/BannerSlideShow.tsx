@@ -27,9 +27,8 @@ export default function BannerSlideShow() {
     };
 
     return (
-        <div className="my-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
-                <div className="max-w-7xl mx-auto">
+        <div className="mb-10 lg:my-16">
+            <div className="max-w-[90rem] w-full mx-auto px-4 sm:px-6 lg:px-8 ">
                     <Slider {...settings}>
                         {bannerImages.map((image, i) => (
                             <div key={i} className="flex items-center justify-center h-screen max-h-[25vh] sm:max-h-[26vh] md:max-h-[50vh] lg:max-h-[60vh]">
@@ -40,7 +39,7 @@ export default function BannerSlideShow() {
                                         // fill={true}
                                         objectFit={'cover'}
                                         height={1920}
-                                        width={1080}
+                                        width={2000}
                                         objectPosition="center"
                                         className="pointer-events-none group-hover:opacity-75"
                                     />
@@ -49,7 +48,6 @@ export default function BannerSlideShow() {
                         ))}
                     </Slider>
                 </div>
-            </div>
         </div>
     );
 }

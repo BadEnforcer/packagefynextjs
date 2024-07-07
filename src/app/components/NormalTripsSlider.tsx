@@ -100,53 +100,13 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading1, heading2, heading3
 
 
     return (
-        <>
-            {/*<section>*/}
-            {/*    <div className={'pb-8  flex w-full items-center justify-center mt-8 lg:mt-20 lg:mb-10'}>*/}
-            {/*        <h1 className={'font-bold text-lg md:text-2xl lg:text-4xl '}>*/}
-            {/*            {heading1} <span*/}
-            {/*            className={'text-[#008DDA]'}>*/}
-            {/*        {heading2} </span>*/}
-            {/*            <span>{heading3}</span>*/}
-            {/*        </h1>*/}
-            {/*    </div>*/}
-            {/*    <div className={'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'}>*/}
-            {/*        <div className="max-w-7xl mx-auto">*/}
-            {/*            <Slider {...settings}>*/}
-            {/*                {entries.map((entry, i) => {*/}
-            {/*                    return (*/}
-            {/*                        <div className={'mt-1'} key={i}>*/}
-            {/*                            <div*/}
-            {/*                                className="relative ml-2 mr-2 aspect-1 group block rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">*/}
-            {/*                                <Image src={entry.imageSrc} alt={entry.title}*/}
-            {/*                                       fill={true}*/}
-            {/*                                       content={'contain'}*/}
-            {/*                                       placeholder={'blur'}*/}
-            {/*                                       blurDataURL={'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII='}*/}
-            {/*                                       className="pointer-events-none group-hover:opacity-75 "/>*/}
-            {/*                                <button type="button" className="absolute inset-0 focus:outline-none">*/}
-            {/*                                    <span*/}
-            {/*                                        className="sr-only translate-x-5">View details for {entry.title}</span>*/}
-            {/*                                </button>*/}
-            {/*                            </div>*/}
-            {/*                            <p className="pl-4 mt-1 block text-sm font-medium text-gray-900 truncate pointer-events-none">{entry.title}</p>*/}
-
-            {/*                        </div>*/}
-            {/*                    );*/}
-            {/*                })}*/}
-            {/*            </Slider>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-
-            {/*</section>*/}
-
             <section id={`${heading1 + heading2}${heading3 || ''}`}>
                 <div className="pb-8 flex w-full items-center justify-center mt-8 lg:mt-20 lg:mb-10">
                     <h1 className="font-bold text-lg md:text-2xl lg:text-4xl">
                         {heading1} <span className="bg-clip-text text-transparent bg-gradient-to-l from-[#2B32B2] to-[#1488CC]">{heading2}</span> <span>{heading3}</span>
                     </h1>
                 </div>
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 ">
                     <Slider {...settings}>
                         {entries.map((entry, i) => (
                             <div className="mt-1" key={i}>
@@ -175,9 +135,6 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading1, heading2, heading3
                     </Slider>
                 </div>
             </section>
-
-        </>
-
 
     );
 

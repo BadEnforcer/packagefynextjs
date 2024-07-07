@@ -6,7 +6,7 @@ import {TestimonialData} from "@/app/_utility/types";
 
 export default function Testimonial({imageSrc, name, content, authorPosition}: TestimonialData) {
     return (
-        <div className="bg-white pt-16 lg:py-24">
+        <div className="bg-white pt-8 lg:py-24">
             <div className={'pb-16 flex w-full items-center justify-center mt-8 lg:mt-20 lg:mb-10'}>
                 <h1 className={'font-bold text-2xl lg:text-4xl '}>Testimonials</h1>
             </div>
