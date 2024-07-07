@@ -14,20 +14,23 @@ import {
 import Autoplay from 'embla-carousel-autoplay'
 import useEmblaCarousel from 'embla-carousel-react'
 import './embla/embla.css'
+import Link from "next/link";
 
 interface PackageProps {
     coverImageUrl: string,
     duration: string,
     packageDestination: string,
     blurDataURL: string,
+    destinationId: string,
+    packageId: string,
 }
 
 const OPTIONS: EmblaOptionsType = { loop: true, dragFree:true , slidesToScroll: 1, align:"center" }
 
 
-const PackageComponent: React.FC<PackageProps> = ({blurDataURL, coverImageUrl, duration, packageDestination }) => {
+const PackageComponent: React.FC<PackageProps> = ({blurDataURL, coverImageUrl, duration, packageDestination, destinationId, packageId }) => {
     return(
-        <div className="mt-1">
+        <Link href={`/destination/${destinationId}/package/${packageId}`} className="mt-1">
             <div className="relative ml-2 mr-2 group block rounded-lg bg-gray-100 overflow-hidden">
                 <Image
                     src={coverImageUrl}
@@ -49,12 +52,13 @@ const PackageComponent: React.FC<PackageProps> = ({blurDataURL, coverImageUrl, d
             <p className="lg:block mt-2 text-center text-md sm:text-md md:text-lg lg:text-xl font-medium text-gray-900">
                 {packageDestination}
             </p>
-        </div>
+        </Link>
     );
 };
 
 interface UpdatedPackage extends Package {
     destinationName: string,
+    parentDestinationId: string,
 }
 
 const SimpleSlider: React.FC = () => {
@@ -124,7 +128,7 @@ const SimpleSlider: React.FC = () => {
 
                             const filteredPkg = pkgDestinationData.packages.find((pkg) => pkg.id === pkgData.packageId);
                             if (filteredPkg) {
-                                pkgDataReferences.push({...filteredPkg, destinationName: pkgDestinationData.name} as UpdatedPackage);
+                                pkgDataReferences.push({...filteredPkg, destinationName: pkgDestinationData.name, parentDestinationId: pkgDestinationData.id} as UpdatedPackage);
                             }
                         })
                     );
@@ -157,7 +161,7 @@ const SimpleSlider: React.FC = () => {
                                 {packagesData.map((SlideDataElement, index) => (
                                     <div className="embla__slide" key={index}>
                                         {/*<div className="embla__slide__number">{index + 1}</div>*/}
-                                        <PackageComponent  blurDataURL={SlideDataElement.coverImageBase64} packageDestination={SlideDataElement.destinationName} duration={SlideDataElement.duration} coverImageUrl={SlideDataElement.coverImageUrl} />
+                                        <PackageComponent destinationId={SlideDataElement.parentDestinationId} packageId={SlideDataElement.id}  blurDataURL={SlideDataElement.coverImageBase64} packageDestination={SlideDataElement.destinationName} duration={SlideDataElement.duration} coverImageUrl={SlideDataElement.coverImageUrl} />
 
                                     </div>
                                 ))}
