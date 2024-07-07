@@ -70,9 +70,9 @@
 }
 
 .embla {
-    max-width: 48rem;
+    max-width: 56rem;
     margin: auto;
-    --slide-height: 19rem;
+    --slide-height: 18rem;
     --slide-spacing: 0.5rem;
     --slide-size: 80%; /* Default for small devices */
 }
