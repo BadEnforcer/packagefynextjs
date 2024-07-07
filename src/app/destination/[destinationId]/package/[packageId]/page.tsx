@@ -8,7 +8,7 @@ import firebase from "../../../../../../firebase";
 import {toast} from "react-toastify";
 import {useRouter} from "next/navigation";
 // import Err404 from "@/app/404/page";
-
+import HeroImage from '@/app/components/infoView/HeroImage'
 
 // import Exclusions from "@/app/components/packageView/Exclusions";
 // import Inclusions from "@/app/components/packageView/Inclusions";
@@ -19,9 +19,9 @@ import LoadingSpinner from "@/app/components/LoadingSpinner";
 import PricingComponent from "@/app/destination/[destinationId]/package/[packageId]/PricingComponents";
 
 
-const Err404 = dynamic(() => import("@/app/404/page"), {ssr:false})
-const ParagraphSkeleton = dynamic(() => import("@/app/components/FullScreenSpinner"), {ssr:false})
-const SpinnerFullScreen = dynamic(() => import("@/app/components/ParagraphSkeleton"), {ssr:false})
+const Err404 = dynamic(() => import("@/app/404/page"), {ssr:true})
+const ParagraphSkeleton = dynamic(() => import("@/app/components/FullScreenSpinner"), {ssr:true})
+const SpinnerFullScreen = dynamic(() => import("@/app/components/ParagraphSkeleton"), {ssr:true})
 
 
 const Itinerary = dynamic(() => import("@/app/components/packageView/Itinerary"), {ssr:true})
@@ -29,7 +29,6 @@ const Inclusions = dynamic(() => import("@/app/components/packageView/Inclusions
 const Exclusions = dynamic(() => import("@/app/components/packageView/Exclusions"), {ssr:false})
 
 
-const HeroImage = dynamic(() => import('@/app/components/infoView/HeroImage'), {ssr:true})
 const ReviewSlider = dynamic(() => import('@/app/components/packageView/ReviewsSlider'),
     {
         ssr: false,
