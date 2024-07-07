@@ -44,9 +44,7 @@ const Description = dynamic(() => import('@/app/components/infoView/Description'
     })
 
 
-const ContactFormSidebar = dynamic(() => import('@/app/components/infoView/ContactFormSidebar'), {
-    loading: () => (<LoadingSpinner/>)
-})
+const ContactFormSidebar = dynamic(() => import('@/app/components/infoView/ContactFormSidebar'))
 const Contact = dynamic(() => import('@/app/components/infoView/Contact'), {loading: () => (<LoadingSpinner/>)})
 const Footer = dynamic(() => import('@/app/components/Footer'), {ssr:true})
 
