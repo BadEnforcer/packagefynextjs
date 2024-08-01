@@ -74,12 +74,12 @@ const ImageGrid: React.FC = () => {
                         content.slice(0, 18).map((item, index) => {
                             let isDoubleSize = index === 0 || index === 6; // First and seventh items are double-sized.
                             let additionalClasses = "";
-                            let wrapperStyle: {};
+                            let wrapperStyle = {};
                             if (index === 0) {
                                 additionalClasses = "col-span-3 sm:col-span-2 row-span-2";
                                 wrapperStyle = {maxWidth: '100%', aspectRatio: '16 / 10'}; // Adjust for big image
                             } else if (index === 6) {
-                                additionalClasses = "col-span-3 sm:col-span-2 row-span-2 sm:row-start-3";
+                                additionalClasses = "col-span-3 sm:col-span-2 row-span-2 sm:col-start-5 sm:row-start-3";
                                 wrapperStyle = {maxWidth: '100%', aspectRatio: '16 / 10'}; // Adjust for big image
                             } else {
                                 wrapperStyle = {maxWidth: '100%', aspectRatio: '16 / 9'}; // Adjust for small image
@@ -102,14 +102,15 @@ const ImageGrid: React.FC = () => {
                                     <span
                                         className={`absolute bottom-2 left-4 ${isDoubleSize ? "text-3xl mb-2 font-medium font-sans" : "font-medium font-sans text-lg"}`}
                                     >
-              {item.title}
-            </span>
+          {item.title}
+        </span>
                                 </div>
                             );
                         })
                     }
                 </div>
             </div>
+
 
         </section>
     )
