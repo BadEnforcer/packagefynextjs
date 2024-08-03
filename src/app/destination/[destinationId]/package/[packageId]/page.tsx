@@ -108,7 +108,20 @@ export default function Page({params}: { params: { destinationId: string, packag
                 <HeroImage base64={packageData.coverImageBase64} name={packageData.name} coverImageUrl={packageData.coverImageUrl}/>
 
                 <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <Description isPackage={true} name={packageData.name} data={packageData.description}/>
+
+                    <div className="lg:col-span-8">
+                        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="container mx-auto sm:px-6 lg:px-8">
+                                <div className={'grid gap-y-20'}>
+                                    <Description isPackage={true} name={packageData.name} data={packageData.description}/>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
 
                     {destinationData?.packages?.length
                         ?
@@ -129,9 +142,10 @@ export default function Page({params}: { params: { destinationId: string, packag
 
 
                                 <div className="hidden lg:block lg:col-span-4">
-                                    <PricingComponent packageData={packageData} />
+                                    <PricingComponent packageData={packageData}/>
                                     <nav aria-label="Sidebar" className="sticky top-6 divide-y divide-gray-300">
-                                        <ContactFormSidebar sidebar={true} heading={'Book Now!'} destinationId={destinationData.id}
+                                        <ContactFormSidebar sidebar={true} heading={'Book Now!'}
+                                                            destinationId={destinationData.id}
                                                             packageId={packageData.id}/>
 
 
@@ -140,7 +154,7 @@ export default function Page({params}: { params: { destinationId: string, packag
                             </div>
                         </div>
                         :
-                        <><ContactFormSidebar /></>
+                        <><ContactFormSidebar/></>
                     }
                     <div className={'lg:hidden mt-20 mb-8'}>
                         <ContactFormSidebar destinationId={destinationData.id}/>
@@ -148,7 +162,7 @@ export default function Page({params}: { params: { destinationId: string, packag
 
 
                 </div>
-                <ReviewSlider reviews={packageData.reviews} />
+                <ReviewSlider reviews={packageData.reviews}/>
                 {/*<Review />*/}
                 <Contact/>
                 {/*<NewsLetter/>*/}
