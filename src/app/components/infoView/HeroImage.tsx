@@ -55,7 +55,7 @@ export default function HeroSection({name, coverImageUrl, base64}: SectionProps)
                                              enterTo={'opacity-100 scale-100'}
                                              leave={'transition-all duration-300'} leaveFrom={'opacity-100 scale-100'}
                                              leaveTo={'opacity-100 scale-75'}>
-                                <h1 className={`${rogthem.className} text-center break-words flex w-full items-center justify-center text-[20vw] sm:text-[14vw] lg:text-[8vw] bg-clip-text text-transparent bg-gradient-to-tr from-[#FFE6FA] to-[#E3FDF5] `}>
+                                <h1 className={`${rogthem.className} text-center break-words flex w-full items-center justify-center text-[13vw] sm:text-[12vw] lg:text-[8vw] bg-clip-text text-transparent bg-gradient-to-tr from-[#FFE6FA] to-[#E3FDF5] `}>
                                     {name}
                                 </h1>
                             </TransitionChild>
