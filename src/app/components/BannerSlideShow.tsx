@@ -50,14 +50,10 @@ export default function BannerSlideShow() {
                             onClick={() => handleRedirect(data.href)}
                         >
                             <div className="relative flex items-center justify-center w-full h-full cursor-pointer">
-                                <Image
+                                <img
                                     src={data.image}
                                     alt="Banner"
-                                    objectFit="cover"
-                                    height={1920}
-                                    width={1200}
-                                    objectPosition="center"
-                                    className="pointer-events-none group-hover:opacity-75"
+                                    className="object-cover h-full pointer-events-none group-hover:opacity-75"
                                 />
                             </div>
                         </div>
