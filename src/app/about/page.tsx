@@ -116,13 +116,14 @@ const About1 = () => {
 
                                 <div className="mt-5 lg:mt-16 grid lg:grid-cols-3 gap-8 lg:gap-12">
                                     <div className="lg:col-span-1">
-                                        <h2 className="font-bold text-2xl md:text-3xl text-gray-800 ">
-                                            We tackle the challenges healthcare faces.
+                                        <h2 className="font-bold text-2xl md:text-3xl text-gray-800">
+                                            More than Just Travel
                                         </h2>
                                         <p className="mt-2 md:mt-4 text-gray-500">
-                                            Besides partnering with medical institutions and healthcare start-ups, we have
-                                            developed pharmaceutical solutions that address common pain points in various
-                                            therapeutic areas.
+                                            Our services go beyond traditional travel. We offer tailored experiences
+                                            that blend luxury with practicality, ensuring every journey is exceptional.
+                                            From personalized itineraries to exclusive accommodations, we craft
+                                            memorable travel experiences that cater to your every need.
                                         </p>
                                     </div>
 
@@ -131,14 +132,16 @@ const About1 = () => {
                                         <div className="grid sm:grid-cols-2 gap-8 md:gap-12">
 
                                             <div className="flex gap-x-5">
-                                                <IoHeartOutline size={90}  />
+                                                <IoHeartOutline size={90}/>
                                                 <div className="grow">
                                                     <h3 className="text-lg font-semibold text-gray-800">
-                                                        HoneyMoon Trip
+                                                        Honeymoon Trip
                                                     </h3>
-                                                    <p className="mt-1 text-gray-600 ">
-                                                        We select our teams with care. Our scientists and researchers are
-                                                        the key to groundbreaking discoveries.
+                                                    <p className="mt-1 text-gray-600">
+                                                        Celebrate your love with our specially curated honeymoon
+                                                        packages. Experience luxurious stays and romantic getaways
+                                                        designed to make your first trip as a married couple
+                                                        unforgettable.
                                                     </p>
                                                 </div>
                                             </div>
@@ -146,44 +149,47 @@ const About1 = () => {
                                             <div className="flex gap-x-5">
                                                 <LuPlane size={100}/>
                                                 <div className="grow">
-                                                    <h3 className="text-lg font-semibold text-gray-800 ">
+                                                    <h3 className="text-lg font-semibold text-gray-800">
                                                         Group Departure
                                                     </h3>
-                                                    <p className="mt-1 text-gray-600 ">
-                                                        From life-saving medications to daily health supplements, TG Pharma
-                                                        ensures that essential treatments are within reach for everyone.
+                                                    <p className="mt-1 text-gray-600">
+                                                        Enjoy seamless travel with our group departure services. Ideal
+                                                        for families, friends, or corporate teams, our packages ensure a
+                                                        smooth and enjoyable journey for everyone involved.
                                                     </p>
                                                 </div>
                                             </div>
 
                                             <div className="flex gap-x-5">
-                                                <LiaBikingSolid size={100} height={60} width={60} />
+                                                <LiaBikingSolid size={100} height={60} width={60}/>
                                                 <div className="grow">
                                                     <h3 className="text-lg font-semibold text-gray-800">
                                                         Bike Trips
                                                     </h3>
-                                                    <p className="mt-1 text-gray-600 ">
-                                                        Our comprehensive documentation and extensive clinical studies
-                                                        provide everything healthcare professionals need to trust and
-                                                        integrate our solutions.
+                                                    <p className="mt-1 text-gray-600">
+                                                        Explore scenic routes and adventurous terrains with our bike
+                                                        trip packages. Perfect for cycling enthusiasts and those looking
+                                                        for a thrilling outdoor experience.
                                                     </p>
                                                 </div>
                                             </div>
 
                                             <div className="flex gap-x-5">
-                                                <IoBriefcaseOutline size={100} height={60} width={60} />
+                                                <IoBriefcaseOutline size={100} height={60} width={60}/>
                                                 <div className="grow">
-                                                    <h3 className="text-lg font-semibold text-gray-800 ">
-                                                        Corporate trips
+                                                    <h3 className="text-lg font-semibold text-gray-800">
+                                                        Corporate Trips
                                                     </h3>
                                                     <p className="mt-1 text-gray-600">
-                                                        We focus on the right balance between efficacy and patient comfort,
-                                                        creating treatments that enhance quality of life.
+                                                        Optimize your corporate travel with our tailored business trip
+                                                        solutions. We handle all logistics to ensure your meetings and
+                                                        events are efficient and productive.
                                                     </p>
                                                 </div>
                                             </div>
 
                                         </div>
+
                                     </div>
 
                                 </div>
@@ -221,11 +227,9 @@ const About1 = () => {
                         </section>
 
 
-
-
                     </div>
                 </main>
-                <Footer />
+                <Footer/>
 
             </>
         </React.Suspense>
