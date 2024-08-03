@@ -2,13 +2,13 @@
 import React, {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import {FirebaseError} from "@firebase/app";
-import {doc, getDoc, deleteDoc, runTransaction} from "firebase/firestore";
+import {doc, getDoc, runTransaction} from "firebase/firestore";
 import firebase from "../../../../../firebase";
 import {useRouter} from "next/navigation";
 import {getStorage, ref, deleteObject} from "firebase/storage";
 
 import dynamic from 'next/dynamic';
-import {PackageShowcaseDataFile} from '@/app/_utility/types';
+import {PackageShowcaseDataFile, searchListDocument} from '@/app/_utility/types';
 const Footer = dynamic(() => import('@/app/components/Footer'));
 const ToastContainer = dynamic(() => import("react-toastify").then(mod => mod.ToastContainer));
 
@@ -84,75 +84,186 @@ export default function ModifyDestinationPage() {
     }
 
 
+    // async function handleDestinationUpdate(e: React.FormEvent<HTMLFormElement>) {
+    //     e.preventDefault();
+    //     setIsProcessing(true) // disable button
+    //
+    //
+    //     if (!fetchedData) {
+    //         toast.error("The delete function was launched before initial data fetched. This isn't ideal, Please make a report for this Bug.");
+    //         setIsProcessing(false);
+    //         return
+    //     }
+    //
+    //     try {
+    //
+    //     const storage = getStorage(firebase.app);
+    //
+    //         const destinationDocRef = doc(firebase.db, "destinations", destinationId);
+    //         const destinationDocSnapshot = await getDoc(destinationDocRef)
+    //         const fetchedDestinationData = destinationDocSnapshot.data() as DestinationData;
+    //
+    //
+    //         console.log("DATA BEFORE ####")
+    //         console.log(fetchedDestinationData)
+    //
+    //         console.log("####")
+    //
+    //     await runTransaction(firebase.db, async(transaction) => {
+    //         const destinationDocRef = doc(firebase.db, "destinations", destinationId);
+    //         const destinationDocSnapshot = await transaction.get(destinationDocRef)
+    //         const fetchedDestinationData = destinationDocSnapshot.data() as DestinationData;
+    //
+    //         // get trending-document ref
+    //         const trendingPackagesRef = doc(firebase.db, "homepage", "trendingPackages");
+    //         const trendingPackagesSnapshot = await transaction.get(trendingPackagesRef);
+    //
+    //         // search list
+    //         const searchListRef = doc(firebase.db, "search", "list");
+    //         const searchListSnapshot = await transaction.get(searchListRef);
+    //
+    //
+    //         // print all data to console
+    //         console.log("Collection name : destinations")
+    //         console.log("Destination id", destinationId);
+    //
+    //
+    //         console.log("Destination found :",  fetchedDestinationData);
+    //
+    //         // console.log("Trending packages :", trendingPackagesSnapshot.data());
+    //         // console.log("Search packages :", searchListSnapshot.data());
+    //
+    //         console.log("Found packages error line : " + fetchedDestinationData.packages);
+    //
+    //         if (fetchedDestinationData.packages) {
+    //             fetchedDestinationData.packages.map(async (pkg) => {
+    //                 console.log("pkg: ", pkg);
+    //                 const packageCoverImageRef = ref(storage, `/destinations/${destinationId}/package/${pkg.coverImageFilename}`);
+    //                 await deleteObject(packageCoverImageRef)
+    //
+    //             })
+    //         }
+    //
+    //
+    //         const imageRef = ref(storage, `/destinations/${fetchedData.coverImageFilename}`);
+    //         await deleteObject(imageRef);
+    //
+    //         toast.success("Removed All Images.")
+    //
+    //         await deleteDoc(doc(firebase.db, "destinations", destinationId));
+    //         toast.success('Data deleted successfully.');
+    //
+    //
+    //         // check trending list
+    //         // find the package in trending list
+    //         let trendingPackagesData = trendingPackagesSnapshot.data() as PackageShowcaseDataFile;
+    //         if (!trendingPackagesData || !trendingPackagesData.entries || trendingPackagesData.entries.length === 0) { // no data in cloud
+    //             toast("Package Not detected in Trending List.")
+    //         }
+    //
+    //         trendingPackagesData.entries = trendingPackagesData.entries.filter(
+    //             (data) => data.destinationId !== destinationId
+    //         ); // filter and set it again.
+    //         console.log("Packages filtered")
+    //         console.log(trendingPackagesData.entries)
+    //
+    //
+    //         // update the new list
+    //         transaction.set(trendingPackagesRef, {...trendingPackagesData})
+    //
+    //         transaction.delete(destinationDocRef)
+    //
+    //         // UPDATING SEARCH LIST
+    //         let searchListData = searchListSnapshot.data() as searchListDocument;
+    //         searchListData.entries = searchListData.entries.filter((entry) => entry.destinationId !== destinationId); // filter
+    //
+    //         transaction.update(searchListRef, {...searchListData})
+    //
+    //
+    //     })
+    //
+    //         setTimeout(() => {
+    //             // note: if  success, button will not be re-enabled.
+    //             router.push('/admin/dashboard');
+    //         }, 3000);
+    //
+    //
+    //     } catch (err) {
+    //         console.error(err);
+    //         if (err instanceof FirebaseError) toast.error(err.code);
+    //         if (err instanceof Error) toast.error(err.message);
+    //         setIsProcessing(false) // enable button
+    //     }
+    // }
     async function handleDestinationUpdate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        setIsProcessing(true) // disable button
-
+        setIsProcessing(true); // disable button
 
         if (!fetchedData) {
             toast.error("The delete function was launched before initial data fetched. This isn't ideal, Please make a report for this Bug.");
             setIsProcessing(false);
-            return
+            return;
         }
 
         try {
-
-        const storage = getStorage(firebase.app);
-
-        await runTransaction(firebase.db, async(transaction) => {
+            const storage = getStorage(firebase.app);
             const destinationDocRef = doc(firebase.db, "destinations", destinationId);
-            const fetchedDestinationData = (await transaction.get(destinationDocRef)).data() as DestinationData;
-            // get trending-document ref
+            const destinationDocSnapshot = await getDoc(destinationDocRef);
+            const fetchedDestinationData = destinationDocSnapshot.data() as DestinationData;
+
             const trendingPackagesRef = doc(firebase.db, "homepage", "trendingPackages");
-            //fetch data
-            const trendingPackagesSnapshot = await transaction.get(trendingPackagesRef);
+            const trendingPackagesSnapshot = await getDoc(trendingPackagesRef);
+            const trendingPackagesData = trendingPackagesSnapshot.data() as PackageShowcaseDataFile;
 
-            fetchedDestinationData.packages.map(async (pkg) => {
-                const packageCoverImageRef = ref(storage, `/destinations/${destinationId}/package/${pkg.coverImageFilename}`);
-                await deleteObject(packageCoverImageRef)
+            const searchListRef = doc(firebase.db, "search", "list");
+            const searchListSnapshot = await getDoc(searchListRef);
+            const searchListData = searchListSnapshot.data() as searchListDocument;
 
-            })
+            await runTransaction(firebase.db, async (transaction) => {
+                // Delete packages cover images
+                if (fetchedDestinationData.packages) {
+                    for (const pkg of fetchedDestinationData.packages) {
+                        const packageCoverImageRef = ref(storage, `/destinations/${destinationId}/package/${pkg.coverImageFilename}`);
+                        await deleteObject(packageCoverImageRef);
+                    }
+                }
 
-            const imageRef = ref(storage, `/destinations/${fetchedData.coverImageFilename}`);
-            await deleteObject(imageRef);
+                // Delete destination cover image
+                const imageRef = ref(storage, `/destinations/${fetchedData.coverImageFilename}`);
+                await deleteObject(imageRef);
 
-            toast.success("Removed All Images.")
+                // Update trending packages
+                if (trendingPackagesData && trendingPackagesData.entries) {
+                    trendingPackagesData.entries = trendingPackagesData.entries.filter(
+                        (data) => data.destinationId !== destinationId
+                    );
+                    transaction.set(trendingPackagesRef, trendingPackagesData);
+                }
 
-            await deleteDoc(doc(firebase.db, "destinations", destinationId));
+                // Update search list
+                if (searchListData && searchListData.entries) {
+                    searchListData.entries = searchListData.entries.filter(
+                        (entry) => entry.destinationId !== destinationId
+                    );
+                    transaction.update(searchListRef, {...searchListData});
+                }
+
+                // Delete destination document
+                transaction.delete(destinationDocRef);
+            });
+
+            toast.success("Removed All Images.");
             toast.success('Data deleted successfully.');
 
-
-            // check trending list
-            // find the package in trending list
-            let trendingPackagesData = trendingPackagesSnapshot.data() as PackageShowcaseDataFile;
-            if (!trendingPackagesData || !trendingPackagesData.entries || trendingPackagesData.entries.length === 0) { // no data in cloud
-                toast("Package Not detected in Trending List.")
-            }
-
-            trendingPackagesData.entries = trendingPackagesData.entries.filter(
-                (data) => data.destinationId !== destinationId
-            ); // filter and set it again.
-            console.log("Packages filtered")
-            console.log(trendingPackagesData.entries)
-
-
-            // update the new list
-            transaction.set(trendingPackagesRef, {...trendingPackagesData})
-
-            transaction.delete(destinationDocRef)
-        })
-
             setTimeout(() => {
-                // note: if  success, button will not be re-enabled.
                 router.push('/admin/dashboard');
             }, 3000);
-
 
         } catch (err) {
             console.error(err);
             if (err instanceof FirebaseError) toast.error(err.code);
             if (err instanceof Error) toast.error(err.message);
-            setIsProcessing(false) // enable button
+            setIsProcessing(false); // enable button
         }
     }
 

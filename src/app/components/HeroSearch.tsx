@@ -6,6 +6,7 @@ import firebase from "../../../firebase";
 import { toast } from "react-toastify";
 import dynamic from "next/dynamic";
 import { ComboboxInput } from "@headlessui/react";
+import {searchEntry, searchListDocument} from "@/app/_utility/types";
 
 const Combobox = dynamic(() => import('@headlessui/react').then((mod) => mod.Combobox), {
     ssr: true,
@@ -23,15 +24,7 @@ const ParagraphSkeleton = dynamic(() => import('@/app/components/ParagraphSkelet
     ssr: true,
 })
 
-interface searchEntry {
-    destinationId: string,
-    id: string,
-    destinationName: string,
-}
 
-interface searchListDocument {
-    entries: searchEntry[];
-}
 
 function classNames(...classes: (string | boolean)[]) {
     return classes.filter(Boolean).join(' ')

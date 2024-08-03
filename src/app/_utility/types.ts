@@ -66,3 +66,13 @@ export interface TestimonialData {
 export interface TestimonialFile {
     entries: TestimonialData[]
 }
+
+export interface searchEntry {
+    destinationId: string,
+    id: string,
+    destinationName: string,
+}
+
+export interface searchListDocument {
+    entries: searchEntry[];
+}
