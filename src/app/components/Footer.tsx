@@ -1,15 +1,16 @@
 import { IoLogoInstagram } from "react-icons/io";
 import { BsTwitterX } from "react-icons/bs";
-import { SiYoutube } from "react-icons/si";
+import { SiLinkedin, SiFacebook } from "react-icons/si";
 const footerNavigation = {
     explore: [
         {name: 'Popular', href: '/#showcase-grid'},
-        {name: 'Reviews', href: '/#testimonials'},
+        {name: 'International', href: '/#Must visitInternationalDestinations'},
+        {name: 'Domestic', href: '/#Best ofIndianHeartland'},
         {name: 'Search', href: '/#hero-search'},
     ],
     support: [
         {name: 'Email', href: 'mailto:Packagefytour@gmail.com'},
-        {name: 'Mobile', href: 'tel:6388029737'},
+        {name: 'Mobile', href: 'tel:+919336724747'},
     ],
     company: [
         {name: 'About', href: '/about'},
@@ -21,20 +22,25 @@ const footerNavigation = {
     ],
     social: [
         {
-            name: 'YouTube',
-            href: '#',
-            icon: SiYoutube,
+            name: 'LinkedIn',
+            href: 'https://www.linkedin.com/company/packagefy/',
+            icon: SiLinkedin,
         },
         {
             name: 'Instagram',
-            href: '#',
+            href: 'https://www.instagram.com/packagefy',
             icon: IoLogoInstagram,
         },
         {
-            name: 'Twitter',
-            href: '#',
+            name: 'X',
+            href: 'https://x.com/packagefy',
             icon: BsTwitterX
         },
+        {
+            name: 'Facebook',
+            href: 'https://www.facebook.com/Packagefy',
+            icon: SiFacebook
+        }
     ],
 }
 
