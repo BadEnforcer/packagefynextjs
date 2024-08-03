@@ -1,8 +1,8 @@
 import Image from "next/image";
 
 const contactDetails = [
-    {name: 'Collaborate', email: 'Packagefytours@gmail.com', telephone: '+91 (638) 802-9737'},
-    {name: 'Press', email: 'Press@packagefy.com', telephone: '+91 (933) 672-4747'},
+    {name: 'Collaborate', email: 'Packagefytours@gmail.com', telephone: '+91 (933) 672-4747'},
+    {name: 'Press', email: 'Packagefytours@gmail.com', telephone: '+91 (933) 672-4747'},
     // { name: 'Join our team', email: 'support@example.com', telephone: '+1 (555) 123-4567' },
     // { name: 'Say hello', email: 'support@example.com', telephone: '+1 (555) 123-4567' },
 ]
@@ -32,12 +32,11 @@ export default function Contact() {
 
                 <div
                     className=" relative mt-10 pt-10 max-w-md mx-auto px-4 sm:max-w-3xl sm:mt-32 sm:px-6 lg:max-w-7xl lg:px-8 ">
-                    <h1 className=" text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">Want
-                        something more customized ?</h1>
+                    <h1 className=" text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">Want something curated just for you?</h1>
                     <p className="mt-6 text-xl text-white max-w-3xl">
-                        Mattis amet hendrerit dolor, quisque lorem pharetra. Pellentesque lacus nisi urna, arcu sociis
-                        eu. Orci vel
-                        lectus nisl eget eget ut consectetur. Sit justo viverra non adipisicing elit distinctio.
+                        If you want something customized or special according to your unique needs,
+                        just get in touch. We offer personalized services tailored to your preferences.
+
                     </p>
                 </div>
             </header>
