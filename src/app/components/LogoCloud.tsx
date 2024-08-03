@@ -13,11 +13,11 @@ export default function LogoCloud() {
             </div>
             <div className="max-w-[90rem] mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
                 <div className="mt-6 grid grid-cols-2 gap-0.5 md:grid-cols-4 md:mt-8 content-center items-center">
-                    <div className="col-span-1 flex justify-center py-8 px-8">
+                    <div className="relative col-span-1 flex justify-center py-8 px-8">
                         <Image
                             className="max-h-40 scale-125 md:max-h-52 lg:scale-100"
-                            width={939}
-                            height={939}
+                            width={1000}
+                            height={1000}
                             src="https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/rise_logo.jpg?alt=media&token=82cb8f55-116a-40f4-baf8-0ce2e85866a0"
                             alt="Rise Jhansi"
                         />
