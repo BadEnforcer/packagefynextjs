@@ -54,7 +54,7 @@ export default function LogoCloud() {
                     </div>
 
                     <div className="col-span-1 flex justify-center py-8 px-2 content-center items-center">
-                        <img className="max-h-40 scale-125 md:max-h-60 lg:scale-100"
+                        <img className="max-h-40 scale-80 md:max-h-60 lg:scale-100"
                              width={1000}
                              height={750}
                             // fill={true} objectFit={'cover'}
