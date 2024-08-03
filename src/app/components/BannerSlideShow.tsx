@@ -3,9 +3,10 @@ import Slider from "react-slick";
 import Image from "next/image";
 
 const bannerImages: string[] = [
-    'https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg',
-    'https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?cs=srgb&dl=pexels-rpnickson-2559941.jpg&fm=jpg&w=1920&h=1280&_gl=1*1s2rhm4*_ga*MjY2NjIwNzMwLjE3MTgxODMzNTg.*_ga_8JE65Q40S6*MTcyMDI0MDk0MS4yMi4xLjE3MjAyNDA5NjYuMC4wLjA.',
-    'https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?cs=srgb&dl=pexels-rpnickson-2559941.jpg&fm=jpg&w=1920&h=1280&_gl=1*1s2rhm4*_ga*MjY2NjIwNzMwLjE3MTgxODMzNTg.*_ga_8JE65Q40S6*MTcyMDI0MDk0MS4yMi4xLjE3MjAyNDA5NjYuMC4wLjA.',
+    'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/banners%2FDubai.png?alt=media&token=f105e607-ee4e-4a07-b013-30826f3a94ab',
+    'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/banners%2FMaldives.png?alt=media&token=790fa951-4161-433c-8d41-511572e6fc92',
+    'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/banners%2FThiland.png?alt=media&token=0329fb88-1101-4803-a22d-41b1162fc877',
+    'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/banners%2FVietnam.png?alt=media&token=2b769003-cc34-4224-bbac-7148c4f328c7',
 ]
 
 export default function BannerSlideShow() {
@@ -39,7 +40,7 @@ export default function BannerSlideShow() {
                                         // fill={true}
                                         objectFit={'cover'}
                                         height={1920}
-                                        width={2000}
+                                        width={1200}
                                         objectPosition="center"
                                         className="pointer-events-none group-hover:opacity-75"
                                     />
