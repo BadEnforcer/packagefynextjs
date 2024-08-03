@@ -151,7 +151,7 @@ const SimpleSlider: React.FC = () => {
             <section id={`trending-dest`}>
                 <div className="pb-20 flex w-full items-center justify-center mt-8 lg:mt-20 lg:mb-10">
                     <h1 className="font-bold text-lg md:text-2xl lg:text-4xl">
-                        Hot & <span className="bg-clip-text text-transparent bg-gradient-to-tr from-[#3a7bd5] to-[#00d2ff]">Trending</span> <span>Destinations</span>
+                        Hot & <span className="bg-clip-text text-[#008DDA]">Trending</span> <span>Destinations</span>
                     </h1>
                 </div>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
