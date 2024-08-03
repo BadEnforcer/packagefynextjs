@@ -16,7 +16,7 @@ const footerNavigation = {
         {name: 'Mobile', href: 'tel:+919336724747'},
     ],
     company: [
-        {name: 'About', href: '/about'},
+        {name: 'About us', href: '/about'},
         {name: 'Jobs', href: 'mailto:Packagefytour@gmail.com?subject=I%20am%20interested%20in%20working%20for%20your%20organization'},
         {name: 'Partners', href: '/#recognition-and-collaboration'},
     ],
