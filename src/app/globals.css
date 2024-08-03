@@ -4,9 +4,10 @@
 @font-face {
     font-family: 'Zasque';
     src: url('/public/ZasquePersonalUseOnly-LVEzW.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
+    font-weight: auto;
+    font-style: auto;
 }
+
 
 @tailwind base;
 @tailwind components;
