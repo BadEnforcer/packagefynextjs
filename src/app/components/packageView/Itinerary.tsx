@@ -29,7 +29,7 @@ export default function Itinerary({itinerary}: ItineraryProps) {
                         </div>
 
                         {/* Content */}
-                        <div className="list-disc pt-3 text-md lg:text-lg px-6 py-4 bg-[#F6F1F1]/20 rounded-b-2xl" dangerouslySetInnerHTML={createMarkup(section.description)} />
+                        <div className="list-disc pt-3 text-sm sm:text-md md:text-lg px-6 py-4 bg-[#F6F1F1]/20 rounded-b-2xl" dangerouslySetInnerHTML={createMarkup(section.description)} />
                     </li>
                 ))}
             </ul>
