@@ -46,13 +46,13 @@ export default function HeroSection({name, coverImageUrl, base64}: SectionProps)
                     {/* Heading */}
 
                     <div className="flex items-center  justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
-                        <div className={'absolute inset-0 flex items-center justify-center z-30 top-[45%] lg:top-[10%]'}>
+                        <div className={'lg:px-40 absolute inset-0 flex items-center justify-center z-30 top-[45%] lg:top-[10%]'}>
                             <TransitionChild as={Fragment} enter={'transition-all duration-1000'}
                                              enterFrom={'opacity-0 scale-120 text-white'}
                                              enterTo={'opacity-100 scale-100'}
                                              leave={'transition-all duration-300'} leaveFrom={'opacity-100 scale-100'}
                                              leaveTo={'opacity-100 scale-75'}>
-                                <h1 className="text-center break-words flex w-full items-center justify-center text-[11vw] sm:text-[9vw] lg:text-[6vw] bg-clip-text font-zasque text-transparent bg-gradient-to-tr from-[#FFE6FA] to-[#E3FDF5] ">
+                                <h1 className="text-center break-words flex w-full items-center justify-center text-[8vw] sm:text-[10vw] lg:text-[6vw] bg-clip-text font-zasque text-transparent bg-gradient-to-tr from-[#FFE6FA] to-[#E3FDF5] ">
                                     {name}
                                 </h1>
                             </TransitionChild>
