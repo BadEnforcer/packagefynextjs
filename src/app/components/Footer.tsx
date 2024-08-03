@@ -1,7 +1,6 @@
 import { IoLogoInstagram } from "react-icons/io";
 import { BsTwitterX } from "react-icons/bs";
 import { SiYoutube } from "react-icons/si";
-import Image from "next/image";
 const footerNavigation = {
     explore: [
         {name: 'Popular', href: '/#showcase-grid'},
@@ -65,7 +64,7 @@ export default function Footer() {
                         <div className="flex space-x-6">
                             {footerNavigation.social.map((item) => (
                                 <a key={item.name} href={item.href}
-                                   className="text-white hover:text-warm-gray-500">
+                                   className="text-white hover:text-stone-500">
                                     <span className="sr-only">{item.name}</span>
                                     <item.icon className="h-6 w-6" aria-hidden="true"/>
                                 </a>
@@ -80,7 +79,7 @@ export default function Footer() {
                                     {footerNavigation.explore.map((item) => (
                                         <li key={item.name}>
                                             <a href={item.href}
-                                               className="text-base text-white/90 hover:text-warm-gray-900">
+                                               className="text-base text-white/90 hover:text-stone-500">
                                                 {item.name}
                                             </a>
                                         </li>
@@ -93,7 +92,7 @@ export default function Footer() {
                                     {footerNavigation.support.map((item) => (
                                         <li key={item.name}>
                                             <a href={item.href}
-                                               className="text-base text-white/90 hover:text-warm-gray-900">
+                                               className="text-base text-white/90 hover:text-stone-500">
                                                 {item.name}
                                             </a>
                                         </li>
@@ -108,26 +107,26 @@ export default function Footer() {
                                     {footerNavigation.company.map((item) => (
                                         <li key={item.name}>
                                             <a href={item.href}
-                                               className="text-base text-white/90 hover:text-warm-gray-900">
+                                               className="text-base text-white/90 hover:text-stone-500">
                                                 {item.name}
                                             </a>
                                         </li>
                                     ))}
                                 </ul>
                             </div>
-                            <div className="mt-12 md:mt-0">
-                                <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Legal</h3>
-                                <ul role="list" className="mt-4 space-y-4">
-                                    {footerNavigation.legal.map((item) => (
-                                        <li key={item.name}>
-                                            <a href={item.href}
-                                               className="text-base text-white/90 hover:text-warm-gray-900">
-                                                {item.name}
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                            {/*<div className="mt-12 md:mt-0">*/}
+                            {/*    <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Legal</h3>*/}
+                            {/*    <ul role="list" className="mt-4 space-y-4">*/}
+                            {/*        {footerNavigation.legal.map((item) => (*/}
+                            {/*            <li key={item.name}>*/}
+                            {/*                <a href={item.href}*/}
+                            {/*                   className="text-base text-white/90 hover:text-stone-500">*/}
+                            {/*                    {item.name}*/}
+                            {/*                </a>*/}
+                            {/*            </li>*/}
+                            {/*        ))}*/}
+                            {/*    </ul>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                 </div>
