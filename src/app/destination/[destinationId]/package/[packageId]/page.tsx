@@ -162,7 +162,11 @@ export default function Page({params}: { params: { destinationId: string, packag
 
 
                 </div>
-                <ReviewSlider reviews={packageData.reviews}/>
+                {packageData.reviews.length !== 0 ?
+                    <ReviewSlider reviews={packageData.reviews}/>
+                    :
+                    <></>}
+
                 {/*<Review />*/}
                 <Contact/>
                 {/*<NewsLetter/>*/}
