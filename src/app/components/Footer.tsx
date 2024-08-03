@@ -1,6 +1,9 @@
+"use client"
+
 import { IoLogoInstagram } from "react-icons/io";
 import { BsTwitterX } from "react-icons/bs";
 import { SiLinkedin, SiFacebook } from "react-icons/si";
+import {useRouter} from "next/navigation";
 const footerNavigation = {
     explore: [
         {name: 'Popular', href: '/#showcase-grid'},
@@ -18,7 +21,8 @@ const footerNavigation = {
         {name: 'Partners', href: '/#recognition-and-collaboration'},
     ],
     legal: [
-        {name: 'Claim', href: 'mailto:Packagefytour@gmail.com?subject=[CopyrightClaim] '},
+        {name: 'Terms & Conditions', href: '#'},
+        {name: 'Refund Policy', href: '#'},
     ],
     social: [
         {
@@ -46,6 +50,7 @@ const footerNavigation = {
 
 
 export default function Footer() {
+    const router = useRouter();
 
     return (
         <footer className="bg-[#0F0F0F] mt-8" aria-labelledby="footer-heading">
@@ -55,7 +60,7 @@ export default function Footer() {
             <div className="max-w-md mx-auto py-12 px-4 sm:max-w-3xl sm:py-24 sm:px-6 lg:max-w-full lg:mx-20 lg:px-8">
                 <div className="xl:grid xl:grid-cols-3 xl:gap-8">
                     <div className="space-y-8 xl:col-span-1">
-                        <div className={'relative h-16'}>
+                        <div onClick={() => router.push('/')} className={'relative h-16'}>
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                                 className="h-16"
@@ -120,19 +125,19 @@ export default function Footer() {
                                     ))}
                                 </ul>
                             </div>
-                            {/*<div className="mt-12 md:mt-0">*/}
-                            {/*    <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Legal</h3>*/}
-                            {/*    <ul role="list" className="mt-4 space-y-4">*/}
-                            {/*        {footerNavigation.legal.map((item) => (*/}
-                            {/*            <li key={item.name}>*/}
-                            {/*                <a href={item.href}*/}
-                            {/*                   className="text-base text-white/90 hover:text-stone-500">*/}
-                            {/*                    {item.name}*/}
-                            {/*                </a>*/}
-                            {/*            </li>*/}
-                            {/*        ))}*/}
-                            {/*    </ul>*/}
-                            {/*</div>*/}
+                            <div className="mt-12 md:mt-0">
+                                <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Legal</h3>
+                                <ul role="list" className="mt-4 space-y-4">
+                                    {footerNavigation.legal.map((item) => (
+                                        <li key={item.name}>
+                                            <a href={item.href}
+                                               className="text-base text-white/90 hover:text-stone-500">
+                                                {item.name}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
