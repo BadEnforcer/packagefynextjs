@@ -53,78 +53,72 @@ const TrendingDestinations = dynamic(() => import('./components/TrendingDestinat
     loading: () => <ImageSkeleton/>
 })
 
-const files = [
+
+const internation_destinations = [
     {
-        title: 'Italy',
+        imageSrc: 'https://images.pexels.com/photos/20411011/pexels-photo-20411011/free-photo-of-cho-da-lat-in-da-lat-city-in-vietnam-at-night.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
         duration: '5 Days 4 Nights',
-        href: '/destination/italy',
-        imageSrc:
-            'https://images.pexels.com/photos/6774396/pexels-photo-6774396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        title: 'Vietnam',
+        href: '/destination/vietnam'
     },
     {
-        title: 'Italy',
+        imageSrc: 'https://images.pexels.com/photos/9252846/pexels-photo-9252846.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
         duration: '5 Days 4 Nights',
-        href: '/destination/italy',
-        imageSrc:
-            'https://images.pexels.com/photos/6774396/pexels-photo-6774396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        title: 'Malaysia',
+        href: '/destination/malaysia'
     },
     {
-        title: 'Italy',
+        imageSrc: 'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/SlidingGrids%2Fbali.jpg?alt=media&token=a13b58e7-f5f8-4296-a58c-d8af727a48df',
+        title: 'Bali',
         duration: '5 Days 4 Nights',
-        href: '/destination/italy',
-        imageSrc:
-            'https://images.pexels.com/photos/6774396/pexels-photo-6774396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        href: '/destination/bali'
+    },
+
+    {
+        imageSrc: 'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/SlidingGrids%2Fthiland.jpg?alt=media&token=a8e66ef7-7009-41bf-9354-4cd8abb04954',
+        duration: '5 Days 4 Nights',
+        title: 'Thailand',
+        href: '/destination/thiland'
     },
     {
-        title: 'Italy',
+        imageSrc: 'https://images.pexels.com/photos/17741267/pexels-photo-17741267/free-photo-of-funfair-in-vietnam.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
         duration: '5 Days 4 Nights',
-        href: '/destination/italy',
-        imageSrc:
-            'https://images.pexels.com/photos/6774396/pexels-photo-6774396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        title: 'Singapore',
+        href: '/destination/singapore'
     },
     {
-        title: 'Italy',
+        imageSrc: 'https://images.pexels.com/photos/11807186/pexels-photo-11807186.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
         duration: '5 Days 4 Nights',
-        href: '/destination/italy',
-        imageSrc:
-            'https://images.pexels.com/photos/6774396/pexels-photo-6774396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        title: 'Maldives',
+        href: '/destination/maldives'
     },
     {
-        title: 'Italy',
+        imageSrc: 'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/SlidingGrids%2Fdubai.jpg?alt=media&token=7949700e-3c5f-476c-ad9e-bcf5addd5c54',
         duration: '5 Days 4 Nights',
-        href: '/destination/italy',
-        imageSrc:
-            'https://images.pexels.com/photos/6774396/pexels-photo-6774396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        title: 'Dubai',
+        href: '/destination/dubai'
     },
     {
-        title: 'Italy',
+        imageSrc: 'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/SlidingGrids%2Fbhutan.jpg?alt=media&token=eb6083b5-f591-4c19-a01c-a6b88edeed0a',
         duration: '5 Days 4 Nights',
-        href: '/destination/italy',
-        imageSrc:
-            'https://images.pexels.com/photos/6774396/pexels-photo-6774396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        title: 'Bhutan',
+        href: '/destination/bhutan'
     },
     {
-        title: 'Italy',
+        imageSrc: 'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/SlidingGrids%2Fazerbijan.jpg?alt=media&token=5712f5ed-27f4-41e6-9568-3ea4e4cde6a2',
         duration: '5 Days 4 Nights',
-        href: '/destination/italy',
-        imageSrc:
-            'https://images.pexels.com/photos/6774396/pexels-photo-6774396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        title: 'Azerbaizan',
+        href: '/destination/azerbaizan'
     },
     {
-        title: 'Italy',
+        imageSrc: 'https://images.unsplash.com/photo-1552055569-b7e1e45d5be8',
         duration: '5 Days 4 Nights',
-        href: '/destination/italy',
-        imageSrc:
-            'https://images.pexels.com/photos/6774396/pexels-photo-6774396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    },
-    {
-        title: 'Italy',
-        duration: '5 Days 4 Nights',
-        href: '/destination/italy',
-        imageSrc:
-            'https://images.pexels.com/photos/6774396/pexels-photo-6774396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        title: 'Sri Lanka',
+        href: '/destination/sri-lanka'
     },
 ]
+
+
 
 const domestic_destinations =
     [{
@@ -206,7 +200,7 @@ export default function HomePage() {
                     <TripsWithPriceSlider heading1={'Best of'} heading2={"Indian"} heading3={"Heartland"}
                                           entries={domestic_destinations}/>
                     <TripsWithPriceSlider heading1={'Must visit'} heading2={'International'} heading3={"Destinations"}
-                                          entries={files} rtl={false}/>
+                                          entries={internation_destinations} rtl={false}/>
                 </section>
 
                 <TestimonialSlider/>
