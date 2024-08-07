@@ -78,7 +78,7 @@ const internation_destinations = [
         imageSrc: 'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/SlidingGrids%2Fthiland.jpg?alt=media&token=a8e66ef7-7009-41bf-9354-4cd8abb04954',
         duration: '5 Days 4 Nights',
         title: 'Thailand',
-        href: '/destination/thiland'
+        href: '/destination/thailand'
     },
     {
         imageSrc: 'https://images.pexels.com/photos/17741267/pexels-photo-17741267/free-photo-of-funfair-in-vietnam.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
@@ -125,52 +125,52 @@ const domestic_destinations =
         imageSrc: "https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/SlidingGrids%2FHimachal.jpg?alt=media&token=c33a63a7-95c1-4ae4-936d-df67b5111d3c",
         duration: "",
         title: "Himachal Pradesh",
-        href: "#"
+        href: "/destination/himachal"
     }, {
         imageSrc: "https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/SlidingGrids%2Fgoa.jpg?alt=media&token=8b3b1bd8-5b4c-4762-82c8-15b8e3280df6",
         duration: "",
         title: "Goa",
-        href: "#"
+        href: "/destination/goa"
     }, {
         imageSrc: "https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/SlidingGrids%2Fkerala.jpg?alt=media&token=1f93f0a6-9d91-41b1-94a7-bd8600abe200",
         duration: "",
         title: "Kerala",
-        href: "#"
+        href: "/destination/kerala"
     }, {
         imageSrc: "https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/SlidingGrids%2Fladdakh.jpg?alt=media&token=1d2f3cdb-01fb-49e2-8544-fefac1306bf6",
         duration: "",
         title: "Ladakh",
-        href: "#"
+        href: "/destination/ladakh"
     }, {
         imageSrc: "https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/SlidingGrids%2FJammu%20%26%20Kashmir.jpg?alt=media&token=c05c5f29-0016-4667-9034-31fff8bf43bc",
         duration: "",
         title: "Jammu Kashmir",
-        href: "#"
+        href: "/destination/kashmir"
     }, {
         imageSrc: "https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/SlidingGrids%2Frajasthan.jpg?alt=media&token=117aa3f6-7262-4ced-8f8f-94e97c846104",
         duration: "",
         title: "Rajasthan",
-        href: "#"
+        href: "/destination/rajasthan"
     }, {
         imageSrc: "https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/SlidingGrids%2Futtarakhand.jpg?alt=media&token=3a99a9b8-42ed-4de3-a876-d84d1c6562a1",
         duration: "",
         title: "Uttrakhand",
-        href: "#"
+        href: "/destination/uttarakhand"
     }, {
         imageSrc: "https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/SlidingGrids%2Fmeghalaya.jpg?alt=media&token=54697ad7-e9d3-42ed-bc17-2cd5a6e67b2f",
         duration: "",
         title: "Meghalaya",
-        href: "#"
+        href: "/destination/meghalaya"
     }, {
         imageSrc: "https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/SlidingGrids%2Fnorth%20east.jpg?alt=media&token=15a9a16d-99d2-4517-bd1e-1f84a515186b",
         duration: "",
         title: "North East",
-        href: "#"
+        href: "/destination/north-east"
     }, {
         imageSrc: "https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/SlidingGrids%2Fandaman.jpg?alt=media&token=f0bc9633-db20-4041-8bc1-c3789c63d199",
         duration: "",
         title: "Andaman",
-        href: "#"
+        href: "/destination/andaman"
     }];
 
 const backgroundImage: string = 'https://images.pexels.com/photos/2674064/pexels-photo-2674064.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'

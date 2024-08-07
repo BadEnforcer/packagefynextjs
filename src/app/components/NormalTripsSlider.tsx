@@ -2,6 +2,7 @@
 import React from "react";
 import Slider from "react-slick";
 import Image from "next/image";
+import Link from "next/link";
 
 
 type ShowcaseEntries = {
@@ -20,7 +21,6 @@ interface SimpleSliderProps {
     rtl?: boolean
 
 }
-
 
 
 const SimpleSlider: React.FC<SimpleSliderProps> = ({heading1, heading2, heading3, entries, rtl}) => {
@@ -112,8 +112,9 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading1, heading2, heading3
                 <Slider {...settings}>
                     {entries.map((entry, i) => (
                         <div className="mt-1" key={i}>
-                            <div className="relative ml-2 mr-2 group block rounded-lg bg-gray-100 overflow-hidden">
+                            <Link href={entry.href} className="relative ml-2 mr-2 group block rounded-lg bg-gray-100 overflow-hidden">
                                 <div className="relative w-full"
+                                     onClick={(e) => {}}
                                      style={{paddingBottom: '100%'}}> {/* 1:1 aspect ratio */}
                                     <Image
                                         src={entry.imageSrc}
@@ -130,7 +131,7 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading1, heading2, heading3
                                 <button type="button" className="absolute inset-0 focus:outline-none">
                                     <span className="sr-only">View details for {entry.title}</span>
                                 </button>
-                            </div>
+                            </Link>
                             <p className=" lg:hidden mt-2 text-center text-md sm:text-md md:text-lg lg:text-xl font-medium text-gray-900">
                                 {entry.title}
                             </p>
