@@ -197,9 +197,9 @@ export default function HomePage() {
                     <TrendingDestinations/>
                     <BannerSlideShow/>
 
-                    <TripsWithPriceSlider heading1={'Best of'} heading2={"Indian"} heading3={"Heartland"}
+                    <TripsWithPriceSlider heading1={'Best of'} heading2={"Indian "} heading3={"Heartland"}
                                           entries={domestic_destinations}/>
-                    <TripsWithPriceSlider heading1={'Must visit'} heading2={'International'} heading3={"Destinations"}
+                    <TripsWithPriceSlider heading1={'Must visit'} heading2={'International '} heading3={"Destinations"}
                                           entries={internation_destinations} rtl={false}/>
                 </section>
 
