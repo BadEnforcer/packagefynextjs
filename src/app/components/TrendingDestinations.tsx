@@ -32,17 +32,18 @@ const PackageComponent: React.FC<PackageProps> = ({blurDataURL, coverImageUrl, d
     return(
         <Link href={`/destination/${destinationId}/package/${packageId}`} className="mt-1">
             <div className="relative ml-2 mr-2 group block rounded-lg bg-gray-100 overflow-hidden">
-                <Image
-                    src={coverImageUrl}
-                    alt={packageDestination}
-                    placeholder={'blur'}
-                    blurDataURL={blurDataURL}
-                    layout="responsive"
-                    width={300}
-                    height={300}
-                    className="object-cover"
-                />
-                <div className=" lg:block flex items-center absolute bottom-0 right-0 mb-2 mr-2 bg-black bg-opacity-70 text-white p-1 sm:p-2 rounded-lg z-10 lg:px-2 lg:py-1 text-xs sm:text-sm md:text-base lg:text-sm">
+                <div className="relative w-full" style={{ paddingBottom: '56.25%' }}> {/* 16:9 aspect ratio */}
+                    <Image
+                        src={coverImageUrl}
+                        alt={packageDestination}
+                        placeholder={'blur'}
+                        blurDataURL={blurDataURL}
+                        layout="fill"
+                        objectFit="cover"
+                        className="absolute top-0 left-0 w-full h-full object-cover"
+                    />
+                </div>
+                <div className="lg:block flex items-center absolute bottom-0 right-0 mb-2 mr-2 bg-black bg-opacity-70 text-white p-1 sm:p-2 rounded-lg z-10 lg:px-2 lg:py-1 text-xs sm:text-sm md:text-base lg:text-sm">
                     {duration}
                 </div>
                 <button type="button" className="absolute inset-0 focus:outline-none">
