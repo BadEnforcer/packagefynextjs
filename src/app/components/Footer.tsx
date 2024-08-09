@@ -17,6 +17,7 @@ const footerNavigation = {
     ],
     company: [
         {name: 'About us', href: '/about'},
+        {name: 'Team', href: '/about/#team-info'},
         {name: 'Jobs', href: 'mailto:Packagefytour@gmail.com?subject=I%20am%20interested%20in%20working%20for%20your%20organization'},
         {name: 'Partners', href: '/#recognition-and-collaboration'},
     ],
