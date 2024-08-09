@@ -290,10 +290,18 @@ const people = [
         // linkedinUrl: '#',
     },
     {
+        name: 'Mohd. Irfan',
+        role: 'Chief customer officer',
+        imageUrl:
+            'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/about%20us%20content%2Fteam%20images%2Fmohd.%20irfan%2C%20chief%20customer%20officer.jpg?alt=media&token=c441fb74-8e33-47ae-bd9d-0e4fcd1465dc',
+        // twitterUrl: '#',
+        // linkedinUrl: '#',
+    },
+    {
         name: 'Arqam Ahmad Siddiqui',
         role: 'QA Head',
         imageUrl:
-            'https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
+            'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/about%20us%20content%2Fteam%20images%2Farqam%20QA.png?alt=media&token=75da6ce2-663b-49ff-a96a-feb6435e0e2d',
         // twitterUrl: '#',
         linkedinUrl: 'https://www.linkedin.com/in/arqam365/',
     },
@@ -301,7 +309,7 @@ const people = [
         name: 'Raj Dwivedi',
         role: 'Lead Developer',
         imageUrl:
-            'https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
+            'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/about%20us%20content%2Fteam%20images%2F20231230_103904.jpg?alt=media&token=d9042298-7c38-4ce4-8ca8-b20f9660c990',
         // twitterUrl: '#',
         linkedinUrl: 'https://www.linkedin.com/in/badenforcer/',
     },
@@ -334,7 +342,7 @@ function Team() {
                                             className="rounded-full object-cover"
                                             src={person.imageUrl}
                                             layout="fill"
-                                            alt=""
+                                            alt={person.name}
                                         />
                                     </div>
                                     <div className="space-y-2">
