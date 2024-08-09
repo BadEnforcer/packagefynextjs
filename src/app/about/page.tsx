@@ -50,28 +50,37 @@ const About1 = () => {
                                             <div className="w-full px-3 sm:px-4 xl:w-1/2">
                                                 <div className="py-3 sm:py-4">
                                                     {/* You can add an image of your suspension product here */}
-                                                    <img
+                                                    <Image
                                                         src={"https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/about%20us%20content%2FGroup%20image%20vertical%202.jpg?alt=media&token=2d4a7604-137d-444d-ad86-b573d6923524"}
-
-                                                        alt="Suspension Product"
+                                                        objectFit={'cover'}
+                                                        width={1000}
+                                                        height={1000}
+                                                        alt="Trip Image"
                                                         className="w-full rounded-2xl"
                                                     />
                                                 </div>
                                                 <div className="py-3 sm:py-4">
                                                     {/* You can add a video showcasing your product here */}
-                                                    <img
+                                                    <Image
                                                         src="https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/about%20us%20content%2Fimage%203.jpg?alt=media&token=7e3f38bf-d048-4612-b5d0-bb340492e90d"
                                                         className="w-full rounded-2xl"
+                                                        alt={"Trip image"}
+                                                        objectFit={'cover'}
+                                                        width={1000}
+                                                        height={1000}
                                                     />
                                                 </div>
                                             </div>
                                             <div className="w-full px-3 sm:px-4 xl:w-1/2">
                                                 <div className="relative z-10 my-4">
                                                     {/* You can add another image or illustration here */}
-                                                    <img
+                                                    <Image
                                                         src="https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/about%20us%20content%2FGroup%20Image%20vertical%201.jpg?alt=media&token=0b1f3278-bda6-4c98-b1da-cd73d8d6042d"
-                                                        alt="Illustration"
                                                         className="w-full rounded-2xl"
+                                                        alt={"Trip image"}
+                                                        objectFit={'cover'}
+                                                        width={1000}
+                                                        height={1000}
                                                     />
                                                     {/* Decorative circles */}
                                                     <span className="absolute -right-7 -bottom-7 z-[-1]">
@@ -109,9 +118,13 @@ const About1 = () => {
 
                             <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
                                 <div className="aspect-w-16 aspect-h-7">
-                                    <img className="w-full object-cover rounded-xl"
+                                    <Image className="w-full object-cover rounded-xl"
                                          src="https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/about%20us%20content%2FSlideshow%2FBig%20Group%20image.jpg?alt=media&token=8c8d1321-013c-40de-bbbc-acfe2ab1c8c4"
-                                         alt="Image Description"/>
+                                         alt={"Trip image"}
+                                         objectFit={'cover'}
+                                         width={1000}
+                                         height={1000}
+                                    />
                                 </div>
 
 
