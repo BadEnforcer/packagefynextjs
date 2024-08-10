@@ -81,7 +81,8 @@ const internation_destinations = [
         href: '/destination/thailand'
     },
     {
-        imageSrc: 'https://images.pexels.com/photos/17741267/pexels-photo-17741267/free-photo-of-funfair-in-vietnam.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        // new img
+        imageSrc: 'https://images.pexels.com/photos/1029188/pexels-photo-1029188.jpeg?cs=srgb&dl=pexels-alaric-sim-380461-1029188.jpg&fm=jpg&w=1920&h=1260&_gl=1*802eay*_ga*NDk5ODIxODA4LjE3MjMyNjY0OTc.*_ga_8JE65Q40S6*MTcyMzI3MjI1MS4yLjEuMTcyMzI3MjUxMi4wLjAuMA..',
         duration: '5 Days 4 Nights',
         title: 'Singapore',
         href: '/destination/singapore'

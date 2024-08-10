@@ -45,7 +45,7 @@ const content: ImageGridProps[] = [
     {src: 'https://images.pexels.com/photos/9252846/pexels-photo-9252846.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
         alt: 'Malaysia', title: 'Malaysia', link: '/destination/malaysia'},
 
-    {src: 'https://images.pexels.com/photos/17741267/pexels-photo-17741267/free-photo-of-funfair-in-vietnam.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    {src: 'https://images.pexels.com/photos/1029188/pexels-photo-1029188.jpeg?cs=srgb&dl=pexels-alaric-sim-380461-1029188.jpg&fm=jpg&w=1920&h=1260&_gl=1*802eay*_ga*NDk5ODIxODA4LjE3MjMyNjY0OTc.*_ga_8JE65Q40S6*MTcyMzI3MjI1MS4yLjEuMTcyMzI3MjUxMi4wLjAuMA..',
         alt: 'Singapore', title: 'Singapore', link: '/destination/singapore'},
 
     {src: 'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/SlidingGrids%2Fazerbijan.jpg?alt=media&token=5712f5ed-27f4-41e6-9568-3ea4e4cde6a2',
