@@ -1,6 +1,7 @@
 import  { initializeApp } from "firebase/app"
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, setPersistence, browserSessionPersistence  } from "firebase/auth";
+import {getPerformance} from "firebase/performance";
 
 import {
     initializeFirestore,
@@ -25,6 +26,7 @@ if (typeof window !== "undefined") {
     analytics = getAnalytics(app);
 }
 const auth = getAuth();
+const performance = getPerformance()
 const db = initializeFirestore(app,  {localCache: persistentLocalCache({tabManager: persistentMultipleTabManager()})});
 
 setPersistence(auth, browserSessionPersistence)
@@ -37,7 +39,7 @@ setPersistence(auth, browserSessionPersistence)
 
 
 const firebaseServices = {
-    app, auth, db, analytics
+    app, auth, db, analytics, performance
 }
 
 export default firebaseServices;
