@@ -274,7 +274,7 @@ const people = [
         // linkedinUrl: '#',
     },
     {
-        name: 'Vivek Singh',
+        name: 'Vivek Pandey',
         role: 'Human Resources Head',
         imageUrl:
             'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/about%20us%20content%2Fteam%20images%2FVivek%20HR%20Head.JPG?alt=media&token=035c5beb-a6f5-44f6-b447-4462b9e5127a',
@@ -282,7 +282,7 @@ const people = [
         // linkedinUrl: '#',
     },
     {
-        name: 'Mayank Singh',
+        name: 'Mayank Prasad',
         role: 'Head of Content',
         imageUrl:
             'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/about%20us%20content%2Fteam%20images%2Fmayank%20head%20of%20content.png?alt=media&token=57af2091-9d95-4d87-bd87-c43536322d14',
