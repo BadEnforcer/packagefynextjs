@@ -282,14 +282,6 @@ const people = [
         // linkedinUrl: '#',
     },
     {
-        name: 'Mayank Prasad',
-        role: 'Head of Content',
-        imageUrl:
-            'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/about%20us%20content%2Fteam%20images%2Fmayank%20head%20of%20content.png?alt=media&token=57af2091-9d95-4d87-bd87-c43536322d14',
-        // twitterUrl: '#',
-        // linkedinUrl: '#',
-    },
-    {
         name: 'Mohd. Irfan',
         role: 'Chief customer officer',
         imageUrl:
@@ -297,6 +289,16 @@ const people = [
         // twitterUrl: '#',
         // linkedinUrl: '#',
     },
+
+    {
+        name: 'Mayank Prasad',
+        role: 'Head of Content',
+        imageUrl:
+            'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/about%20us%20content%2Fteam%20images%2Fmayank%20head%20of%20content.png?alt=media&token=57af2091-9d95-4d87-bd87-c43536322d14',
+        // twitterUrl: '#',
+        // linkedinUrl: '#',
+    },
+
     {
         name: 'Irfan khan',
         role: 'Head of Operations',
@@ -306,14 +308,6 @@ const people = [
         // linkedinUrl: '#',
     },
     {
-        name: 'Arqam Ahmad Siddiqui',
-        role: 'QA Head',
-        imageUrl:
-            'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/about%20us%20content%2Fteam%20images%2Farqam%20QA.png?alt=media&token=75da6ce2-663b-49ff-a96a-feb6435e0e2d',
-        // twitterUrl: '#',
-        linkedinUrl: 'https://www.linkedin.com/in/arqam365/',
-    },
-    {
         name: 'Raj Dwivedi',
         role: 'Lead Developer',
         imageUrl:
@@ -321,6 +315,16 @@ const people = [
         // twitterUrl: '#',
         linkedinUrl: 'https://www.linkedin.com/in/badenforcer/',
     },
+
+    {
+        name: 'Arqam Ahmad Siddiqui',
+        role: 'QA Head',
+        imageUrl:
+            'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/about%20us%20content%2Fteam%20images%2Farqam%20QA.png?alt=media&token=75da6ce2-663b-49ff-a96a-feb6435e0e2d',
+        // twitterUrl: '#',
+        linkedinUrl: 'https://www.linkedin.com/in/arqam365/',
+    },
+
 
 
     // More people...
