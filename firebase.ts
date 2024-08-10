@@ -21,12 +21,13 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-let analytics;
+let analytics, performance;
 if (typeof window !== "undefined") {
     analytics = getAnalytics(app);
+    performance = getPerformance()
 }
 const auth = getAuth();
-const performance = getPerformance()
+
 const db = initializeFirestore(app,  {localCache: persistentLocalCache({tabManager: persistentMultipleTabManager()})});
 
 setPersistence(auth, browserSessionPersistence)
