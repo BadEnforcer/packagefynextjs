@@ -294,7 +294,7 @@ const people = [
         name: 'Mayank Prasad',
         role: 'Head of Content',
         imageUrl:
-            'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/about%20us%20content%2Fteam%20images%2Fmayank%20head%20of%20content.png?alt=media&token=57af2091-9d95-4d87-bd87-c43536322d14',
+            'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/about%20us%20content%2Fteam%20images%2Fmayank%20head%20of%20content.jpg?alt=media&token=3f1de345-1677-49bd-b2fb-2e0b344f389d',
         // twitterUrl: '#',
         // linkedinUrl: '#',
     },
