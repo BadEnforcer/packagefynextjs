@@ -62,7 +62,7 @@ const internation_destinations = [
         href: '/destination/vietnam'
     },
     {
-        imageSrc: 'https://images.pexels.com/photos/9252846/pexels-photo-9252846.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        imageSrc: 'https://images.pexels.com/photos/22804/pexels-photo.jpg?cs=srgb&dl=pexels-umaraffan499-22804.jpg&fm=jpg&w=1920&h=1280&_gl=1*1dmdfp1*_ga*NDk5ODIxODA4LjE3MjMyNjY0OTc.*_ga_8JE65Q40S6*MTcyMzI3MjI1MS4yLjEuMTcyMzI3MjgyMC4wLjAuMA..',
         duration: '5 Days 4 Nights',
         title: 'Malaysia',
         href: '/destination/malaysia'

@@ -42,7 +42,7 @@ const content: ImageGridProps[] = [
     {src: 'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/SlidingGrids%2Fbhutan.jpg?alt=media&token=eb6083b5-f591-4c19-a01c-a6b88edeed0a',
         alt: 'Bhutan', title: 'Bhutan', link: '/destination/bhutan'},
 
-    {src: 'https://images.pexels.com/photos/9252846/pexels-photo-9252846.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    {src: 'https://images.pexels.com/photos/22804/pexels-photo.jpg?cs=srgb&dl=pexels-umaraffan499-22804.jpg&fm=jpg&w=1920&h=1280&_gl=1*1dmdfp1*_ga*NDk5ODIxODA4LjE3MjMyNjY0OTc.*_ga_8JE65Q40S6*MTcyMzI3MjI1MS4yLjEuMTcyMzI3MjgyMC4wLjAuMA..',
         alt: 'Malaysia', title: 'Malaysia', link: '/destination/malaysia'},
 
     {src: 'https://images.pexels.com/photos/1029188/pexels-photo-1029188.jpeg?cs=srgb&dl=pexels-alaric-sim-380461-1029188.jpg&fm=jpg&w=1920&h=1260&_gl=1*802eay*_ga*NDk5ODIxODA4LjE3MjMyNjY0OTc.*_ga_8JE65Q40S6*MTcyMzI3MjI1MS4yLjEuMTcyMzI3MjUxMi4wLjAuMA..',
