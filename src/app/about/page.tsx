@@ -267,7 +267,7 @@ const people = [
     },
     {
         name: 'Abdul Shadab',
-        role: 'CO Founder',
+        role: 'Co Founder',
         imageUrl:
             'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/about%20us%20content%2Fteam%20images%2Fabdul%20Shadab%20co%20founder.jpg?alt=media&token=44ee4e8e-91b4-48a1-944f-154a4fcd018c',
         // twitterUrl: '#',
