@@ -298,6 +298,14 @@ const people = [
         // linkedinUrl: '#',
     },
     {
+        name: 'Irfan khan',
+        role: 'Head of Operations',
+        imageUrl:
+            'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/about%20us%20content%2Fteam%20images%2Firfan%20khan%20Head%20of%20operations.JPG?alt=media&token=82705dd5-796f-406f-b9ed-f5e5aade3e9a',
+        // twitterUrl: '#',
+        // linkedinUrl: '#',
+    },
+    {
         name: 'Arqam Ahmad Siddiqui',
         role: 'QA Head',
         imageUrl:
