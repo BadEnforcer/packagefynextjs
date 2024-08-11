@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from "react";
 import { doc, getDoc, runTransaction } from "firebase/firestore";
-import firebase from "../../../firebase";
+import firebase from "../../../firebase.ts";
 import { DestinationData, Package, PackageShowcaseDataFile } from "@/app/_utility/types";
 import Image from 'next/image';
 

@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import Slider from "react-slick";
 import dynamic from "next/dynamic";
 import {doc, getDoc} from "firebase/firestore";
-import firebase from "../../../firebase";
+import firebase from "../../../firebase.ts";
 import {TestimonialFile} from "@/app/_utility/types";
 import ParagraphSkeleton from "@/app/components/ParagraphSkeleton";
 

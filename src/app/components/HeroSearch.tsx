@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation'
 import React, { useEffect } from "react";
 import { doc, getDoc } from "firebase/firestore";
-import firebase from "../../../firebase";
+import firebase from "../../../firebase.ts";
 import { toast } from "react-toastify";
 import dynamic from "next/dynamic";
 import { ComboboxInput } from "@headlessui/react";
