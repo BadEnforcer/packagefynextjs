@@ -1,4 +1,4 @@
-const firebase = require('./firebase.ts');
+const firebase = require('./firebase.js');
 const fstore = require('firebase/firestore');
 
 /** @type {import('next-sitemap').IConfig} */
