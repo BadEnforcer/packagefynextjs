@@ -24,6 +24,7 @@ const footerNavigation = {
     legal: [
         {name: 'Terms & Conditions', href: 'https://docs.google.com/document/d/15TZ71gmXAlB92lm_ESk4wGP5Q6d7Y_0D9_B7pNule0M/edit?usp=sharing'},
         {name: 'Refund Policy', href: 'https://docs.google.com/document/d/1ObtNKmipag8HMjO0RT3sOFv1ZQmlNxws9PIZVgQQ6TM/edit?usp=sharing'},
+        {name: 'Privacy Policy', href: 'https://docs.google.com/document/d/1ycdiYlPLPETo-KmDwglw-wRFoJGJnbmQIJ96LBsg06g/edit?usp=sharing'},
     ],
     social: [
         {
