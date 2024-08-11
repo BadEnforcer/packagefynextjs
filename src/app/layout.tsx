@@ -12,6 +12,7 @@ import {ToastContainer} from "react-toastify";
 import { Analytics } from "@vercel/analytics/react"
 const PrelineScript = dynamic(() => import('./components/PrelineScript'))
 import Head from 'next/head';
+import Script from "next/script";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -87,7 +88,7 @@ export default function RootLayout({
                     `}
             </script>
 
-            <script src="https://www.googletagmanager.com/gtag/js?l=dataLayer&amp;id=G-4L0BZGV7V7" async></script>
+            <Script src="https://www.googletagmanager.com/gtag/js?l=dataLayer&amp;id=G-4L0BZGV7V7" async></Script>
         </Head>
         <SpeedInsights/>
         <Analytics />
