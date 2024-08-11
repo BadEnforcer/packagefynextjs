@@ -1,5 +1,5 @@
-const firebase = require('./firebase.js');
-const { collection, getDocs } = require('firebase/firestore');
+const firebase = require('./firebase.ts');
+const fstore = require('firebase/firestore');
 
 /** @type {import('next-sitemap').IConfig} */
 const config = {
@@ -19,7 +19,7 @@ module.exports = config;
 
 const getAllDestinationsFunction = async (result, config) => {
     try {
-        const querySnapshot = await getDocs(collection(firebase.db, 'destinations'));
+        const querySnapshot = await fstore.getDocs(fstore.collection(firebase.db, 'destinations'));
 
         querySnapshot.forEach((doc) => {
             const data = doc.data();

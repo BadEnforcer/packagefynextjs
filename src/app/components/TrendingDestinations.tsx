@@ -144,7 +144,7 @@ const SimpleSlider: React.FC = () => {
             }
         };
 
-        fetchData();
+        fetchData().then();
     }, []);
 
     return (
