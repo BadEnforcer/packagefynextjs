@@ -18,7 +18,7 @@ const inter = Inter({subsets: ["latin"]});
 
 export const metadata: Metadata = {
     title: "Packagefy",
-    description: "Packagefy.com",
+    description: "Packagefy - Find your best holiday package. Follow us on Facebook, LinkedIn, and Instagram for the latest updates.",
 };
 
 export default function RootLayout({
@@ -32,7 +32,6 @@ export default function RootLayout({
         <Head>
             <meta charSet="UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <title>Packagefy</title>
 
             {/* Meta Description */}
             <meta name="description" content="Packagefy - Find your best holiday package. Follow us on Facebook, LinkedIn, and Instagram for the latest updates." />
