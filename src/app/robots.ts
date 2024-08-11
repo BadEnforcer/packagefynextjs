@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
             {
                 userAgent: '*',
                 allow: ['/destination/*', '/destination/*/package/*', '/'],
-                disallow: '/api/',
+                disallow: ['/api/', '/admin/'],
             }
         ],
         sitemap: 'https://packagefy.com/sitemap.xml',
