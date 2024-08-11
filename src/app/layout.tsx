@@ -11,7 +11,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from "react-toastify";
 import { Analytics } from "@vercel/analytics/react"
 const PrelineScript = dynamic(() => import('./components/PrelineScript'))
-import Head from 'next/head';
 import Script from "next/script";
 
 const inter = Inter({subsets: ["latin"]});
@@ -52,35 +51,6 @@ export default function RootLayout({
     return (
 
         <html lang="en">
-        <Head>
-            {/* Canonical Link */}
-            <link rel="canonical" href="https://packagefy.com" />
-
-            {/* Social Media Profiles */}
-            <link rel="me" href="https://www.facebook.com/Packagefy" />
-            <link rel="me" href="https://www.linkedin.com/company/packagefy/" />
-            <link rel="me" href="https://www.instagram.com/packagefy/" />
-
-            {/* Structured Data */}
-            <script type="application/ld+json">
-                {`
-                    {
-                        "@context": "https://schema.org",
-                        "@type": "Organization",
-                        "name": "Packagefy",
-                        "url": "https://packagefy.com",
-                        "logo": "https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/resources%2Fnewlogo.svg?alt=media&token=833503db-fc0a-4385-9779-58abdd059d78",
-                        "sameAs": [
-                            "https://www.facebook.com/Packagefy",
-                            "https://www.linkedin.com/company/packagefy/",
-                            "https://www.instagram.com/packagefy/"
-                        ]
-                    }
-                    `}
-            </script>
-
-        </Head>
-
 
         <Script src="https://www.googletagmanager.com/gtag/js?l=dataLayer&amp;id=G-4L0BZGV7V7" async></Script>
 

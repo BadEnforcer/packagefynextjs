@@ -1,8 +1,9 @@
 "use client"
 
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import {useRouter} from "next/navigation";
+import SpinnerFullScreen from "@/app/components/FullScreenSpinner.tsx";
 
 interface ImageGridProps {
     src: string;
@@ -88,9 +89,27 @@ const content: ImageGridProps[] = [
 ]
 
 
+function getRandomItems<T>(array: T[], count: number): T[] {
+    // Create a copy of the array to avoid mutating the original array
+    const shuffled = array.slice().sort(() => 0.5 - Math.random());
+    // Return the first `count` items from the shuffled array
+    return shuffled.slice(0, count);
+}
+
 const ImageGrid: React.FC = () => {
     const router = useRouter();
+    const [mobileItems, setMobileItems] = useState<ImageGridProps[]>([]);
+    const [loading, setLoading] = useState(true);
 
+    useEffect(() => {
+        setLoading(true)
+        setMobileItems(getRandomItems(content, 10))
+        setLoading(false)
+    }, []);
+
+    if (loading) return <SpinnerFullScreen />;
+
+    else
     return (
         <section id={'showcase-grid'} className={'max-w-[90rem] lg:pb-14 mx-auto'}>
             <div className={'flex w-full items-center justify-center mt-8 lg:mt-14 lg:mb-10'}>
@@ -102,8 +121,7 @@ const ImageGrid: React.FC = () => {
             {/*  md and below ONLY RENDERS 14 ITEMS  */}
             <div className="lg:hidden mx-6 mt-10">
                 <div className="grid gap-6">
-                    {content.slice(0, 14).slice(0, -4).map((item, index) => (
-                        // Render all items except the last 4
+                    {mobileItems.map((item, index) => (
                         <a key={index} className="relative row-span-1" href={item.link}>
                             <Image src={item.src} alt={item.alt} width={2000} height={2000}
                                    layout="responsive" className="rounded-2xl object-cover"/>
