@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { FirebaseError } from "@firebase/app";
 import { doc, getDoc, runTransaction } from "firebase/firestore";
-import firebase from "../../../../../firebase";
+import firebase from "../../../../../firebase.ts";
 import { useRouter } from "next/navigation";
 import dynamic from 'next/dynamic';
 import {uuidv4} from "@firebase/util";

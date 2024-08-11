@@ -5,7 +5,7 @@ import {toast} from "react-toastify";
 import {deleteObject, getStorage, ref} from "firebase/storage";
 import {FirebaseError} from "@firebase/app";
 import {doc, runTransaction} from "firebase/firestore";
-import firebase from "../../../../../firebase";
+import firebase from "../../../../../firebase.ts";
 import {useRouter} from "next/navigation";
 
 import dynamic from 'next/dynamic';

@@ -4,7 +4,7 @@ import React, {useEffect} from "react";
 // import SpinnerFullScreen from "@/app/components/FullScreenSpinner";
 // import ParagraphSkeleton from "@/app/components/ParagraphSkeleton";
 import {doc, getDoc} from "firebase/firestore";
-import firebase from "../../../../../../firebase";
+import firebase from "../../../../../../firebase.ts";
 import {toast} from "react-toastify";
 import {useRouter} from "next/navigation";
 // import Err404 from "@/app/404/page";

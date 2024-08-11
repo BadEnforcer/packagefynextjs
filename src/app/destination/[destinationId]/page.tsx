@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 // import SpinnerFullScreen from "@/app/components/FullScreenSpinner";
 // import ParagraphSkeleton from "@/app/components/ParagraphSkeleton";
 import {doc, getDoc} from "firebase/firestore";
-import firebase from "../../../../firebase";
+import firebase from "../../../../firebase.ts";
 import {toast} from "react-toastify";
 import {useRouter} from "next/navigation";
 import {Package, DestinationData} from "@/app/_utility/types";

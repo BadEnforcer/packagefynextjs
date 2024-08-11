@@ -5,7 +5,7 @@ import {toast} from "react-toastify";
 import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
 import {FirebaseError} from "@firebase/app";
 import {doc, getDoc, updateDoc} from "firebase/firestore";
-import firebase from "../../../../../firebase";
+import firebase from "../../../../../firebase.ts";
 import {useRouter} from "next/navigation";
 import {DestinationData} from "@/app/_utility/types";
 import dynamic from 'next/dynamic';

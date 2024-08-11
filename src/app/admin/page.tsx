@@ -1,6 +1,6 @@
 "use client"
 import {GoogleAuthProvider, signInWithPopup} from "firebase/auth";
-import firebase from "../../../firebase";
+import firebase from "../../../firebase.ts";
 import React, {useEffect, Suspense} from "react";
 import {useRouter} from "next/navigation";
 

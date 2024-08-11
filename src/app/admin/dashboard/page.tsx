@@ -1,6 +1,6 @@
 "use client"
 import {ToastContainer} from "react-toastify";
-import firebase from "../../../../firebase";
+import firebase from "../../../../firebase.ts";
 import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
 import Link from "next/link";

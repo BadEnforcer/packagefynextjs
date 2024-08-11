@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import {FirebaseError} from "@firebase/app";
 import {doc, getDoc, runTransaction} from "firebase/firestore";
-import firebase from "../../../../../firebase";
+import firebase from "../../../../../firebase.ts";
 import {useRouter} from "next/navigation";
 import {getStorage, ref, deleteObject} from "firebase/storage";
 
