@@ -1,32 +1,45 @@
+const firebase = require('./firebase.js');
+const { collection, getDocs } = require('firebase/firestore');
+
 /** @type {import('next-sitemap').IConfig} */
 const config = {
     siteUrl: 'https://packagefy.com',
     generateRobotsTxt: false,
     sitemapSize: 5000,
     outDir: './public',
-    // Exclude specific paths from the sitemap
-    exclude: ['/admin/*'],
-    // Optional: Add a custom function to dynamically include/exclude URLs
-    transform: async (config, url) => {
-        // Exclude /admin URLs
-        if (url.startsWith(`${config.siteUrl}/admin`)) {
-            return null; // Exclude this URL
-        }
-        // Optionally include specific patterns
-        if (url.startsWith(`${config.siteUrl}/destination`)) {
-            return {
-                loc: url,
-                changefreq: 'daily',
-                priority: 0.7,
-            };
-        }
-        // Include all other URLs
-        return {
-            loc: url,
-            changefreq: 'daily',
-            priority: 0.7,
-        };
+    exclude: ['/admin/*', '/admin'],
+    additionalPaths: async (config) => {
+        const result = [];
+        await getAllDestinationsFunction(result, config);
+        return result;
     },
 };
 
 module.exports = config;
+
+const getAllDestinationsFunction = async (result, config) => {
+    try {
+        const querySnapshot = await getDocs(collection(firebase.db, 'destinations'));
+
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            result.push({
+                loc: `/destinations/${data.id}`,
+                changefreq: 'monthly',
+                priority: 0.5,
+                lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
+            });
+
+            data.packages.forEach((p) => {
+                result.push({
+                    loc: `/destinations/${data.id}/package/${p.id}`,
+                    changefreq: 'monthly',
+                    priority: 0.5,
+                    lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
+                });
+            });
+        });
+    } catch (e) {
+        console.error('Error in getAllDestinationsFunction', e);
+    }
+};

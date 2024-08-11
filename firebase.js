@@ -1,13 +1,12 @@
-import  { initializeApp } from "firebase/app"
-import { getAnalytics } from "firebase/analytics";
-import { getAuth, setPersistence, browserSessionPersistence  } from "firebase/auth";
-import {getPerformance} from "firebase/performance";
-
-import {
+const { initializeApp } = require("firebase/app");
+const { getAnalytics } = require("firebase/analytics");
+const { getAuth, setPersistence, browserSessionPersistence } = require("firebase/auth");
+const { getPerformance } = require("firebase/performance");
+const {
     initializeFirestore,
     persistentMultipleTabManager,
     persistentLocalCache
-} from "firebase/firestore";
+} = require("firebase/firestore");
 
 const firebaseConfig = {
     apiKey: "AIzaSyB5tvflk2WFoI4PGncZWrEOmyakaFQBTYE",
@@ -22,25 +21,28 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 let analytics, performance;
+
 if (typeof window !== "undefined") {
     analytics = getAnalytics(app);
-    performance = getPerformance()
+    performance = getPerformance(app); // Added `app` as parameter
 }
+
 const auth = getAuth();
 
-const db = initializeFirestore(app,  {localCache: persistentLocalCache({tabManager: persistentMultipleTabManager()})});
+const db = initializeFirestore(app, {
+    localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() })
+});
 
 setPersistence(auth, browserSessionPersistence)
     .then(() => {
-// Now the auth state will be persisted in local storage
+        // Now the auth state will be persisted in local storage
     })
     .catch((error) => {
         console.error("Error setting persistence:", error);
     });
 
-
 const firebaseServices = {
     app, auth, db, analytics, performance
-}
+};
 
-export default firebaseServices;
+module.exports = firebaseServices;
