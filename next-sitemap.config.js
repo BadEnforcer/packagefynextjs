@@ -21,8 +21,12 @@ const getAllDestinationsFunction = async (result, config) => {
     try {
         const querySnapshot = await fstore.getDocs(fstore.collection(firebase.db, 'destinations'));
 
+        console.log("Generating Sitemap")
+
         querySnapshot.forEach((doc) => {
             const data = doc.data();
+
+
             result.push({
                 loc: `/destinations/${data.id}`,
                 changefreq: 'monthly',
@@ -39,6 +43,10 @@ const getAllDestinationsFunction = async (result, config) => {
                 });
             });
         });
+
+        console.log("Sitemap Generated : Result array is :", result)
+
+
     } catch (e) {
         console.error('Error in getAllDestinationsFunction', e);
     }
