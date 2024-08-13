@@ -22,6 +22,7 @@ export const metadata: Metadata = {
     icons: {
         icon: 'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/resources%2Fnewlogo.svg?alt=media&token=833503db-fc0a-4385-9779-58abdd059d78',
     },
+
     applicationName : 'Packagefy.com Website',
     openGraph : {
         title: 'Packagefy',
