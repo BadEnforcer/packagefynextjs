@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import dynamic from "next/dynamic";
 import { ComboboxInput } from "@headlessui/react";
 import {searchEntry, searchListDocument} from "@/app/_utility/types";
+import SpinnerFullScreen from "@/app/components/FullScreenSpinner.tsx";
 
 const Combobox = dynamic(() => import('@headlessui/react').then((mod) => mod.Combobox), {
     ssr: true,
@@ -49,6 +50,7 @@ export default function HeroSearch() {
                 setIsLoading(false)
             })
         } catch (err) {
+            setIsLoading(false)
             toast.error("Failed to fetch search items. Server Error")
         }
     }, []);
@@ -60,6 +62,11 @@ export default function HeroSearch() {
             }).slice(0, 4) :
             []
 
+    if (isLoading) {
+        return <SpinnerFullScreen />
+    }
+
+    else
     return (
         <section id={'hero-search'} className="relative overflow-hidden">
             <div className="relative z-10 max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-24 md:mb-[150px] from-[4facfe] to-[#00f2fe]">
