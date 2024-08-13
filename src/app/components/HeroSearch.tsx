@@ -112,7 +112,7 @@ export default function HeroSearch() {
                                                         className={({ focus }: { focus: boolean }) =>
                                                             classNames(
                                                                 ' flex justify-start cursor-default select-none px-4 py-2',
-                                                                focus && 'bg-indigo-600 text-white'
+                                                                focus && 'bg-stone-600 text-white'
                                                             )
                                                         }
                                                     >
