@@ -18,7 +18,7 @@ export const metadata: Metadata = {
             "solution for all your travel needs. We make travel better and easier for people of India. Packagefy ideally caters " +
             "to a diverse range of customers to maximize its market reach and appeal." +
             "This includes:  Leisure Travelers, Business Travelers, Adventure Seekers, Budget-conscious Travelers Offering affordable options, Honeymooners, Educational Student tours.",
-        images: 'https://media.licdn.com/dms/image/v2/D560BAQFJGzkOKpTnUg/company-logo_200_200/company-logo_200_200/0/1721202425353/packagefy_logo?e=1731542400&v=beta&t=x-CIqZIJXBNMgt-2ynCN9ScDfOujlbCVRHSiuzy6HV0',
+        images: 'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/resources%2Fbgblacklogo.png?alt=media&token=ab89b1ba-1e66-48a4-93a6-f2cc7a40beb1',
         type: 'website',
         siteName: 'Packagefy'
     },
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
             "solution for all your travel needs. We make travel better and easier for people of India. Packagefy ideally caters " +
             "to a diverse range of customers to maximize its market reach and appeal." +
             "This includes:  Leisure Travelers, Business Travelers, Adventure Seekers, Budget-conscious Travelers Offering affordable options, Honeymooners, Educational Student tours.",
-        images: 'https://media.licdn.com/dms/image/v2/D560BAQFJGzkOKpTnUg/company-logo_200_200/company-logo_200_200/0/1721202425353/packagefy_logo?e=1731542400&v=beta&t=x-CIqZIJXBNMgt-2ynCN9ScDfOujlbCVRHSiuzy6HV0',
+        images: 'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/resources%2Fbgblacklogo.png?alt=media&token=ab89b1ba-1e66-48a4-93a6-f2cc7a40beb1',
         creator: 'packagefy',
         creatorId: 'packagefy',
     },
