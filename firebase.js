@@ -1,12 +1,12 @@
-const { initializeApp } = require("firebase/app");
-const { getAnalytics } = require("firebase/analytics");
-const { getAuth, setPersistence, browserSessionPersistence } = require("firebase/auth");
-const { getPerformance } = require("firebase/performance");
-const {
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getAuth, setPersistence, browserSessionPersistence } from "firebase/auth";
+import { getPerformance } from "firebase/performance";
+import {
     initializeFirestore,
     persistentMultipleTabManager,
     persistentLocalCache
-} = require("firebase/firestore");
+} from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyB5tvflk2WFoI4PGncZWrEOmyakaFQBTYE",
@@ -45,4 +45,4 @@ const firebaseServices = {
     app, auth, db, analytics, performance
 };
 
-module.exports = firebaseServices;
+export default firebaseServices;

@@ -1,5 +1,5 @@
-const firebase = require('./firebase.mjs');
-const fstore = require('firebase/firestore');
+import firebase from './firebase.js';
+import * as fstore from 'firebase/firestore';
 
 /** @type {import('next-sitemap').IConfig} */
 const config = {
@@ -15,17 +15,19 @@ const config = {
     },
 };
 
-module.exports = config;
+export default config;
 
 const getAllDestinationsFunction = async (result, config) => {
     try {
+
+        console.log(typeof fstore.collection(firebase.db, 'destinations'), "EEE");
+
         const querySnapshot = await fstore.getDocs(fstore.collection(firebase.db, 'destinations'));
 
-        console.log("Generating Sitemap")
+        console.log("Generating Sitemap");
 
         querySnapshot.forEach((doc) => {
             const data = doc.data();
-
 
             result.push({
                 loc: `/destinations/${data.id}`,
@@ -44,8 +46,7 @@ const getAllDestinationsFunction = async (result, config) => {
             });
         });
 
-        console.log("Sitemap Generated : Result array is :", result)
-
+        console.log("Sitemap Generated: Result array is:", result);
 
     } catch (e) {
         console.error('Error in getAllDestinationsFunction', e);
