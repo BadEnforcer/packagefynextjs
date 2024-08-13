@@ -7,8 +7,8 @@ import {useRouter} from "next/navigation";
 const footerNavigation = {
     explore: [
         {name: 'Popular', href: '/#showcase-grid'},
-        {name: 'International', href: '/#Must visitInternationalDestinations'},
-        {name: 'Domestic', href: '/#Best ofIndianHeartland'},
+        {name: 'International', href: '/#MustvisitInternationalDestinations'},
+        {name: 'Domestic', href: '/#BestofIndianHeartland'},
         {name: 'Search', href: '/#hero-search'},
     ],
     support: [
