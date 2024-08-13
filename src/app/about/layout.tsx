@@ -1,14 +1,5 @@
 import type {Metadata} from "next";
-import {Inter} from "next/font/google";
-import ".././globals.css";
 import React from "react";
-import {SpeedInsights} from "@vercel/speed-insights/next"
-import dynamic from "next/dynamic";
-import { Analytics } from "@vercel/analytics/react"
-const PrelineScript = dynamic(() => import('../components/PrelineScript'))
-import Script from "next/script";
-
-const inter = Inter({subsets: ["latin"]});
 
 
 export const metadata: Metadata = {
@@ -53,19 +44,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-
-        <html lang="en">
-
-        <Script src="https://www.googletagmanager.com/gtag/js?l=dataLayer&amp;id=G-4L0BZGV7V7" async></Script>
-        <SpeedInsights/>
-        <Analytics />
-
-        <body className={inter.className}>
-        {children}
-        <PrelineScript/>
-
-        </body>
-        </html>
+        <section id={'about-page'}>{children}</section>
 
     );
 }
