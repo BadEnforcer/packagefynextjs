@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     openGraph : {
         title: 'Packagefy - Find your best holiday package.',
         description: "Solution for all your travel needs. We make travel better and easier for people of India.",
-        images: 'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/resources%2Fnewlogo.png?alt=media&token=923e7d4c-912d-48ed-99fa-946a2247f49c',
+        images: 'https://media.licdn.com/dms/image/v2/D560BAQFJGzkOKpTnUg/company-logo_200_200/company-logo_200_200/0/1721202425353/packagefy_logo?e=1731542400&v=beta&t=x-CIqZIJXBNMgt-2ynCN9ScDfOujlbCVRHSiuzy6HV0',
         type: 'website',
         siteName: 'Packagefy'
     },
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
         title: 'Packagefy - Find your best holiday package.',
         card: 'summary_large_image',
         description: "Solution for all your travel needs. We make travel better and easier for people of India.",
-        images: 'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/resources%2Fnewlogo.png?alt=media&token=923e7d4c-912d-48ed-99fa-946a2247f49c',
+        images: 'https://media.licdn.com/dms/image/v2/D560BAQFJGzkOKpTnUg/company-logo_200_200/company-logo_200_200/0/1721202425353/packagefy_logo?e=1731542400&v=beta&t=x-CIqZIJXBNMgt-2ynCN9ScDfOujlbCVRHSiuzy6HV0',
         creator: 'packagefy',
         creatorId: 'packagefy',
     },
