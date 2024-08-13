@@ -85,7 +85,7 @@ const content: ImageGridProps[] = [
         link: '/destination/rajasthan'
     },
     {src: 'https://images.pexels.com/photos/1107717/pexels-photo-1107717.jpeg?cs=srgb&dl=pexels-fotios-photos-1107717.jpg&fm=jpg&w=1920&h=1280&_gl=1*1pnhway*_ga*NDk5ODIxODA4LjE3MjMyNjY0OTc.*_ga_8JE65Q40S6*MTcyMzI2NjQ5Ni4xLjEuMTcyMzI2NzA5NS4wLjAuMA..',
-        alt: 'North East', title: 'North East', link: '/destination/north-east'},
+        alt: 'North East', title: 'North East', link: '/destination/northeast'},
 ]
 
 

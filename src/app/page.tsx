@@ -154,7 +154,7 @@ const domestic_destinations = [{
     imageSrc: "https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/SlidingGrids%2Fnorth%20east.jpg?alt=media&token=15a9a16d-99d2-4517-bd1e-1f84a515186b",
     duration: "",
     title: "North East",
-    href: "/destination/north-east"
+    href: "/destination/northeast"
 }, {
     imageSrc: "https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/SlidingGrids%2Fandaman.jpg?alt=media&token=f0bc9633-db20-4041-8bc1-c3789c63d199",
     duration: "",
