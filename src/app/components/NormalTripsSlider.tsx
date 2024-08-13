@@ -35,7 +35,6 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading1, heading2, heading3
         swipeToSlide: true,
         focusOnSelect: true,
         rtl: rtl || false,
-        arrows: true,
         // dots: true,
         // useCSS: true,
         responsive: [
@@ -46,6 +45,7 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading1, heading2, heading3
                     slidesToShow: 1,
                     slidesToScroll: 1,
                     infinite: true,
+                    arrows: false
                 }
             },
 
@@ -56,6 +56,7 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading1, heading2, heading3
                     slidesToShow: 1,
                     slidesToScroll: 1,
                     infinite: true,
+                    arrows: false
                 }
             },
             // md
@@ -65,6 +66,7 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({heading1, heading2, heading3
                     slidesToShow: 3,
                     slidesToScroll: 1,
                     infinite: true,
+                    arrows: false
                 }
             },
             // lg

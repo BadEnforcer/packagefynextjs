@@ -24,15 +24,45 @@ export default function BannerSlideShow() {
         centerMode: false,
         infinite: true,
         centerPadding: "60px",
-        speed: 500,
-        autoplaySpeed: 5000,
+        speed: 100,
+        autoplaySpeed: 6000,
         autoplay: true,
-        pauseOnHover: false,
+        pauseOnHover: true,
         swipeToSlide: true,
-        arrows: true,
         dots: true,
         slidesToScroll: 1,
         slidesToShow: 1,
+        responsive : [
+            {
+                breakpoint: 0,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    arrows: false
+                }
+            },
+            // md
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    arrows: false
+                }
+            },
+            // lg
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    arrows: true
+                }
+            },
+        ]
     };
 
     const handleRedirect = (href: string) => {
