@@ -162,7 +162,7 @@ const SimpleSlider: React.FC = () => {
                                 {packagesData.map((SlideDataElement, index) => (
                                     <div className="embla__slide" key={index}>
                                         {/*<div className="embla__slide__number">{index + 1}</div>*/}
-                                        <PackageComponent destinationId={SlideDataElement.parentDestinationId} packageId={SlideDataElement.id}  blurDataURL={SlideDataElement.coverImageBase64} packageDestination={SlideDataElement.destinationName} duration={SlideDataElement.duration} coverImageUrl={SlideDataElement.coverImageUrl} />
+                                        <PackageComponent destinationId={SlideDataElement.parentDestinationId} packageId={SlideDataElement.id}  blurDataURL={SlideDataElement.coverImageBase64} packageDestination={SlideDataElement.name} duration={SlideDataElement.duration} coverImageUrl={SlideDataElement.coverImageUrl} />
 
                                     </div>
                                 ))}
