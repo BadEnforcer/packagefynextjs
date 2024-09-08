@@ -39,7 +39,6 @@ export const metadata: Metadata = {
         creator: 'packagefy',
         creatorId: 'packagefy',
     },
-    authors : [{name: 'Raj Dwivedi', url: 'https://rajdwivedi.space'}],
     robots: {follow: true, index: true},
 
 };
