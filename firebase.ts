@@ -1,5 +1,6 @@
 import  { initializeApp } from "firebase/app"
 import { getAnalytics } from "firebase/analytics";
+// @ts-nocheck
 import { getAuth, setPersistence, browserSessionPersistence  } from "firebase/auth";
 import {getPerformance} from "firebase/performance";
 
@@ -27,7 +28,7 @@ if (typeof window !== "undefined") {
 }
 const auth = getAuth();
 
-const db = initializeFirestore(app,  {localCache: persistentLocalCache({tabManager: persistentMultipleTabManager()})});
+const db = initializeFirestore(app,  {});
 
 setPersistence(auth, browserSessionPersistence)
     .then(() => {
