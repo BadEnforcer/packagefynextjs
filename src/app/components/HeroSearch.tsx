@@ -113,6 +113,7 @@ export default function HeroSearch() {
                                                         <ComboboxOption
                                                             key={index}
                                                             value={result}
+                                                            // @ts-ignore
                                                             className={({ focus }) =>
                                                                 classNames(
                                                                     'flex justify-start cursor-default select-none px-4 py-2',
