@@ -5,7 +5,7 @@ import { collection, getDocs } from "firebase/firestore";
 import firebase from "../../../firebase.ts";
 import { toast } from "react-toastify";
 import dynamic from "next/dynamic";
-import { DestinationData, Package } from "@/app/_utility/types";
+import { DestinationData } from "@/app/_utility/types";
 import { ComboboxInput } from "@headlessui/react";
 import SpinnerFullScreen from "@/app/components/FullScreenSpinner.tsx";
 
@@ -14,8 +14,32 @@ const ComboboxOption = dynamic(() => import('@headlessui/react').then((mod) => m
 const CiSearch = dynamic(() => import('react-icons/ci').then((mod) => mod.CiSearch), { ssr: true });
 const ParagraphSkeleton = dynamic(() => import('@/app/components/ParagraphSkeleton'), { ssr: true });
 
+const EXPIRY_TIME_MS = 12 * 60 * 60 * 1000; // 12 hours in milliseconds
+
 function classNames(...classes: (string | boolean)[]) {
     return classes.filter(Boolean).join(' ');
+}
+
+function getStoredDestinations() {
+    const data = localStorage.getItem("destinationsData");
+    if (data) {
+        const parsedData = JSON.parse(data);
+        const now = new Date().getTime();
+        if (now - parsedData.timestamp < EXPIRY_TIME_MS) {
+            return parsedData.destinations;  // Return cached data if it's not expired
+        } else {
+            localStorage.removeItem("destinationsData");  // Clear expired data
+        }
+    }
+    return null;
+}
+
+function storeDestinationsInLocalStorage(destinations: DestinationData[]) {
+    const dataToStore = {
+        timestamp: new Date().getTime(),
+        destinations
+    };
+    localStorage.setItem("destinationsData", JSON.stringify(dataToStore));
 }
 
 export default function HeroSearch() {
@@ -26,21 +50,31 @@ export default function HeroSearch() {
 
     useEffect(() => {
         const fetchDestinations = async () => {
-            const destinationsCollection = collection(firebase.db, "destinations");
-            try {
-                const querySnapshot = await getDocs(destinationsCollection);
-                const allDestinations: DestinationData[] = [];
-                querySnapshot.forEach((doc) => {
-                    const destination = doc.data() as DestinationData;
-                    allDestinations.push(destination);
-                });
-                setDestinations(allDestinations);
+            const cachedDestinations = getStoredDestinations();
+
+            if (cachedDestinations) {
+                // Use cached data if available and not expired
+                setDestinations(cachedDestinations);
                 setIsLoading(false);
-            } catch (err) {
-                setIsLoading(false);
-                toast.error("Failed to fetch search items. Server Error");
+            } else {
+                const destinationsCollection = collection(firebase.db, "destinations");
+                try {
+                    const querySnapshot = await getDocs(destinationsCollection);
+                    const allDestinations: DestinationData[] = [];
+                    querySnapshot.forEach((doc) => {
+                        const destination = doc.data() as DestinationData;
+                        allDestinations.push(destination);
+                    });
+                    setDestinations(allDestinations);
+                    storeDestinationsInLocalStorage(allDestinations);  // Store fresh data
+                    setIsLoading(false);
+                } catch (err) {
+                    setIsLoading(false);
+                    toast.error("Failed to fetch search items. Server Error");
+                }
             }
         };
+
         fetchDestinations().then(() => {});
     }, []);
 
@@ -51,9 +85,9 @@ export default function HeroSearch() {
         );
         const destinationMatches = destination.name.toLowerCase().includes(query.toLowerCase());
 
-        // Return the destination if it matches the query or if any of its packages match the query
+        // Ensure destinationId is included
         return [
-            ...(destinationMatches ? [{ type: 'destination', ...destination }] : []),
+            ...(destinationMatches ? [{ type: 'destination', destinationId: destination.id, ...destination }] : []),
             ...matchingPackages.map(pkg => ({ type: 'package', destinationId: destination.id, ...pkg }))
         ];
     });
@@ -65,12 +99,14 @@ export default function HeroSearch() {
             return;
         }
 
+        // Use the correct destinationId
         if (item.type === 'destination') {
             router.push('/destination/' + item.destinationId);
         } else if (item.type === 'package') {
             router.push(`/destination/${item.destinationId}/package/${item.id}`);
         }
     };
+
 
     if (isLoading) {
         return <SpinnerFullScreen />;
@@ -113,8 +149,7 @@ export default function HeroSearch() {
                                                         <ComboboxOption
                                                             key={index}
                                                             value={result}
-                                                            // @ts-ignore
-                                                            className={({ focus }) =>
+                                                            className={({ focus }: {focus: boolean}) =>
                                                                 classNames(
                                                                     'flex justify-start cursor-default select-none px-4 py-2',
                                                                     focus && 'bg-stone-600 text-white'
