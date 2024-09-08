@@ -32,7 +32,7 @@ const PackageComponent: React.FC<PackageProps> = ({blurDataURL, coverImageUrl, d
     return(
         <Link href={`/destination/${destinationId}/package/${packageId}`} className="mt-1">
             <div className="relative ml-2 mr-2 group block rounded-lg bg-gray-100 overflow-hidden">
-                <div className="relative w-full" style={{ paddingBottom: '56.25%' }}> {/* 16:9 aspect ratio */}
+                <div className="relative w-full pb-[70%] md:pb-[80%] lg:pb-[100%]"> {/* 1:1 aspect ratio */}
                     <Image
                         src={coverImageUrl}
                         alt={packageDestination}
@@ -50,7 +50,7 @@ const PackageComponent: React.FC<PackageProps> = ({blurDataURL, coverImageUrl, d
                     <span className="sr-only">View details for {packageDestination}</span>
                 </button>
             </div>
-            <p className="lg:block mt-2 text-center text-md sm:text-md md:text-lg lg:text-xl font-medium text-gray-900">
+            <p className="lg:block mt-2 text-center text-md sm:text-md md:text-lg lg:text-xl font-normal text-gray-900">
                 {packageDestination}
             </p>
         </Link>
