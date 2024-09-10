@@ -73,7 +73,7 @@ const SimpleSlider: React.FC = () => {
     );
 
     return (
-        <>This is unexpected, All conditions are bypassed. Testimonials has a fatal bug.</>
+        <>This is unexpected, Unable to Fetch Data.</>
     )
 
 
