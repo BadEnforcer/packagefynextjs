@@ -42,7 +42,8 @@ export default function HeroSearch() {
                 setIsLoading(false);
             } catch (err) {
                 setIsLoading(false);
-                toast.error("Failed to fetch search items. Server Error");
+                // toast.error("Failed to fetch search items. Server Error");
+                toast.info("Failed to fetch search data from server.");
             }
         };
         fetchDestinations().then(() => {});
