@@ -258,20 +258,20 @@ export default About1;
 
 const people = [
     {
-        name: 'Sajid Khan',
-        role: 'Founder',
-        imageUrl:
-            'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/about%20us%20content%2Fteam%20images%2Fsajid%20founder.jpg?alt=media&token=3fb5f23f-22c5-4416-94f9-fb67bc33d7b4',
-        // twitterUrl: '#',
-        linkedinUrl: 'https://www.linkedin.com/in/mohd-sajid-691540167/',
-    },
-    {
         name: 'Abdul Shadab',
-        role: 'Co Founder',
+        role: 'Founder',
         imageUrl:
             'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/about%20us%20content%2Fteam%20images%2Fabdul%20Shadab%20co%20founder.jpg?alt=media&token=44ee4e8e-91b4-48a1-944f-154a4fcd018c',
         // twitterUrl: '#',
         // linkedinUrl: '#',
+    },
+    {
+        name: 'Sajid Khan',
+        role: 'Manager',
+        imageUrl:
+            'https://firebasestorage.googleapis.com/v0/b/packagefy.appspot.com/o/about%20us%20content%2Fteam%20images%2Fsajid%20founder.jpg?alt=media&token=3fb5f23f-22c5-4416-94f9-fb67bc33d7b4',
+        // twitterUrl: '#',
+        linkedinUrl: 'https://www.linkedin.com/in/mohd-sajid-691540167/',
     },
     {
         name: 'Vivek Pandey',
